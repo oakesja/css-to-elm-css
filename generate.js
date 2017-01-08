@@ -4,15 +4,16 @@ var jsCreator = require('./jsCreator');
 
 fs.readFile('../elm-css/src/Css.elm', 'utf8', (err, file) => {
   if (err) throw err;
-  // console.log(cssPropertiesLookup(file));
-  // console.log(multiArityLookup(file));
   var generatedFile = '';
   generatedFile += jsCreator.createObject('singleArityPropsLookup', singleArityLookup(file));
   generatedFile += '\n\n';
   generatedFile += jsCreator.createObject('multiArityPropsLookup', multiArityLookup(file));
   generatedFile += '\n\n';
   generatedFile += jsCreator.createObject('propsTakeListsLookup', propsThatTakeListsLookup(file));
-  console.log(generatedFile);
+  fs.writeFile('propLookups.js', generatedFile, function(err) {
+    if (err)
+      throw err;
+  });
 });
 
 function singleArityLookup(file) {
@@ -73,7 +74,7 @@ function cssPropertiesLookup(file) {
 }
 
 function exposedFunctionNames(file) {
-  return exposedNames(file).filter(isFunction.bind(undefined, file));
+  return exposedNames(file).filter(isFunction.bind(undefined, file)).sort();
 }
 
 function exposedNames(file) {
