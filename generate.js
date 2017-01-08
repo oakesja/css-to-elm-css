@@ -4,61 +4,51 @@ var jsCreator = require('./jsCreator');
 
 fs.readFile('../elm-css/src/Css.elm', 'utf8', (err, file) => {
   if (err) throw err;
+  var cssProps = createCssPropLookups(file);
   var generatedFile = '';
-  generatedFile += jsCreator.createObject('singleArityPropsLookup', singleArityLookup(file));
+  generatedFile += jsCreator.createObject('singleArityPropsLookup', cssProps['singleArity']);
   generatedFile += '\n\n';
-  generatedFile += jsCreator.createObject('multiArityPropsLookup', multiArityLookup(file));
+  generatedFile += jsCreator.createObject('multiArityPropsLookup', cssProps['multiArity']);
   generatedFile += '\n\n';
-  generatedFile += jsCreator.createObject('propsTakeListsLookup', propsThatTakeListsLookup(file));
+  generatedFile += jsCreator.createObject('propsTakeListsLookup', cssProps['listProps']);
   fs.writeFile('propLookups.js', generatedFile, function(err) {
     if (err)
       throw err;
   });
 });
 
-function singleArityLookup(file) {
-  var lookup = {};
-  var allProps = cssPropertiesLookup(file);
+function createCssPropLookups(file) {
+  var singleArity = {};
+  var multiArity = {};
+  var listProps = {};
+  var allProps = createCssPropNameToFunctionNamesLookup(file);
   for (var key in allProps) {
     var functions = allProps[key];
-    if (functions.length == 1)
-      lookup[key] = functions[0];
-  }
-  return lookup;
-}
-
-function multiArityLookup(file) {
-  var lookup = {};
-  var allProps = cssPropertiesLookup(file);
-  for (var key in allProps) {
-    var functions = allProps[key];
-    if (functions.length > 1 && functions.some(function(x) {return /^(\w+)\d$/.test(x)})) {
-      lookup[key] = {};
+    if (functions.length == 1) {
+      singleArity[key] = functions[0];
+    } else if (functions.length > 1 && functions.some(function(x) {return /^(\w+)\d$/.test(x)})) {
+      multiArity[key] = {};
       for (var func of functions) {
         var arity = parseInt(func.charAt(func.length - 1)) || 1;
-        lookup[key][arity] = func;
+        multiArity[key][arity] = func;
       }
-    }
-  }
-  return lookup;
-}
-
-function propsThatTakeListsLookup(file) {
-  var lookup = {};
-  var allProps = cssPropertiesLookup(file);
-  for (var key in allProps) {
-    var functions = allProps[key];
-    if (functions.length == 2 && functions.every(function(x) {return /^(\w+)[^0-9]$/.test(x)})) {
-      lookup[key] = {
+    } else if (functions.length == 2 && functions.every(function(x) {return /^(\w+)[^0-9]$/.test(x)})) {
+      listProps[key] = {
         'single': functions[0],
         'list': functions[1]
       };
+    } else {
+      console.log("Failed to classify css property: " + key)
     }
   }
-  return lookup;
+  return {
+    'singleArity': singleArity,
+    'multiArity': multiArity,
+    'listProps': listProps
+  }
 }
 
-function cssPropertiesLookup(file) {
+function createCssPropNameToFunctionNamesLookup(file) {
   var props = {};
   for (var func of exposedFunctionNames(file)) {
     var propName = cssPropertyName(file, func);
