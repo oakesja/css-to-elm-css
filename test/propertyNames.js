@@ -1,15 +1,6 @@
 import test from 'ava'
 import {cssToElmCss} from '../index'
-
-function replaceExtraWhitespace (s) {
-  return s.replace(/\s+/g, ' ')
-}
-
-function expectContentsEqual (t, value, expected) {
-  let a = replaceExtraWhitespace(value)
-  let e = replaceExtraWhitespace(expected)
-  t.is(a, e)
-}
+import {expectContentsEqual} from './helpers/helpers'
 
 test('single arity property functions', t => {
   const css = '.class { text-align: center; }'

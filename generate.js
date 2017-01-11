@@ -1,19 +1,39 @@
 var fs = require('fs')
 var escapeStringRegexp = require('escape-string-regexp')
 
-fs.readFile('../elm-css/src/Css.elm', 'utf8', (err, file) => {
-  if (err) throw err
-  var cssProps = createCssPropLookups(file)
+var cssFile = fs.readFileSync('../elm-css/src/Css.elm', 'utf8')
+var elementsFile = fs.readFileSync('../elm-css/src/Css/Elements.elm', 'utf8')
+createPropLookups(cssFile)
+createSelectorLookups(cssFile, elementsFile)
+
+function createPropLookups (cssFile) {
+  var cssProps = createCssPropLookups(cssFile)
   var generatedFile = ''
   generatedFile += createJsObject('singleArityPropsLookup', cssProps['singleArity'])
   generatedFile += '\n\n'
   generatedFile += createJsObject('multiArityPropsLookup', cssProps['multiArity'])
   generatedFile += '\n\n'
   generatedFile += createJsObject('propsTakeListsLookup', cssProps['listProps'])
-  fs.writeFile('src/propLookups.js', generatedFile, function (err) {
-    if (err) { throw err }
+  fs.writeFileSync('src/propLookups.js', generatedFile)
+}
+
+function createSelectorLookups (cssFile, elementsFile) {
+  var idSelector = exposedFunctionNames(cssFile).find(function (name) {
+    return functionComment(cssFile, name).includes('id selector')
   })
-})
+  var classSelector = exposedFunctionNames(cssFile).find(function (name) {
+    return functionComment(cssFile, name).includes('class selector')
+  })
+  var selectorLookup = {
+    'id': idSelector,
+    'class': classSelector
+  }
+  var generatedFile = ''
+  generatedFile += createJsObject('selectorLookup', selectorLookup)
+  generatedFile += '\n\n'
+  generatedFile += createJsObject('elements', exposedFunctionNames(elementsFile))
+  fs.writeFileSync('src/selectorLookups.js', generatedFile)
+}
 
 function createJsObject (name, object, writeValues) {
   return 'exports.' + name + ' = ' + JSON.stringify(object, null, '  ') + ';'
@@ -70,7 +90,7 @@ function exposedFunctionNames (file) {
 }
 
 function exposedNames (file) {
-  var regex = /exposing\s*\(((.|\n)*?) \)/
+  var regex = /exposing\s*\(((.|\n)*?)(?:\w|\s)\)/
   var errorMsg = 'Failed to find exposed functions'
   var result = execRegex(file, regex, errorMsg)
   return result[1].replace(/\s/g, '').split(',')

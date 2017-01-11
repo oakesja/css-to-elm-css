@@ -1,6 +1,7 @@
 'use strict'
 
 const propLookups = require('./propLookups')
+const selectorLookups = require('./selectorLookups')
 
 class Stringifier {
 
@@ -90,10 +91,15 @@ class Stringifier {
 
   specifier (name) {
     if (name.startsWith('.')) {
-      return '(.) "' + name.substring(1) + '"'
-    } else {
-      console.error('Invalid specifier:' + name)
+      return selectorLookups.selectorLookup['class'] + ' "' + name.substring(1) + '"'
+    } else if (name.startsWith('#')) {
+      return selectorLookups.selectorLookup['id'] + ' "' + name.substring(1) + '"'
+    } else if (selectorLookups.elements.find(function (x) { return x === name })) {
       return name
+    } else {
+      // TODO error handling
+      console.error('Invalid specifier: ' + name)
+      return ''
     }
   }
 
