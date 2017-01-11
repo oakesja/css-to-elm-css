@@ -1,1 +1,8 @@
 node_modules/
+elm-package.json
+index.css
+index.html
+main.js
+Main.elm
+Stylesheets.elm
+elm-stuff/

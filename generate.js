@@ -18,16 +18,22 @@ function createPropLookups (cssFile) {
 }
 
 function createSelectorLookups (cssFile, elementsFile) {
-  var idSelector = exposedFunctionNames(cssFile).find(function (name) {
-    return functionComment(cssFile, name).includes('id selector')
-  })
-  var classSelector = exposedFunctionNames(cssFile).find(function (name) {
-    return functionComment(cssFile, name).includes('class selector')
-  })
+  var funcNames = exposedFunctionNames(cssFile)
+  function findFunctionWithCommentIncluding (text) {
+    return funcNames.find(function (name) {
+      return functionComment(cssFile, name).includes(text)
+    })
+  }
+
+  var idSelector = findFunctionWithCommentIncluding('id selector')
+  var classSelector = findFunctionWithCommentIncluding('class selector')
+  var selector = findFunctionWithCommentIncluding('custom selector')
   var selectorLookup = {
     'id': idSelector,
-    'class': classSelector
+    'class': classSelector,
+    'selector': selector
   }
+
   var generatedFile = ''
   generatedFile += createJsObject('selectorLookup', selectorLookup)
   generatedFile += '\n\n'

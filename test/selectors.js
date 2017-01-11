@@ -26,4 +26,10 @@ test('html element selector', t => {
   })
 })
 
-// TODO invalid selector raise error?
+test('unknown selector', t => {
+  const css = '::-webkit-progress-bar { }'
+  const expected = 'stylesheet [ selector "::-webkit-progress-bar" [ ] ]'
+  return cssToElmCss(css).then(generated => {
+    expectContentsEqual(t, generated, expected)
+  })
+})

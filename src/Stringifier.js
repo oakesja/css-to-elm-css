@@ -96,11 +96,8 @@ class Stringifier {
       return selectorLookups.selectorLookup['id'] + ' "' + name.substring(1) + '"'
     } else if (selectorLookups.elements.find(function (x) { return x === name })) {
       return name
-    } else {
-      // TODO error handling
-      console.error('Invalid specifier: ' + name)
-      return ''
     }
+      return selectorLookups.selectorLookup['selector'] + ' "' + name + '"'
   }
 
   block (node, start) {

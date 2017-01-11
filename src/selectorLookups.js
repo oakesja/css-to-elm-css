@@ -1,6 +1,7 @@
 exports.selectorLookup = {
   "id": "(#)",
-  "class": "(.)"
+  "class": "(.)",
+  "selector": "selector"
 };
 
 exports.elements = [
