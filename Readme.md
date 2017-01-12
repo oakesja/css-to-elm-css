@@ -10,6 +10,12 @@ Things to support:
     - [ ] text-decoration-line
 
 - [ ] values
+    - [ ] lengths (px, in, etc)
+    - [ ] angles (deg, rad, etc)
+    - [ ] transforms (rotate, scale, etc. )
+    - [ ] color values (rgb, hsl)
+    - [ ] length math (|+|, |/|, etc)
+    - [ ] values with arity 0
 
 - [ ] selectors
 
