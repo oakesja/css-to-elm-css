@@ -1,13 +1,51 @@
+'use strict'
+
 var fs = require('fs')
 var escapeStringRegexp = require('escape-string-regexp')
 
-var cssFile = fs.readFileSync('../elm-css/src/Css.elm', 'utf8')
-var elementsFile = fs.readFileSync('../elm-css/src/Css/Elements.elm', 'utf8')
-createPropLookups(cssFile)
-createSelectorLookups(cssFile, elementsFile)
+class ElmFileParser {
+  constructor (file) {
+    this.file = file
+    this.exposedNames = this.findFunctionNames()
+    this.exposedFunctionNames = this.findExposedFunctionNames()
+  }
 
-function createPropLookups (cssFile) {
-  var cssProps = createCssPropLookups(cssFile)
+  findFunctionNames () {
+    var regex = /exposing\s*\(((.|\n)*?)(?:\w|\s)\)/
+    var errorMsg = 'Failed to find exposed functions'
+    var result = execRegex(this.file, regex, errorMsg)
+    return result[1].replace(/\s/g, '').split(',')
+  }
+
+  findExposedFunctionNames () {
+    var self = this
+    return this.exposedNames.filter(function (name) {
+      return new RegExp('^' + escapeStringRegexp(name) + ' : ', 'm').test(self.file)
+    }).sort()
+  }
+
+  functionComment (functionName) {
+    var name = escapeStringRegexp(reverseString(functionName))
+    var regex = new RegExp(name + '\\n\\}-((.|\\n)*?)\\|-\\{')
+    var errorMsg = 'Failed find comment for function: ' + functionName
+    return reverseString(execRegex(reverseString(this.file), regex, errorMsg)[1])
+  }
+
+  functionBody (functionName) {
+    var name = escapeStringRegexp(functionName)
+    var regex = new RegExp(name + ' : (?:.*)\n' + name + '(?:.*) =\s*((.|\n)*?)\n(\n|$)')
+    var errorMsg = 'Failed find body for function: ' + functionName
+    return execRegex(this.file, regex, errorMsg)[1]
+  }
+}
+
+var cssFileParser = new ElmFileParser(fs.readFileSync('../elm-css/src/Css.elm', 'utf8'))
+var elementsFileParser = new ElmFileParser(fs.readFileSync('../elm-css/src/Css/Elements.elm', 'utf8'))
+createPropLookups(cssFileParser)
+createSelectorLookups(cssFileParser, elementsFileParser)
+
+function createPropLookups (cssFileParser) {
+  var cssProps = createCssPropLookups(cssFileParser)
   var generatedFile = ''
   generatedFile += createJsObject('singleArityPropsLookup', cssProps['singleArity'])
   generatedFile += '\n\n'
@@ -17,11 +55,10 @@ function createPropLookups (cssFile) {
   fs.writeFileSync('src/propLookups.js', generatedFile)
 }
 
-function createSelectorLookups (cssFile, elementsFile) {
-  var funcNames = exposedFunctionNames(cssFile)
+function createSelectorLookups (cssFileParser, elementsFileParser) {
   function findFunctionWithCommentIncluding (text) {
-    return funcNames.find(function (name) {
-      return functionComment(cssFile, name).includes(text)
+    return cssFileParser.exposedFunctionNames.find(function (name) {
+      return cssFileParser.functionComment(name).includes(text)
     })
   }
 
@@ -37,7 +74,7 @@ function createSelectorLookups (cssFile, elementsFile) {
   var generatedFile = ''
   generatedFile += createJsObject('selectorLookup', selectorLookup)
   generatedFile += '\n\n'
-  generatedFile += createJsObject('elements', exposedFunctionNames(elementsFile))
+  generatedFile += createJsObject('elements', elementsFileParser.exposedFunctionNames)
   fs.writeFileSync('src/selectorLookups.js', generatedFile)
 }
 
@@ -45,11 +82,11 @@ function createJsObject (name, object, writeValues) {
   return 'exports.' + name + ' = ' + JSON.stringify(object, null, '  ') + ';'
 }
 
-function createCssPropLookups (file) {
+function createCssPropLookups (parser) {
   var singleArity = {}
   var multiArity = {}
   var listProps = {}
-  var allProps = createCssPropNameToFunctionNamesLookup(file)
+  var allProps = createCssPropNameToFunctionNamesLookup(parser)
   for (var key in allProps) {
     var functions = allProps[key]
     if (functions.length == 1) {
@@ -76,10 +113,10 @@ function createCssPropLookups (file) {
   }
 }
 
-function createCssPropNameToFunctionNamesLookup (file) {
+function createCssPropNameToFunctionNamesLookup (parser) {
   var props = {}
-  for (var func of exposedFunctionNames(file)) {
-    var propName = cssPropertyName(file, func)
+  for (var func of parser.exposedFunctionNames) {
+    var propName = cssPropertyName(parser, func)
     if (propName) {
       if (props[propName]) {
         props[propName].push(func)
@@ -91,27 +128,12 @@ function createCssPropNameToFunctionNamesLookup (file) {
   return props
 }
 
-function exposedFunctionNames (file) {
-  return exposedNames(file).filter(isFunction.bind(undefined, file)).sort()
+function isCssProperty (parser, functionName) {
+  return !!cssPropertyName(parser, functionName)
 }
 
-function exposedNames (file) {
-  var regex = /exposing\s*\(((.|\n)*?)(?:\w|\s)\)/
-  var errorMsg = 'Failed to find exposed functions'
-  var result = execRegex(file, regex, errorMsg)
-  return result[1].replace(/\s/g, '').split(',')
-}
-
-function isFunction (file, name) {
-  return new RegExp('^' + escapeStringRegexp(name) + ' : ', 'm').test(file)
-}
-
-function isCssProperty (file, functionName) {
-  return !!cssPropertyName(file, functionName)
-}
-
-function cssPropertyName (file, functionName) {
-  var body = functionBody(file, functionName)
+function cssPropertyName (parser, functionName) {
+  var body = parser.functionBody(functionName)
   var propMatch = /(?:prop1|prop2|prop3|prop4|prop5) "(\S+)"/.exec(body)
   var propWarnMatch = /\bpropertyWithWarnings\b (?:\S+) "(\S+)"/.exec(body)
   var propOverloadMatch = /\bgetOverloadedProperty\b (?:\S+) "(\S+)"/.exec(body)
@@ -123,20 +145,6 @@ function cssPropertyName (file, functionName) {
     return propOverloadMatch[1]
   }
   return ''
-}
-
-function functionComment (file, functionName) {
-  var name = escapeStringRegexp(reverseString(functionName))
-  var regex = new RegExp(name + '\\n\\}-((.|\\n)*?)\\|-\\{')
-  var errorMsg = 'Failed find comment for function: ' + functionName
-  return reverseString(execRegex(reverseString(file), regex, errorMsg)[1])
-}
-
-function functionBody (file, functionName) {
-  var name = escapeStringRegexp(functionName)
-  var regex = new RegExp(name + ' : (?:.*)\n' + name + '(?:.*) =\s*((.|\n)*?)\n(\n|$)')
-  var errorMsg = 'Failed find body for function: ' + functionName
-  return execRegex(file, regex, errorMsg)[1]
 }
 
 function reverseString (str) {
