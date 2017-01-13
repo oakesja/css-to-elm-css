@@ -23,6 +23,14 @@ exports.angles = {
   "turn": "turn"
 };
 
+exports.colors = {
+  "hex": "hex",
+  "hsl": "hsl",
+  "hsla": "hsla",
+  "rgb": "rgb",
+  "rgba": "rgba"
+};
+
 exports.simple = {
   "absolute": "absolute",
   "all-petite-caps": "allPetiteCaps",

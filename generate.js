@@ -33,7 +33,7 @@ class ElmFileParser {
 
   functionBody (functionName) {
     var name = escapeStringRegexp(functionName)
-    var regex = new RegExp(name + ' : (?:.*)\n' + name + '(?:.*) =\s*((.|\n)*?)\n(\n|$)')
+    var regex = new RegExp(name + ' : (?:.*)\n' + name + '(?:.*) =\s*((.|\n)*?)\n(\n\n|$)', 'g')
     var errorMsg = 'Failed find body for function: ' + functionName
     return execRegex(this.file, regex, errorMsg)[1]
   }
@@ -105,6 +105,9 @@ function createValueLookups (cssFileParser) {
     },
     { name: 'angles',
       object: createAngleValueLookup(cssFileParser)
+    },
+    { name: 'colors',
+      object: createColorValueLookup(cssFileParser)
     },
     { name: 'simple',
       object: createSimpleValueLookup(cssFileParser)
@@ -217,6 +220,21 @@ function createValueTransformLookup (parser) {
   return values
 }
 
+function createColorValueLookup (parser) {
+  var values = {}
+  for (var funcName of parser.exposedFunctionNames) {
+    var returnType = parser.functionReturnType(funcName)
+    if (returnType === 'Color') {
+      globalFuncsUsed.push(funcName)
+      var body = parser.functionBody(funcName)
+      var match = /cssFunction "(\S*)"/g.exec(body)
+      var valueName = (match && match[1]) || 'hex'
+      values[valueName] = funcName
+    }
+  }
+  return values
+}
+
 function createCssPropLookups (parser) {
   var singleArity = {}
   var multiArity = {}
@@ -278,9 +296,11 @@ function cssPropertyName (parser, functionName) {
   var propMatch = /(?:prop1|prop2|prop3|prop4|prop5) "(\S+)"/.exec(body)
   var propWarnMatch = /\bpropertyWithWarnings\b (?:\S+) "(\S+)"/.exec(body)
   var propOverloadMatch = /\bgetOverloadedProperty\b (?:\S+) "(\S+)"/.exec(body)
+  var transformMatch = /\btransforms\b/.exec(body)
   if (propMatch) { return propMatch[1] }
   if (propWarnMatch) { return propWarnMatch[1] }
   if (propOverloadMatch) { return propOverloadMatch[1] }
+  if (transformMatch) { return 'transform' }
   return ''
 }
 

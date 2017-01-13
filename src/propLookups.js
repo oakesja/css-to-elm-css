@@ -17,7 +17,6 @@ exports.singleArityPropsLookup = {
   "border-bottom-style": "borderBottomStyle",
   "border-bottom-width": "borderBottomWidth",
   "border-collapse": "borderCollapse",
-  "border-color": "borderColor",
   "border-inline-end-color": "borderInlineEndColor",
   "border-inline-end-style": "borderInlineEndStyle",
   "border-inline-end-width": "borderInlineEndWidth",
@@ -53,11 +52,11 @@ exports.singleArityPropsLookup = {
   "flex-start": "flexStart",
   "flex-wrap": "flexWrap",
   "float": "float",
-  "font-feature-settings": "fontFeatureSettings",
   "font-size": "fontSize",
   "font-style": "fontStyle",
   "font-variant-caps": "fontVariantCaps",
   "font-variant-ligatures": "fontVariantLigatures",
+  "font-weight": "fontWeight",
   "hard-light": "hardLight",
   "height": "height",
   "hue": "hue",
@@ -128,7 +127,6 @@ exports.singleArityPropsLookup = {
   "top": "top",
   "transform-box": "transformBox",
   "transform-style": "transformStyle",
-  "transform": "transforms",
   "true": "true",
   "vertical-align": "verticalAlign",
   "white-space": "whiteSpace",
@@ -176,6 +174,12 @@ exports.multiArityPropsLookup = {
   "border-bottom-right-radius": {
     "1": "borderBottomRightRadius",
     "2": "borderBottomRightRadius2"
+  },
+  "border-color": {
+    "1": "borderColor",
+    "2": "borderColor2",
+    "3": "borderColor3",
+    "4": "borderColor4"
   },
   "border-image-outset": {
     "1": "borderImageOutset",
@@ -288,8 +292,16 @@ exports.propsTakeListsLookup = {
     "single": "fontFamilies",
     "list": "fontFamily"
   },
+  "font-feature-settings": {
+    "single": "fontFeatureSettings",
+    "list": "fontFeatureSettingsList"
+  },
   "text-decoration-line": {
     "single": "textDecorationLine",
     "list": "textDecorationLines"
+  },
+  "transform": {
+    "single": "transform",
+    "list": "transforms"
   }
 };
