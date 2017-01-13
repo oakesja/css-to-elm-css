@@ -68,38 +68,58 @@ console.log(cssFileParser.exposedFunctionNames.filter(function (x) { return glob
 
 function createPropLookups (cssFileParser) {
   var cssProps = createCssPropLookups(cssFileParser)
-  var generatedFile = ''
-  generatedFile += createJsObject('singleArityPropsLookup', cssProps['singleArity'])
-  generatedFile += '\n\n'
-  generatedFile += createJsObject('multiArityPropsLookup', cssProps['multiArity'])
-  generatedFile += '\n\n'
-  generatedFile += createJsObject('propsTakeListsLookup', cssProps['listProps'])
-  fs.writeFileSync('src/propLookups.js', generatedFile)
+  createLookupFile('src/propLookups.js', [
+    {name: 'singleArityPropsLookup',
+      object: cssProps['singleArity']
+    },
+    {name: 'multiArityPropsLookup',
+      object: cssProps['multiArity']
+    },
+    {name: 'propsTakeListsLookup',
+      object: cssProps['listProps']
+    }
+  ])
 }
 
 function createSelectorLookups (cssFileParser, elementsFileParser) {
-  var generatedFile = ''
-  generatedFile += createJsObject('selectorLookup', createSelectorLookup(cssFileParser))
-  generatedFile += '\n\n'
-  generatedFile += createJsObject('elements', elementsFileParser.exposedFunctionNames)
-  generatedFile += '\n\n'
-  generatedFile += createJsObject('pseudoClasses', createPseudoClassLookup(cssFileParser))
-  generatedFile += '\n\n'
-  generatedFile += createJsObject('pseudoElements', createPseudoElementLookup(cssFileParser))
-  fs.writeFileSync('src/selectorLookups.js', generatedFile)
+  createLookupFile('src/selectorLookups.js', [
+    { name: 'selectorLookup',
+      object: createSelectorLookup(cssFileParser)
+    },
+    { name: 'elements',
+      object: elementsFileParser.exposedFunctionNames
+    },
+    { name: 'pseudoClasses',
+      object: createPseudoClassLookup(cssFileParser)
+    },
+    { name: 'pseudoElements',
+      object: createPseudoElementLookup(cssFileParser)
+    }
+  ])
 }
 
 function createValueLookups (cssFileParser) {
-  var generatedFile = ''
-  generatedFile += createJsObject('lengths', createLengthValueLookup(cssFileParser))
-  generatedFile += '\n\n'
-  generatedFile += createJsObject('angles', createAngleValueLookup(cssFileParser))
-  generatedFile += '\n\n'
-  generatedFile += createJsObject('simple', createSimpleValueLookup(cssFileParser))
-  generatedFile += '\n\n'
-  generatedFile += createJsObject('transforms', createValueTransformLookup(cssFileParser))
-  generatedFile += '\n\n'
-  fs.writeFileSync('src/valueLookups.js', generatedFile)
+  createLookupFile('src/valueLookups.js', [
+    { name: 'lengths',
+      object: createLengthValueLookup(cssFileParser)
+    },
+    { name: 'angles',
+      object: createAngleValueLookup(cssFileParser)
+    },
+    { name: 'simple',
+      object: createSimpleValueLookup(cssFileParser)
+    },
+    { name: 'transforms',
+      object: createValueTransformLookup(cssFileParser)
+    }
+  ])
+}
+
+function createLookupFile (name, lookups) {
+  var file = lookups.map(function (lookup) {
+    return createJsObject(lookup.name, lookup.object)
+  }).join('\n\n')
+  fs.writeFileSync(name, file)
 }
 
 function createSelectorLookup (cssFileParser) {
@@ -109,16 +129,10 @@ function createSelectorLookup (cssFileParser) {
     })
   }
 
-  var idSelector = findFunctionWithCommentIncluding('id selector')
-  var classSelector = findFunctionWithCommentIncluding('class selector')
-  var selector = findFunctionWithCommentIncluding('custom selector')
-  globalFuncsUsed.push(idSelector)
-  globalFuncsUsed.push(classSelector)
-  globalFuncsUsed.push(selector)
   return {
-    'id': idSelector,
-    'class': classSelector,
-    'selector': selector
+    id: findFunctionWithCommentIncluding('id selector'),
+    class: findFunctionWithCommentIncluding('class selector'),
+    selector: findFunctionWithCommentIncluding('custom selector')
   }
 }
 
@@ -221,17 +235,17 @@ function createCssPropLookups (parser) {
       }
     } else if (functions.length == 2 && functions.every(function (x) { return /^(\w+)[^0-9]$/.test(x) })) {
       listProps[key] = {
-        'single': functions[0],
-        'list': functions[1]
+        single: functions[0],
+        list: functions[1]
       }
     } else {
       console.log('Failed to classify css property: ' + key)
     }
   }
   return {
-    'singleArity': singleArity,
-    'multiArity': multiArity,
-    'listProps': listProps
+    singleArity: singleArity,
+    multiArity: multiArity,
+    listProps: listProps
   }
 }
 

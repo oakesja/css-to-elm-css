@@ -14,7 +14,7 @@ Things to support:
     - [ ] angles (deg, rad, etc)
     - [ ] transforms (rotate, scale, etc. )
     - [ ] color values (rgb, hsl)
-    - [ ] length math (|+|, |/|, etc)
+    - [ ] length calculations (|+|, |/|, etc) http://www.w3schools.com/cssref/func_calc.asp
     - [ ] values with arity 0
 
 - [ ] selectors
