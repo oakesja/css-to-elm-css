@@ -1,47 +1,34 @@
-import test from 'ava'
-import {cssToElmCss} from '../index'
-import {expectContentsEqual} from './helpers/helpers'
+import {testCssToElm} from './helpers/helpers'
 
-test('value with arity 0', t => {
-  const css = '.name { padding: inherit }'
-  const expected = 'stylesheet [ (.) "name" [ padding inherit ] ]'
-  return cssToElmCss(css).then(generated => {
-    expectContentsEqual(t, generated, expected)
-  })
-})
+testCssToElm(
+  'value with arity 0',
+  '.name { padding: inherit }',
+  'stylesheet [ (.) "name" [ padding inherit ] ]'
+)
 
-test('positive lengths', t => {
-  const css = '.name { padding: 10px }'
-  const expected = 'stylesheet [ (.) "name" [ padding (px 10) ] ]'
-  return cssToElmCss(css).then(generated => {
-    expectContentsEqual(t, generated, expected)
-  })
-})
+testCssToElm(
+  'positive lengths',
+  '.name { padding: 10px }',
+  'stylesheet [ (.) "name" [ padding (px 10) ] ]'
+)
 
-test('negative lengths', t => {
-  const css = '.name { padding: -1.345% }'
-  const expected = 'stylesheet [ (.) "name" [ padding (pct -1.345) ] ]'
-  return cssToElmCss(css).then(generated => {
-    expectContentsEqual(t, generated, expected)
-  })
-})
+testCssToElm(
+  'negative lengths',
+  '.name { padding: -1.345% }',
+  'stylesheet [ (.) "name" [ padding (pct -1.345) ] ]'
+)
+
+testCssToElm(
+  'hex color with 3 letters',
+  '.name { color: #F0f }',
+  'stylesheet [ (.) "name" [ color (hex "#F0f") ] ]'
+)
+
+testCssToElm(
+  'hex color with 6 letters',
+  '.name { color: #F0fF0f }',
+  'stylesheet [ (.) "name" [ color (hex "#F0fF0f") ] ]'
+)
 
 // TODO angles with transforms
 // TODO hex color invalid length and invalid characters
-
-test('hex color with 3 letters', t => {
-  const css = '.name { color: #F0f }'
-  const expected = 'stylesheet [ (.) "name" [ color (hex "#F0f") ] ]'
-  return cssToElmCss(css).then(generated => {
-    expectContentsEqual(t, generated, expected)
-  })
-})
-
-test('hex color with 6 letters', t => {
-  const css = '.name { color: #F0fF0f }'
-  const expected = 'stylesheet [ (.) "name" [ color (hex "#F0fF0f") ] ]'
-  return cssToElmCss(css).then(generated => {
-    expectContentsEqual(t, generated, expected)
-  })
-})
-

@@ -1,19 +1,13 @@
-import test from 'ava'
-import {cssToElmCss} from '../index'
-import {expectContentsEqual} from './helpers/helpers'
+import {testCssToElm} from './helpers/helpers'
 
-test('single arity property functions', t => {
-  const css = '.class { text-align: inherit; }'
-  const expected = 'stylesheet [ (.) "class" [ textAlign inherit ] ]'
-  return cssToElmCss(css).then(generated => {
-    expectContentsEqual(t, generated, expected)
-  })
-})
+testCssToElm(
+  'single arity property functions',
+  '.class { text-align: inherit; }',
+  'stylesheet [ (.) "class" [ textAlign inherit ] ]'
+)
 
-test('multi arity property functions', t => {
-  const css = '.class { padding: inherit inherit; }'
-  const expected = 'stylesheet [ (.) "class" [ padding2 inherit inherit ] ]'
-  return cssToElmCss(css).then(generated => {
-    expectContentsEqual(t, generated, expected)
-  })
-})
+testCssToElm(
+  'multi arity property functions',
+  '.class { padding: inherit inherit; }',
+  'stylesheet [ (.) "class" [ padding2 inherit inherit ] ]'
+)

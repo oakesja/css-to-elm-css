@@ -1,35 +1,25 @@
-import test from 'ava'
-import {cssToElmCss} from '../index'
-import {expectContentsEqual} from './helpers/helpers'
+import {testCssToElm} from './helpers/helpers'
 
-test('class selector', t => {
-  const css = '.name { }'
-  const expected = 'stylesheet [ (.) "name" [ ] ]'
-  return cssToElmCss(css).then(generated => {
-    expectContentsEqual(t, generated, expected)
-  })
-})
+testCssToElm(
+  'class selector',
+  '.name { }',
+  'stylesheet [ (.) "name" [ ] ]'
+)
 
-test('id selector', t => {
-  const css = '#name { }'
-  const expected = 'stylesheet [ (#) "name" [ ] ]'
-  return cssToElmCss(css).then(generated => {
-    expectContentsEqual(t, generated, expected)
-  })
-})
+testCssToElm(
+  'id selector',
+  '#name { }',
+  'stylesheet [ (#) "name" [ ] ]'
+)
 
-test('html element selector', t => {
-  const css = 'body { }'
-  const expected = 'stylesheet [ body [ ] ]'
-  return cssToElmCss(css).then(generated => {
-    expectContentsEqual(t, generated, expected)
-  })
-})
+testCssToElm(
+  'html element selector',
+  'body { }',
+  'stylesheet [ body [ ] ]'
+)
 
-test('unknown selector', t => {
-  const css = '::-webkit-progress-bar { }'
-  const expected = 'stylesheet [ selector "::-webkit-progress-bar" [ ] ]'
-  return cssToElmCss(css).then(generated => {
-    expectContentsEqual(t, generated, expected)
-  })
-})
+testCssToElm(
+  'unknown selector',
+  '::-webkit-progress-bar { }',
+  'stylesheet [ selector "::-webkit-progress-bar" [ ] ]'
+)
