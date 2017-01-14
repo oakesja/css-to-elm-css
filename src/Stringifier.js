@@ -2,6 +2,7 @@
 
 const propLookups = require('./propLookups')
 const selectorLookups = require('./selectorLookups')
+const valueLookups = require('./valueLookups')
 
 class Stringifier {
 
@@ -28,7 +29,8 @@ class Stringifier {
 
   decl (node) {
     let prop = this.propName(node.prop, node.value)
-    let string = prop + ' ' + node.value
+    let values = node.value.split(' ').map(this.lookupValue)
+    let string = prop + ' ' + values.join(' ')
 
     // TODO important
     // if (node.important) {
@@ -46,6 +48,21 @@ class Stringifier {
       return propLookups.multiArityPropsLookup[name][arity]
     }
     // TODO handle not found
+    return ''
+  }
+
+  lookupValue (value) {
+    var lengthMatch = /^(-?\d*\.{0,1}\d+)(\S+)$/.exec(value)
+    var hexMatch = /^(#(?:[A-Fa-f0-9]{3}|[A-Fa-f0-9]{6}))$/.exec(value)
+    if (valueLookups.simple[value]) {
+      return valueLookups.simple[value]
+    }
+    if (lengthMatch && valueLookups.lengths[lengthMatch[2]]) {
+      return '(' + valueLookups.lengths[lengthMatch[2]] + ' ' + lengthMatch[1] + ')'
+    }
+    if (hexMatch) {
+      return '(hex "' + hexMatch[1] + '")'
+    }
     return ''
   }
 
@@ -97,7 +114,7 @@ class Stringifier {
     } else if (selectorLookups.elements.find(function (x) { return x === name })) {
       return name
     }
-      return selectorLookups.selectorLookup['selector'] + ' "' + name + '"'
+    return selectorLookups.selectorLookup['selector'] + ' "' + name + '"'
   }
 
   block (node, start) {

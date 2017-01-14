@@ -3,8 +3,8 @@ import {cssToElmCss} from '../index'
 import {expectContentsEqual} from './helpers/helpers'
 
 test('single arity property functions', t => {
-  const css = '.class { text-align: center; }'
-  const expected = 'stylesheet [ (.) "class" [ textAlign center ] ]'
+  const css = '.class { text-align: inherit; }'
+  const expected = 'stylesheet [ (.) "class" [ textAlign inherit ] ]'
   return cssToElmCss(css).then(generated => {
     expectContentsEqual(t, generated, expected)
   })

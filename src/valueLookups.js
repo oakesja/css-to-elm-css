@@ -6,7 +6,7 @@ exports.lengths = {
   "in": "inches",
   "mm": "mm",
   "pc": "pc",
-  "pct": "pct",
+  "%": "pct",
   "pt": "pt",
   "px": "px",
   "rem": "rem",

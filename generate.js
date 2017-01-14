@@ -174,8 +174,8 @@ function createLengthValueLookup (parser) {
   for (var funcName of parser.exposedFunctionNames) {
     var body = parser.functionBody(funcName)
     if (body.includes('lengthConverter')) {
-      globalFuncsUsed.push(funcName)
-      lengths[findCssNameFromComment(parser, funcName)] = funcName
+      var value = execRegex(body, /lengthConverter (?:\S*) "(\S*)"/, 'Failed to find value name for' + funcName)
+      lengths[value[1]] = funcName
     }
   }
   return lengths
