@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const cssToElm = require('../index').default
+
+fs.readFile('app.css', (err, css) => {
+  cssToElm(css)
+        .then(result => {
+          fs.writeFile('gen.elm', result)
+        })
+})

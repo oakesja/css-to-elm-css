@@ -1,9 +1,9 @@
 import test from 'ava'
-import {cssToElmCss} from '../../index'
+const cssToElm = require('../../index').default
 
 exports.testCssToElm = function (description, css, expectedElm) {
   test(description, t => {
-    return cssToElmCss(css).then(generated => {
+    return cssToElm(css).then(generated => {
       expectContentsEqual(t, generated, expectedElm)
     })
   })
@@ -11,7 +11,7 @@ exports.testCssToElm = function (description, css, expectedElm) {
 
 exports.testCssToElmWithFormatting = function (description, css, expectedElm) {
   test(description, t => {
-    return cssToElmCss(css).then(generated => {
+    return cssToElm(css).then(generated => {
       deepEqual(t, generated, expectedElm.trim())
     })
   })

@@ -1,7 +1,6 @@
 'use strict'
 
 const postcss = require('postcss')
-const fs = require('fs')
 const Stringifier = require('./src/Stringifier')
 
 function stringify (node, builder) {
@@ -9,7 +8,7 @@ function stringify (node, builder) {
   str.stringify(node)
 }
 
-exports.cssToElmCss = function (css) {
+function cssToElmCss (css) {
   return postcss([])
         .process(css, {
           stringifier: stringify
@@ -18,9 +17,4 @@ exports.cssToElmCss = function (css) {
     // TODO transform error?
 }
 
-fs.readFile('app.css', (err, css) => {
-  this.cssToElmCss(css)
-        .then(result => {
-          fs.writeFile('gen.elm', result)
-        })
-})
+exports.default = cssToElmCss

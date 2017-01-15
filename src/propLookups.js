@@ -61,7 +61,6 @@ exports.singleArityPropsLookup = {
   "height": "height",
   "hue": "hue",
   "justify-all": "justifyAll",
-  "justify-content": "justifyContent",
   "left": "left",
   "letter-spacing": "letterSpacing",
   "lighten": "lighten",
@@ -107,8 +106,6 @@ exports.singleArityPropsLookup = {
   "saturation": "saturation",
   "screen": "screenBlendMode",
   "soft-light": "softLight",
-  "space-around": "spaceAround",
-  "space-between": "spaceBetween",
   "start": "start",
   "stretch": "stretch",
   "sub": "sub",
@@ -130,8 +127,7 @@ exports.singleArityPropsLookup = {
   "true": "true",
   "vertical-align": "verticalAlign",
   "white-space": "whiteSpace",
-  "width": "width",
-  "z-index": "zIndex"
+  "width": "width"
 };
 
 exports.multiArityPropsLookup = {
