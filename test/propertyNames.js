@@ -11,3 +11,9 @@ testCssToElm(
   '.class { padding: inherit inherit; }',
   'stylesheet [ (.) "class" [ padding2 inherit inherit ] ]'
 )
+
+testCssToElm(
+  'unknown properties',
+  '.class { -webkit-transform: translate(100px); }',
+  'stylesheet [ (.) "class" [ property "-webkit-transform" "translate(100px)" ] ]'
+)

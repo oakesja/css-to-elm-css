@@ -6,6 +6,10 @@ const cssToElm = require('../index').default
 fs.readFile('app.css', (err, css) => {
   cssToElm(css)
         .then(result => {
-          fs.writeFile('gen.elm', result)
+          file = "import Css exposing (..)\n"
+          file += "import Css.Elements exposing (..)\n\n"
+          file += "css = \n "
+          file += result
+          fs.writeFile('gen.elm', file)
         })
 })

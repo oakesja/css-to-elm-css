@@ -30,6 +30,12 @@ testCssToElm(
   'stylesheet [ (.) "name" [ color (hex "#F0fF0f") ] ]'
 )
 
+testCssToElm(
+  'unkown values',
+  '.name { color: a }',
+  'stylesheet [ (.) "name" [ property "color" "a" ] ]'
+)
+
 // TODO angles with transforms
 // TODO hex color invalid length and invalid characters
 // TODO rgb,rgba,hsl,hsla colors and invalid args

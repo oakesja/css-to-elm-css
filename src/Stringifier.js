@@ -1,3 +1,4 @@
+
 'use strict'
 
 const propLookups = require('./propLookups')
@@ -30,7 +31,13 @@ class Stringifier {
   decl (node) {
     let prop = this.propName(node.prop, node.value)
     let values = node.value.split(' ').map(this.lookupValue)
-    let string = prop + ' ' + values.join(' ')
+    let hasKnownValues = values.every(function (v) { return !!v })
+    let string = ''
+    if (prop && hasKnownValues) {
+      string = prop + ' ' + values.join(' ')
+    } else {
+      string = `property "${node.prop}" "${node.value}"`
+    }
 
     // TODO important
     // if (node.important) {
@@ -47,8 +54,6 @@ class Stringifier {
     if (propLookups.multiArityPropsLookup[name] && propLookups.multiArityPropsLookup[name][arity]) {
       return propLookups.multiArityPropsLookup[name][arity]
     }
-    // TODO handle not found
-    return ''
   }
 
   lookupValue (value) {
@@ -63,7 +68,6 @@ class Stringifier {
     if (hexMatch) {
       return '(hex "' + hexMatch[1] + '")'
     }
-    return ''
   }
 
   rule (node) {
