@@ -6,16 +6,13 @@ Things to support:
   - [x] multiple arities (padding, flex, etc.)
   - [ ] can take lists as args (font-family, etc.)
 
-    - [ ] font-family
-    - [ ] text-decoration-line
-
 - [ ] values
-    - [ ] lengths (px, in, etc)
+    - [x] lengths (px, in, etc)
     - [ ] angles (deg, rad, etc)
     - [ ] transforms (rotate, scale, etc. )
     - [ ] color values (rgb, hsl)
     - [ ] length calculations (|+|, |/|, etc) http://www.w3schools.com/cssref/func_calc.asp
-    - [ ] values with arity 0
+    - [x] values with arity 0
 
 - [ ] selectors
 

@@ -9,6 +9,25 @@ exports.testCssToElm = function (description, css, expectedElm) {
   })
 }
 
+exports.testCssToElmWithFormatting = function (description, css, expectedElm) {
+  test(description, t => {
+    return cssToElmCss(css).then(generated => {
+      deepEqual(t, generated, expectedElm.trim())
+    })
+  })
+}
+
+export const deepEqual = (t, actual, expected) => {
+  return t.deepEqual(actual, expected, `
+    Actual:
+    ${JSON.stringify(actual, null, 2).split('\n').join('\n    ')}
+
+    Expected:
+    ${JSON.stringify(expected, null, 2).split('\n').join('\n    ')}
+
+  `)
+}
+
 function expectContentsEqual (t, value, expected) {
   var a = replaceExtraWhitespace(value)
   var e = replaceExtraWhitespace(expected)

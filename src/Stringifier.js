@@ -15,9 +15,9 @@ class Stringifier {
   }
 
   root (node) {
-    this.builder('stylesheet [\n')
+    this.builder('stylesheet\n    [')
     this.body(node)
-    this.builder('\n]')
+    this.builder('\n    ]')
   }
 
   // TODO
@@ -98,12 +98,24 @@ class Stringifier {
     for (let i = 0; i < node.nodes.length; i++) {
       let child = node.nodes[i]
       if (i > 0) {
-        this.builder('\n   , ')
+        if (node.type == 'root') {
+          this.builder('\n    , ')
+        } else {
+          this.builder('\n        , ')
+        }
       } else {
         this.builder(' ')
       }
       this.stringify(child)
     }
+  }
+
+  block (node, start) {
+    this.builder(this.specifier(start) + '\n        [', node, 'start')
+    if (node.nodes && node.nodes.length) {
+      this.body(node)
+    }
+    this.builder('\n        ]', node, 'end')
   }
 
   specifier (name) {
@@ -115,14 +127,6 @@ class Stringifier {
       return name
     }
     return selectorLookups.selectorLookup['selector'] + ' "' + name + '"'
-  }
-
-  block (node, start) {
-    this.builder(this.specifier(start) + ' [', node, 'start')
-    if (node.nodes && node.nodes.length) {
-      this.body(node)
-    }
-    this.builder('\n]', node, 'end')
   }
 }
 

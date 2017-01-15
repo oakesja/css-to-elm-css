@@ -32,3 +32,8 @@ testCssToElm(
 
 // TODO angles with transforms
 // TODO hex color invalid length and invalid characters
+// TODO rgb,rgba,hsl,hsla colors and invalid args
+// TODO urls
+// TODO integers https://developer.mozilla.org/en-US/docs/Web/CSS/integer
+// TODO numbers https://developer.mozilla.org/en-US/docs/Web/CSS/number
+// TODO unknown
