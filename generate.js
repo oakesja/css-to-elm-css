@@ -20,7 +20,7 @@ class ElmFileParser {
   findExposedFunctionNames () {
     var self = this
     return this.exposedNames.filter(function (name) {
-      return new RegExp('^' + escapeStringRegexp(name) + ' : ', 'm').test(self.file)
+      return new RegExp('^' + escapeStringRegexp(name) + ' :', 'm').test(self.file)
     }).sort()
   }
 
@@ -33,14 +33,14 @@ class ElmFileParser {
 
   functionBody (functionName) {
     var name = escapeStringRegexp(functionName)
-    var regex = new RegExp(name + ' : (?:.*)\n' + name + '(?:.*) =\s*((.|\n)*?)\n(\n\n|$)', 'g')
+    var regex = new RegExp('\n' + name + ' (?:.*)=\s*((.|\n)*?)\n(\n\n|$)', 'g')
     var errorMsg = 'Failed find body for function: ' + functionName
     return execRegex(this.file, regex, errorMsg)[1]
   }
 
   functionSignature (functionName) {
     var name = escapeStringRegexp(functionName)
-    var regex = new RegExp('^' + name + ' : (.*)', 'm')
+    var regex = new RegExp('^' + name + ' :((?:.|\n)*)\n^' + name + ' (?:.*)=$', 'm')
     var errorMsg = 'Failed find signature for function: ' + functionName
     var signature = execRegex(this.file, regex, errorMsg)[1]
     return signature.split('->').map(function (x) { return x.trim() })
@@ -59,6 +59,12 @@ class ElmFileParser {
 var globalFuncsUsed = []
 var cssFileParser = new ElmFileParser(fs.readFileSync('../elm-css/src/Css.elm', 'utf8'))
 var elementsFileParser = new ElmFileParser(fs.readFileSync('../elm-css/src/Css/Elements.elm', 'utf8'))
+// console.log(cssFileParser.functionBody('right'))
+// console.log(cssFileParser.functionSignature('right'))
+// console.log(cssFileParser.functionBody('ex'))
+// console.log(cssFileParser.functionSignature('ex'))
+// console.log(cssFileParser.functionBody('row'))
+// console.log(cssFileParser.functionSignature('row'))
 createPropLookups(cssFileParser)
 createSelectorLookups(cssFileParser, elementsFileParser)
 createValueLookups(cssFileParser)
@@ -174,6 +180,7 @@ function createLengthValueLookup (parser) {
   for (var funcName of parser.exposedFunctionNames) {
     var body = parser.functionBody(funcName)
     if (body.includes('lengthConverter')) {
+      globalFuncsUsed.push(funcName)
       var value = execRegex(body, /lengthConverter (?:\S*) "(\S*)"/, 'Failed to find value name for' + funcName)
       lengths[value[1]] = funcName
     }
