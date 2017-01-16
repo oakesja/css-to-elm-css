@@ -6,13 +6,13 @@ var escapeStringRegexp = require('escape-string-regexp')
 class ElmFileParser {
   constructor (file) {
     this.file = file
-    this.exposedNames = this.findFunctionNames()
-    this.exposedFunctionNames = this.findExposedFunctionNames()
+    this.exposedNames = this.findExposedNames()
+    this.exposedFunctionNames = this.findExposedFunctionNames().sort()
   }
 
-  findFunctionNames () {
+  findExposedNames () {
     var regex = /exposing\s*\(((.|\n)*?)(?:\w|\s)\)/
-    var errorMsg = 'Failed to find exposed functions'
+    var errorMsg = 'Failed to find exposed names'
     var result = execRegex(this.file, regex, errorMsg)
     return result[1].replace(/\s/g, '').split(',')
   }
@@ -20,28 +20,28 @@ class ElmFileParser {
   findExposedFunctionNames () {
     var self = this
     return this.exposedNames.filter(function (name) {
-      return new RegExp('^' + escapeStringRegexp(name) + ' :', 'm').test(self.file)
-    }).sort()
+      return new RegExp(`^${escapeStringRegexp(name)} :`, 'm').test(self.file)
+    })
   }
 
   functionComment (functionName) {
     var name = escapeStringRegexp(reverseString(functionName + ' :'))
     var regex = new RegExp(name + '\\n\\}-((.|\\n)*?)\\|-\\{')
-    var errorMsg = 'Failed find comment for function: ' + functionName
+    var errorMsg = `Failed find comment for function: ${functionName}`
     return reverseString(execRegex(reverseString(this.file), regex, errorMsg)[1])
   }
 
   functionBody (functionName) {
     var name = escapeStringRegexp(functionName)
-    var regex = new RegExp('\n' + name + ' (?:.*)=\s*((.|\n)*?)\n(\n\n|$)', 'g')
-    var errorMsg = 'Failed find body for function: ' + functionName
+    var regex = new RegExp(`\n${name} (?:.*)=\s*((.|\n)*?)\n(\n\n|$)`, 'g')
+    var errorMsg = `Failed find body for function: ${functionName}`
     return execRegex(this.file, regex, errorMsg)[1]
   }
 
   functionSignature (functionName) {
     var name = escapeStringRegexp(functionName)
-    var regex = new RegExp('^' + name + ' :((?:.|\n)*)\n^' + name + ' (?:.*)=$', 'm')
-    var errorMsg = 'Failed find signature for function: ' + functionName
+    var regex = new RegExp(`^${name} :((?:.|\n)*)\n^${name} (?:.*)=$`, 'm')
+    var errorMsg = `Failed find signature for function: ${functionName}`
     var signature = execRegex(this.file, regex, errorMsg)[1]
     return signature.split('->').map(function (x) { return x.trim() })
   }
@@ -59,29 +59,24 @@ class ElmFileParser {
 var globalFuncsUsed = []
 var cssFileParser = new ElmFileParser(fs.readFileSync('../elm-css/src/Css.elm', 'utf8'))
 var elementsFileParser = new ElmFileParser(fs.readFileSync('../elm-css/src/Css/Elements.elm', 'utf8'))
-// console.log(cssFileParser.functionBody('right'))
-// console.log(cssFileParser.functionSignature('right'))
-// console.log(cssFileParser.functionBody('ex'))
-// console.log(cssFileParser.functionSignature('ex'))
-// console.log(cssFileParser.functionBody('row'))
-// console.log(cssFileParser.functionSignature('row'))
 createPropLookups(cssFileParser)
 createSelectorLookups(cssFileParser, elementsFileParser)
 createValueLookups(cssFileParser)
-console.log(globalFuncsUsed.length)
-console.log(cssFileParser.exposedFunctionNames.length)
+console.log(`Total functions used in lookups = ${globalFuncsUsed.length}`)
+console.log(`Total functions in Css.elm = ${cssFileParser.exposedFunctionNames.length}`)
+console.log('Unused functions: ')
 console.log(cssFileParser.exposedFunctionNames.filter(function (x) { return globalFuncsUsed.indexOf(x) == -1 }))
 
 function createPropLookups (cssFileParser) {
   var cssProps = createCssPropLookups(cssFileParser)
   createLookupFile('src/propLookups.js', [
-    {name: 'singleArityPropsLookup',
+    { name: 'singleArityPropsLookup',
       object: cssProps['singleArity']
     },
-    {name: 'multiArityPropsLookup',
+    { name: 'multiArityPropsLookup',
       object: cssProps['multiArity']
     },
-    {name: 'propsTakeListsLookup',
+    { name: 'propsTakeListsLookup',
       object: cssProps['listProps']
     }
   ])
@@ -126,7 +121,7 @@ function createValueLookups (cssFileParser) {
 
 function createLookupFile (name, lookups) {
   var file = lookups.map(function (lookup) {
-    return createJsObject(lookup.name, lookup.object)
+    return `exports.${lookup.name} = ${JSON.stringify(lookup.object, null, '  ')};`
   }).join('\n\n')
   fs.writeFileSync(name, file)
 }
@@ -137,7 +132,6 @@ function createSelectorLookup (cssFileParser) {
       return cssFileParser.functionComment(name).includes(text)
     })
   }
-
   return {
     id: findFunctionWithCommentIncluding('id selector'),
     class: findFunctionWithCommentIncluding('class selector'),
@@ -169,10 +163,6 @@ function createPseudoElementLookup (parser) {
     lookup[findCssNameFromComment(parser, funcName)] = funcName
   }
   return lookup
-}
-
-function createJsObject (name, object, writeValues) {
-  return 'exports.' + name + ' = ' + JSON.stringify(object, null, '  ') + ';'
 }
 
 function createLengthValueLookup (parser) {
@@ -291,7 +281,7 @@ function createCssPropNameToFunctionNamesLookup (parser) {
 
 function findCssNameFromComment (parser, functionName) {
   var comment = parser.functionComment(functionName)
-  return execRegex(comment, /\[`(\S*)`\]/, 'Failed to find css name for: ' + functionName)[1]
+  return execRegex(comment, /\[`(\S*)`\]/, `Failed to find css name for: ${functionName}`)[1]
 }
 
 function isCssProperty (parser, functionName) {
@@ -317,8 +307,6 @@ function reverseString (str) {
 
 function execRegex (str, regex, errorMsg) {
   var result = regex.exec(str)
-  if (result) {
-    return result
-  }
+  if (result) { return result }
   throw errorMsg
 }
