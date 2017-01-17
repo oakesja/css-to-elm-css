@@ -35,6 +35,8 @@ class Stringifier {
     let string = ''
     if (prop && hasKnownValues) {
       string = prop + ' ' + values.join(' ')
+    } else if (node.prop === 'display' && node.value === 'flex') {
+      string = 'displayFlex'
     } else {
       string = `property "${node.prop}" "${node.value}"`
     }

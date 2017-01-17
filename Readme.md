@@ -5,6 +5,7 @@ Things to support:
   - [x] single arity (color, display, etc.)
   - [x] multiple arities (padding, flex, etc.)
   - [ ] can take lists as args (font-family, etc.)
+  - [x] displayFlex
 
 - [ ] values
     - [x] lengths (px, in, etc)
@@ -12,6 +13,10 @@ Things to support:
     - [ ] transforms (rotate, scale, etc. )
     - [ ] color values (rgb, hsl)
     - [ ] length calculations (|+|, |/|, etc) http://www.w3schools.com/cssref/func_calc.asp
+    - [ ] integers and floats
+    - [ ] TextAlign
+    - [ ] VerticalAlign
+    - [ ] feature tags https://developer.mozilla.org/en-US/docs/Web/CSS/font-feature-settings
     - [x] values with arity 0
 
 - [ ] selectors

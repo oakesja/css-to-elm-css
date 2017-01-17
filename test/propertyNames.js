@@ -17,3 +17,9 @@ testCssToElm(
   '.class { -webkit-transform: translate(100px); }',
   'stylesheet [ (.) "class" [ property "-webkit-transform" "translate(100px)" ] ]'
 )
+
+testCssToElm(
+  'display: flex',
+  '.class { display: flex; }',
+  'stylesheet [ (.) "class" [ displayFlex ] ]'
+)
