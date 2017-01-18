@@ -1,9 +1,9 @@
 
 'use strict'
 
-const propLookups = require('./propLookups')
-const selectorLookups = require('./selectorLookups')
-const valueLookups = require('./valueLookups')
+import {singleArityProps, multiArityProps, listProps} from './propLookups'
+import {selectors, elements, pseudoClasses, pseudoElements} from './selectorLookups'
+import {lengthValues, angleValues, colorValues, simpleValues, transformValues} from './valueLookups'
 
 class Stringifier {
 
@@ -37,6 +37,12 @@ class Stringifier {
       string = prop + ' ' + values.join(' ')
     } else if (node.prop === 'display' && node.value === 'flex') {
       string = 'displayFlex'
+    } else if (listProps[node.prop] && hasKnownValues) {
+      if (values.length > 1) {
+        string = `${listProps[node.prop]['list']} [ ${values.join(', ')} ]`
+      } else {
+        string = `${listProps[node.prop]['single']} ${values.join(' ')}`
+      }
     } else {
       string = `property "${node.prop}" "${node.value}"`
     }
@@ -50,22 +56,22 @@ class Stringifier {
 
   propName (name, value) {
     let arity = value.split(' ').length
-    if (propLookups.singleArityPropsLookup[name]) {
-      return propLookups.singleArityPropsLookup[name]
+    if (singleArityProps[name]) {
+      return singleArityProps[name]
     }
-    if (propLookups.multiArityPropsLookup[name] && propLookups.multiArityPropsLookup[name][arity]) {
-      return propLookups.multiArityPropsLookup[name][arity]
+    if (multiArityProps[name] && multiArityProps[name][arity]) {
+      return multiArityProps[name][arity]
     }
   }
 
   lookupValue (value) {
     var lengthMatch = /^(-?\d*\.{0,1}\d+)(\S+)$/.exec(value)
     var hexMatch = /^(#(?:[A-Fa-f0-9]{3}|[A-Fa-f0-9]{6}))$/.exec(value)
-    if (valueLookups.simple[value]) {
-      return valueLookups.simple[value]
+    if (simpleValues[value]) {
+      return simpleValues[value]
     }
-    if (lengthMatch && valueLookups.lengths[lengthMatch[2]]) {
-      return '(' + valueLookups.lengths[lengthMatch[2]] + ' ' + lengthMatch[1] + ')'
+    if (lengthMatch && lengthValues[lengthMatch[2]]) {
+      return '(' + lengthValues[lengthMatch[2]] + ' ' + lengthMatch[1] + ')'
     }
     if (hexMatch) {
       return '(hex "' + hexMatch[1] + '")'
@@ -126,13 +132,13 @@ class Stringifier {
 
   specifier (name) {
     if (name.startsWith('.')) {
-      return selectorLookups.selectorLookup['class'] + ' "' + name.substring(1) + '"'
+      return selectors['class'] + ' "' + name.substring(1) + '"'
     } else if (name.startsWith('#')) {
-      return selectorLookups.selectorLookup['id'] + ' "' + name.substring(1) + '"'
-    } else if (selectorLookups.elements.find(function (x) { return x === name })) {
+      return selectors['id'] + ' "' + name.substring(1) + '"'
+    } else if (elements.find(function (x) { return x === name })) {
       return name
     }
-    return selectorLookups.selectorLookup['selector'] + ' "' + name + '"'
+    return selectors['selector'] + ' "' + name + '"'
   }
 }
 

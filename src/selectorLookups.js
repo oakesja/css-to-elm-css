@@ -1,4 +1,4 @@
-exports.selectorLookup = {
+exports.selectors = {
   "id": "(#)",
   "class": "(.)",
   "selector": "selector"

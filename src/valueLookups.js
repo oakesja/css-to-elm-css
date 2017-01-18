@@ -1,4 +1,4 @@
-exports.lengths = {
+exports.lengthValues = {
   "ch": "ch",
   "cm": "cm",
   "em": "em",
@@ -16,14 +16,14 @@ exports.lengths = {
   "vw": "vw"
 };
 
-exports.angles = {
+exports.angleValues = {
   "deg": "deg",
   "grad": "grad",
   "rad": "rad",
   "turn": "turn"
 };
 
-exports.colors = {
+exports.colorValues = {
   "hex": "hex",
   "hsl": "hsl",
   "hsla": "hsla",
@@ -31,7 +31,7 @@ exports.colors = {
   "rgba": "rgba"
 };
 
-exports.simple = {
+exports.simpleValues = {
   "0": "zero",
   "absolute": "absolute",
   "all-petite-caps": "allPetiteCaps",
@@ -213,7 +213,7 @@ exports.simple = {
   "zoom-out": "zoomOut"
 };
 
-exports.transforms = {
+exports.transformValues = {
   "matrix()": "matrix",
   "matrix3d()": "matrix3d",
   "perspective()": "perspective",

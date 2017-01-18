@@ -1,4 +1,4 @@
-exports.singleArityPropsLookup = {
+exports.singleArityProps = {
   "align-items": "alignItems",
   "align-self": "alignSelf",
   "all": "all",
@@ -130,7 +130,7 @@ exports.singleArityPropsLookup = {
   "width": "width"
 };
 
-exports.multiArityPropsLookup = {
+exports.multiArityProps = {
   "background-position": {
     "1": "backgroundPosition",
     "2": "backgroundPosition2"
@@ -283,10 +283,10 @@ exports.multiArityPropsLookup = {
   }
 };
 
-exports.propsTakeListsLookup = {
+exports.listProps = {
   "font-family": {
-    "single": "fontFamilies",
-    "list": "fontFamily"
+    "single": "fontFamily",
+    "list": "fontFamilies"
   },
   "font-feature-settings": {
     "single": "fontFeatureSettings",

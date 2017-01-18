@@ -70,13 +70,13 @@ console.log(cssFileParser.exposedFunctionNames.filter(function (x) { return glob
 function createPropLookups (cssFileParser) {
   var cssProps = createCssPropLookups(cssFileParser)
   createLookupFile('src/propLookups.js', [
-    { name: 'singleArityPropsLookup',
+    { name: 'singleArityProps',
       object: cssProps['singleArity']
     },
-    { name: 'multiArityPropsLookup',
+    { name: 'multiArityProps',
       object: cssProps['multiArity']
     },
-    { name: 'propsTakeListsLookup',
+    { name: 'listProps',
       object: cssProps['listProps']
     }
   ])
@@ -84,7 +84,7 @@ function createPropLookups (cssFileParser) {
 
 function createSelectorLookups (cssFileParser, elementsFileParser) {
   createLookupFile('src/selectorLookups.js', [
-    { name: 'selectorLookup',
+    { name: 'selectors',
       object: createSelectorLookup(cssFileParser)
     },
     { name: 'elements',
@@ -101,19 +101,19 @@ function createSelectorLookups (cssFileParser, elementsFileParser) {
 
 function createValueLookups (cssFileParser) {
   createLookupFile('src/valueLookups.js', [
-    { name: 'lengths',
+    { name: 'lengthValues',
       object: createLengthValueLookup(cssFileParser)
     },
-    { name: 'angles',
+    { name: 'angleValues',
       object: createAngleValueLookup(cssFileParser)
     },
-    { name: 'colors',
+    { name: 'colorValues',
       object: createColorValueLookup(cssFileParser)
     },
-    { name: 'simple',
+    { name: 'simpleValues',
       object: createSimpleValueLookup(cssFileParser)
     },
-    { name: 'transforms',
+    { name: 'transformValues',
       object: createValueTransformLookup(cssFileParser)
     }
   ])
@@ -249,9 +249,11 @@ function createCssPropLookups (parser) {
         multiArity[key][arity] = func
       }
     } else if (functions.length == 2 && functions.every(function (x) { return /^(\w+)[^0-9]$/.test(x) })) {
+      var single = functions.find(function (x) { return !parser.functionSignature(x)[0].includes('List') })
+      var list = functions.find(function (x) { return parser.functionSignature(x)[0].includes('List') })
       listProps[key] = {
-        single: functions[0],
-        list: functions[1]
+        single: single,
+        list: list
       }
     } else {
       console.log('Failed to classify css property: ' + key)

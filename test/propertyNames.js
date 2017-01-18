@@ -23,3 +23,15 @@ testCssToElm(
   '.class { display: flex; }',
   'stylesheet [ (.) "class" [ displayFlex ] ]'
 )
+
+testCssToElm(
+  'single param for property that can take a list',
+  '.class { text-decoration-line: underline; }',
+  'stylesheet [ (.) "class" [ textDecorationLine underline ] ]'
+)
+
+testCssToElm(
+  'multiple params for property that can take a list',
+  '.class { text-decoration-line: underline overline; }',
+  'stylesheet [ (.) "class" [ textDecorationLines [ underline, overline ] ] ]'
+)

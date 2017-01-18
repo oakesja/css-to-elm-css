@@ -4,7 +4,7 @@ Things to support:
 
   - [x] single arity (color, display, etc.)
   - [x] multiple arities (padding, flex, etc.)
-  - [ ] can take lists as args (font-family, etc.)
+  - [x] can take lists as args (font-family, etc.)
   - [x] displayFlex
 
 - [ ] values
