@@ -1,10 +1,10 @@
-exports.selectors = {
+export const selectors = {
   "id": "(#)",
   "class": "(.)",
   "selector": "selector"
 };
 
-exports.elements = [
+export const elements = [
   "a",
   "article",
   "audio",
@@ -56,7 +56,7 @@ exports.elements = [
   "video"
 ];
 
-exports.pseudoClasses = {
+export const pseudoClasses = {
   ":active": "active",
   ":any": "any",
   ":checked": "checked",
@@ -92,7 +92,7 @@ exports.pseudoClasses = {
   ":valid": "valid"
 };
 
-exports.pseudoElements = {
+export const pseudoElements = {
   "::after": "after",
   "::before": "before",
   "::first-letter": "firstLetter",

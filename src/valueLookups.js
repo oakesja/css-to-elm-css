@@ -1,4 +1,4 @@
-exports.lengthValues = {
+export const lengthValues = {
   "ch": "ch",
   "cm": "cm",
   "em": "em",
@@ -16,14 +16,14 @@ exports.lengthValues = {
   "vw": "vw"
 };
 
-exports.angleValues = {
+export const angleValues = {
   "deg": "deg",
   "grad": "grad",
   "rad": "rad",
   "turn": "turn"
 };
 
-exports.colorValues = {
+export const colorValues = {
   "hex": "hex",
   "hsl": "hsl",
   "hsla": "hsla",
@@ -31,7 +31,7 @@ exports.colorValues = {
   "rgba": "rgba"
 };
 
-exports.simpleValues = {
+export const simpleValues = {
   "0": "zero",
   "absolute": "absolute",
   "all-petite-caps": "allPetiteCaps",
@@ -213,7 +213,7 @@ exports.simpleValues = {
   "zoom-out": "zoomOut"
 };
 
-exports.transformValues = {
+export const transformValues = {
   "matrix()": "matrix",
   "matrix3d()": "matrix3d",
   "perspective()": "perspective",

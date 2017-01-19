@@ -1,4 +1,4 @@
-exports.singleArityProps = {
+export const singleArityProps = {
   "align-items": "alignItems",
   "align-self": "alignSelf",
   "all": "all",
@@ -130,7 +130,7 @@ exports.singleArityProps = {
   "width": "width"
 };
 
-exports.multiArityProps = {
+export const multiArityProps = {
   "background-position": {
     "1": "backgroundPosition",
     "2": "backgroundPosition2"
@@ -283,7 +283,7 @@ exports.multiArityProps = {
   }
 };
 
-exports.listProps = {
+export const listProps = {
   "font-family": {
     "single": "fontFamily",
     "list": "fontFamilies"
