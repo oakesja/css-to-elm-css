@@ -1,20 +1,33 @@
-'use strict'
+import postcss from 'postcss'
+import Stringifier from './src/Stringifier'
 
-const postcss = require('postcss')
-const Stringifier = require('./src/Stringifier')
+export default function cssToElm (css, filename = '') {
+  return postcss([atRulePlugin])
+        .process(css, {
+          from: filename,
+          stringifier: stringify
+        })
+        .then(result => {
+          printAnyWarnings(result)
+          return result.css
+        })
+}
+
+const atRulePlugin = postcss.plugin('at-rule-unsupported', () => {
+  return (root, result) => {
+    root.walkAtRules(decl => {
+      decl.warn(result, 'At-Rules are currently unsupported in elm-css.')
+    })
+  }
+})
 
 function stringify (node, builder) {
   let str = new Stringifier.Stringifier(builder)
   str.stringify(node)
 }
 
-function cssToElmCss (css) {
-  return postcss([])
-        .process(css, {
-          stringifier: stringify
-        })
-        .then(result => result.css)
-    // TODO transform error?
+function printAnyWarnings (result) {
+  result.warnings().forEach(warn => {
+    console.warn(warn.toString())
+  })
 }
-
-exports.default = cssToElmCss

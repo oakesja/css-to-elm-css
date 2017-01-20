@@ -1,6 +1,3 @@
-
-'use strict'
-
 import {singleArityProps, multiArityProps, listProps} from './propLookups'
 import {selectors, elements, pseudoClasses, pseudoElements} from './selectorLookups'
 import {lengthValues, angleValues, colorValues, simpleValues, transformValues} from './valueLookups'
@@ -82,23 +79,8 @@ class Stringifier {
     this.block(node, node.selector)
   }
 
-  // TODO
+  // currently unsupported in elm-css
   atrule (node) {
-    // let name = '@' + node.name
-    // let params = node.params ? this.rawValue(node, 'params') : ''
-    //
-    // if (typeof node.raws.afterName !== 'undefined') {
-    //   name += node.raws.afterName
-    // } else if (params) {
-    //   name += ' '
-    // }
-    //
-    // if (node.nodes) {
-    //   this.block(node, name + params)
-    // } else {
-    //   let end = (node.raws.between || '') + (semicolon ? ';' : '')
-    //   this.builder(name + params + end, node)
-    // }
   }
 
   body (node) {
@@ -109,6 +91,7 @@ class Stringifier {
     }
     for (let i = 0; i < node.nodes.length; i++) {
       let child = node.nodes[i]
+      if (child.type === 'atrule') { continue }
       if (i > 0) {
         if (node.type == 'root') {
           this.builder('\n    , ')

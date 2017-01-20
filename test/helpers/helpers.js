@@ -1,5 +1,5 @@
 import test from 'ava'
-const cssToElm = require('../../index').default
+import cssToElm from '../../index'
 
 exports.testCssToElm = function (description, css, expectedElm) {
   test(description, t => {

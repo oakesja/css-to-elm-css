@@ -1,10 +1,11 @@
 #!/usr/bin/env node
-
+require('babel-register')
 const fs = require('fs')
 const cssToElm = require('../index').default
 
-fs.readFile('app.css', (err, css) => {
-  cssToElm(css)
+const fileName = 'app.css'
+fs.readFile(fileName, (err, css) => {
+  cssToElm(css, fileName)
         .then(result => {
           file = "import Css exposing (..)\n"
           file += "import Css.Elements exposing (..)\n\n"
