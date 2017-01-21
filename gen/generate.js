@@ -37,6 +37,7 @@ function createSelectorLookups (cssFileParser, elementsFileParser) {
 
 function createValueLookups (cssFileParser) {
   const lookupFile = new LookupFile()
+  lookupFile.addLookup('important', findFunctionWithCommentIncluding(cssFileParser, '!important'))
   lookupFile.addLookup('lengthValues', createLengthValueLookup(cssFileParser))
   lookupFile.addLookup('angleValues', createAngleValueLookup(cssFileParser))
   lookupFile.addLookup('colorValues', createColorValueLookup(cssFileParser))
@@ -46,15 +47,10 @@ function createValueLookups (cssFileParser) {
 }
 
 function createSelectorLookup (cssFileParser) {
-  function findFunctionWithCommentIncluding (text) {
-    return cssFileParser.exposedFunctionNames.find(function (name) {
-      return cssFileParser.functionComment(name).includes(text)
-    })
-  }
   return {
-    id: findFunctionWithCommentIncluding('id selector'),
-    class: findFunctionWithCommentIncluding('class selector'),
-    selector: findFunctionWithCommentIncluding('custom selector')
+    id: findFunctionWithCommentIncluding(cssFileParser, 'id selector'),
+    class: findFunctionWithCommentIncluding(cssFileParser, 'class selector'),
+    selector: findFunctionWithCommentIncluding(cssFileParser, 'custom selector')
   }
 }
 
@@ -198,6 +194,14 @@ function createCssPropNameToFunctionNamesLookup (parser) {
     }
   }
   return props
+}
+
+function findFunctionWithCommentIncluding (cssFileParser, text) {
+  const func = cssFileParser.exposedFunctionNames.find(function (name) {
+    return cssFileParser.functionComment(name).includes(text)
+  })
+  globalFuncsUsed.push(func)
+  return func
 }
 
 function findCssNameFromComment (parser, functionName) {

@@ -31,7 +31,7 @@ export const deepEqual = (t, actual, expected) => {
 function expectContentsEqual (t, value, expected) {
   var a = replaceExtraWhitespace(value)
   var e = replaceExtraWhitespace(expected)
-  t.is(a, e)
+  deepEqual(t, a, e)
 }
 
 function replaceExtraWhitespace (s) {

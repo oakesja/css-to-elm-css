@@ -1,3 +1,5 @@
+export const important = "important";
+
 export const lengthValues = {
   "ch": "ch",
   "cm": "cm",

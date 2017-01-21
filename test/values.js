@@ -31,11 +31,16 @@ testCssToElm(
 )
 
 testCssToElm(
-  'unkown values',
+  'unknown values',
   '.name { color: a }',
   'stylesheet [ (.) "name" [ property "color" "a" ] ]'
 )
 
+testCssToElm(
+  'important value',
+  '.name { padding: inherit !important }',
+  'stylesheet [ (.) "name" [ important (padding inherit) ] ]'
+)
 // TODO angles with transforms
 // TODO hex color invalid length and invalid characters
 // TODO rgb,rgba,hsl,hsla colors and invalid args

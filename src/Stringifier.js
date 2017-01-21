@@ -1,6 +1,6 @@
 import {singleArityProps, multiArityProps, listProps} from './propLookups'
 import {selectors, elements, pseudoClasses, pseudoElements} from './selectorLookups'
-import {lengthValues, angleValues, colorValues, simpleValues, transformValues} from './valueLookups'
+import {lengthValues, angleValues, colorValues, simpleValues, transformValues, important} from './valueLookups'
 
 class Stringifier {
 
@@ -44,10 +44,9 @@ class Stringifier {
       string = `property "${node.prop}" "${node.value}"`
     }
 
-    // TODO important
-    // if (node.important) {
-    //   string += node.raws.important || ' !important'
-    // }
+    if (node.important) {
+      string = `${important} (${string})`
+    }
     this.builder(string, node)
   }
 
