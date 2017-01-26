@@ -12,7 +12,7 @@ exports.testCssToElm = function (description, css, expectedElm) {
 exports.testCssToElmWithFormatting = function (description, css, expectedElm) {
   test(description, t => {
     return cssToElm(css).then(generated => {
-      deepEqual(t, generated, expectedElm.trim())
+      deepEqual(t, generated.trim(), expectedElm.trim())
     })
   })
 }

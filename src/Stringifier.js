@@ -13,16 +13,28 @@ class Stringifier {
   }
 
   root (node) {
+    while (node.nodes[0].type === 'comment') {
+      this.comment(node.nodes.shift())
+    }
+    let endComments = []
+    while (node.nodes[node.nodes.length - 1 ].type === 'comment') {
+      endComments.unshift(node.nodes.pop())
+    }
     this.builder('stylesheet\n    [')
     this.body(node)
     this.builder('\n    ]')
+    if (endComments.length > 0) {
+      this.builder('\n')
+    }
+    endComments.forEach(this.comment, this)
   }
 
-  // TODO
   comment (node) {
-    // let left = this.raw(node, 'left', 'commentLeft')
-    // let right = this.raw(node, 'right', 'commentRight')
-    // this.builder('/*' + left + node.text + right + '*/', node)
+    if (node.source.start.line == node.source.end.line) {
+      this.builder(`-- ${node.text}\n`, node)
+    } else {
+      this.builder(`{-|${node.raws.left}${node.text}${node.raws.right}-}\n`, node)
+    }
   }
 
   decl (node) {
@@ -83,11 +95,6 @@ class Stringifier {
   }
 
   body (node) {
-    let last = node.nodes.length - 1
-    while (last > 0) {
-      if (node.nodes[last].type !== 'comment') break
-      last -= 1
-    }
     for (let i = 0; i < node.nodes.length; i++) {
       let child = node.nodes[i]
       if (child.type === 'atrule') { continue }

@@ -31,7 +31,7 @@ Things to support:
 
 - [ ] media queries
 
-- [ ] important
+- [x] important
 
 - [ ] code comments
 
