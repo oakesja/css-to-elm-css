@@ -1,7 +1,7 @@
 import {testCssToElmWithFormatting} from './helpers/helpers'
 
 testCssToElmWithFormatting(
-  'multiple css values',
+  'multiple css declarations',
   '.class { text-align: inherit; color: inherit; }',
   `
 stylesheet
@@ -28,3 +28,21 @@ stylesheet
         ]
     ]
   `)
+
+testCssToElmWithFormatting(
+  'no css rules',
+  '',
+  ''
+)
+
+testCssToElmWithFormatting(
+  'no css declarations for a rule',
+  '.class {}',
+  `
+stylesheet
+    [ (.) "class"
+        [
+        ]
+    ]
+  `)
+

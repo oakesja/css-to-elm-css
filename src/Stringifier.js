@@ -17,6 +17,7 @@ export default class Stringifier {
 
   // node types
   root (node) {
+    if (node.nodes.length == 0) return
     while (node.nodes[0].type === 'comment') {
       this.comment(node.nodes.shift())
     }
@@ -25,13 +26,13 @@ export default class Stringifier {
       endComments.unshift(node.nodes.pop())
     }
     this.writeLine('stylesheet')
-    this.elmArray(this.body, node)
+    this.elmArray(node.nodes, this.body)
     endComments.forEach(this.comment, this)
   }
 
   rule (node) {
     this.appendToLine(this.selector(node.selector) + '\n')
-    this.elmArray(this.body, node)
+    this.elmArray(node.nodes, this.body)
   }
 
   // currently unsupported in elm-css
@@ -73,10 +74,10 @@ export default class Stringifier {
   }
 
   // helper methods
-  body (node) {
-    for (let i = 0; i < node.nodes.length; i++) {
-      let child = node.nodes[i]
-      if (child.type === 'atrule') { continue }
+  body (nodes) {
+    for (let i = 0; i < nodes.length; i++) {
+      let child = nodes[i]
+      if (child.type === 'atrule') continue
       if (i > 0 && child.type !== 'comment') {
         this.writeLineStart(', ')
       }
@@ -114,11 +115,16 @@ export default class Stringifier {
     }
   }
 
-  elmArray (writeArray, ...args) {
+  elmArray (array, arrayWriter) {
     this.indents++
-    this.writeLineStart('[ ')
-    writeArray.call(this, ...args)
-    this.writeLine(']')
+    if (array.length == 0) {
+      this.writeLine('[')
+      this.writeLine(']')
+    } else {
+      this.writeLineStart('[ ')
+      arrayWriter.call(this, array)
+      this.writeLine(']')
+    }
     this.indents--
   }
 

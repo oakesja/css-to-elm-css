@@ -132,23 +132,37 @@ line 2
   `
 )
 
+testCssToElmWithFormatting(
+  'line comment in the middle of rules',
+  `
+.class1 {}
+/* comment */
+.class2 {}
+
+  `,
+  `
+stylesheet
+    [ (.) "class1"
+        [
+        ]
+    -- comment
+    , (.) "class2"
+        [
+        ]
+    ]
+  `
+)
+
 // testCssToElmWithFormatting(
-//   'line comment in the middle of the file',
-//   `
-// .class1 {}
-// /* comment */
-// .class2 {}
-//
-//   `,
+//   'line comment at the beginning of a rule',
+//   `.class1 {/* comment */, padding: inherit}`,
 //   `
 // stylesheet
-//     [ (.) "class"
-//          [
-//         ]
-//     -- comment
-//     , (.) "class"
-//          [
+//     [ (.) "class1"
+//         [ -- comment
+//           padding inherit
 //         ]
 //     ]
 //   `
 // )
+
