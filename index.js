@@ -22,7 +22,7 @@ const atRulePlugin = postcss.plugin('at-rule-unsupported', () => {
 })
 
 function stringify (node, builder) {
-  let str = new Stringifier.Stringifier(builder)
+  let str = new Stringifier(builder)
   str.stringify(node)
 }
 

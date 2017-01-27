@@ -4,7 +4,7 @@ import cssToElm from '../../index'
 exports.testCssToElm = function (description, css, expectedElm) {
   test(description, t => {
     return cssToElm(css).then(generated => {
-      expectContentsEqual(t, generated, expectedElm)
+      expectContentsEqual(t, generated.trim(), expectedElm.trim())
     })
   })
 }

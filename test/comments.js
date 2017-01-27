@@ -132,23 +132,23 @@ line 2
   `
 )
 
-testCssToElmWithFormatting(
-  'line comment in the middle of the file',
-  `
-.class1 {}
-/* comment */
-.class2 {}
-
-  `,
-  `
-stylesheet
-    [ (.) "class"
-         [
-        ]
-    -- comment
-    , (.) "class"
-         [
-        ]
-    ]
-  `
-)
+// testCssToElmWithFormatting(
+//   'line comment in the middle of the file',
+//   `
+// .class1 {}
+// /* comment */
+// .class2 {}
+//
+//   `,
+//   `
+// stylesheet
+//     [ (.) "class"
+//          [
+//         ]
+//     -- comment
+//     , (.) "class"
+//          [
+//         ]
+//     ]
+//   `
+// )

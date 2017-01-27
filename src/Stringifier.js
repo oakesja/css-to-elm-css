@@ -2,13 +2,16 @@ import {singleArityProps, multiArityProps, listProps} from './propLookups'
 import {selectors, elements, pseudoClasses, pseudoElements} from './selectorLookups'
 import {lengthValues, angleValues, colorValues, simpleValues, transformValues, important} from './valueLookups'
 
-class Stringifier {
+const INDENT = '    '
+
+export default class Stringifier {
 
   constructor (builder) {
     this.builder = builder
   }
 
-  stringify (node) {
+  stringify (node, indents = 0) {
+    this.indents = indents
     this[node.type](node)
   }
 
@@ -20,25 +23,55 @@ class Stringifier {
     while (node.nodes[node.nodes.length - 1 ].type === 'comment') {
       endComments.unshift(node.nodes.pop())
     }
-    this.builder('stylesheet\n    [')
-    this.body(node)
-    this.builder('\n    ]')
-    if (endComments.length > 0) {
-      this.builder('\n')
-    }
+    this.writeLine('stylesheet')
+    this.elmArray(this.body, node)
     endComments.forEach(this.comment, this)
   }
 
   comment (node) {
     if (node.source.start.line == node.source.end.line) {
-      this.builder(`-- ${node.text}\n`, node)
+      this.writeLine(`-- ${node.text}`, node)
     } else {
-      this.builder(`{-|${node.raws.left}${node.text}${node.raws.right}-}\n`, node)
+      this.writeLine(`{-|${node.raws.left}${node.text}${node.raws.right}-}`, node)
     }
   }
 
+  // TODO look into returning and joining instead of writing
+  body (node) {
+    for (let i = 0; i < node.nodes.length; i++) {
+      let child = node.nodes[i]
+      if (child.type === 'atrule') { continue }
+      if (i > 0 && child.type !== 'comment') {
+        this.writeLineStart(', ')
+      }
+      this.stringify(child, this.indents)
+    }
+  }
+
+  rule (node) {
+    this.append(this.selector(node.selector) + '\n')
+    this.elmArray(this.body, node)
+  }
+
+  // currently unsupported in elm-css
+  atrule (node) {
+  }
+
+// TODO clean up
+  selector (name) {
+    if (name.startsWith('.')) {
+      return selectors['class'] + ' "' + name.substring(1) + '"'
+    } else if (name.startsWith('#')) {
+      return selectors['id'] + ' "' + name.substring(1) + '"'
+    } else if (elements.find(function (x) { return x === name })) {
+      return name
+    }
+    return selectors['selector'] + ' "' + name + '"'
+  }
+
+// TODO clean up
   decl (node) {
-    let prop = this.propName(node.prop, node.value)
+    let prop = this.lookupPropName(node.prop, node.value)
     let values = node.value.split(' ').map(this.lookupValue)
     let hasKnownValues = values.every(function (v) { return !!v })
     let string = ''
@@ -59,10 +92,10 @@ class Stringifier {
     if (node.important) {
       string = `${important} (${string})`
     }
-    this.builder(string, node)
+    this.append(string + '\n', node)
   }
 
-  propName (name, value) {
+  lookupPropName (name, value) {
     let arity = value.split(' ').length
     if (singleArityProps[name]) {
       return singleArityProps[name]
@@ -86,49 +119,23 @@ class Stringifier {
     }
   }
 
-  rule (node) {
-    this.block(node, node.selector)
+  elmArray (writeArray, ...args) {
+    this.indents++
+    this.writeLineStart('[ ')
+    writeArray.call(this, ...args)
+    this.writeLine(']')
+    this.indents--
   }
 
-  // currently unsupported in elm-css
-  atrule (node) {
+  writeLine (str, ...args) {
+    this.writeLineStart(str + '\n')
   }
 
-  body (node) {
-    for (let i = 0; i < node.nodes.length; i++) {
-      let child = node.nodes[i]
-      if (child.type === 'atrule') { continue }
-      if (i > 0) {
-        if (node.type == 'root') {
-          this.builder('\n    , ')
-        } else {
-          this.builder('\n        , ')
-        }
-      } else {
-        this.builder(' ')
-      }
-      this.stringify(child)
-    }
+  writeLineStart (str, ...args) {
+    this.builder(`${INDENT.repeat(this.indents)}${str}`, args)
   }
 
-  block (node, start) {
-    this.builder(this.specifier(start) + '\n        [', node, 'start')
-    if (node.nodes && node.nodes.length) {
-      this.body(node)
-    }
-    this.builder('\n        ]', node, 'end')
-  }
-
-  specifier (name) {
-    if (name.startsWith('.')) {
-      return selectors['class'] + ' "' + name.substring(1) + '"'
-    } else if (name.startsWith('#')) {
-      return selectors['id'] + ' "' + name.substring(1) + '"'
-    } else if (elements.find(function (x) { return x === name })) {
-      return name
-    }
-    return selectors['selector'] + ' "' + name + '"'
+  append (str, ...args) {
+    this.builder(str, args)
   }
 }
-
-module.exports.Stringifier = Stringifier
