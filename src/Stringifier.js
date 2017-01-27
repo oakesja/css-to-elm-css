@@ -15,17 +15,27 @@ export default class Stringifier {
     this[node.type](node)
   }
 
+  // node types
   root (node) {
     while (node.nodes[0].type === 'comment') {
       this.comment(node.nodes.shift())
     }
     let endComments = []
-    while (node.nodes[node.nodes.length - 1 ].type === 'comment') {
+    while (node.nodes[node.nodes.length - 1].type === 'comment') {
       endComments.unshift(node.nodes.pop())
     }
     this.writeLine('stylesheet')
     this.elmArray(this.body, node)
     endComments.forEach(this.comment, this)
+  }
+
+  rule (node) {
+    this.appendToLine(this.selector(node.selector) + '\n')
+    this.elmArray(this.body, node)
+  }
+
+  // currently unsupported in elm-css
+  atrule (node) {
   }
 
   comment (node) {
@@ -34,39 +44,6 @@ export default class Stringifier {
     } else {
       this.writeLine(`{-|${node.raws.left}${node.text}${node.raws.right}-}`, node)
     }
-  }
-
-  // TODO look into returning and joining instead of writing
-  body (node) {
-    for (let i = 0; i < node.nodes.length; i++) {
-      let child = node.nodes[i]
-      if (child.type === 'atrule') { continue }
-      if (i > 0 && child.type !== 'comment') {
-        this.writeLineStart(', ')
-      }
-      this.stringify(child, this.indents)
-    }
-  }
-
-  rule (node) {
-    this.append(this.selector(node.selector) + '\n')
-    this.elmArray(this.body, node)
-  }
-
-  // currently unsupported in elm-css
-  atrule (node) {
-  }
-
-// TODO clean up
-  selector (name) {
-    if (name.startsWith('.')) {
-      return selectors['class'] + ' "' + name.substring(1) + '"'
-    } else if (name.startsWith('#')) {
-      return selectors['id'] + ' "' + name.substring(1) + '"'
-    } else if (elements.find(function (x) { return x === name })) {
-      return name
-    }
-    return selectors['selector'] + ' "' + name + '"'
   }
 
 // TODO clean up
@@ -92,17 +69,35 @@ export default class Stringifier {
     if (node.important) {
       string = `${important} (${string})`
     }
-    this.append(string + '\n', node)
+    this.appendToLine(string + '\n', node)
+  }
+
+  // helper methods
+  body (node) {
+    for (let i = 0; i < node.nodes.length; i++) {
+      let child = node.nodes[i]
+      if (child.type === 'atrule') { continue }
+      if (i > 0 && child.type !== 'comment') {
+        this.writeLineStart(', ')
+      }
+      this.stringify(child, this.indents)
+    }
+  }
+
+  selector (name) {
+    if (name.startsWith('.')) {
+      return `${selectors['class']} "${name.substring(1)}"`
+    } else if (name.startsWith('#')) {
+      return `${selectors['id']} "${name.substring(1)}"`
+    } else if (elements.includes(name)) {
+      return name
+    }
+    return `${selectors['selector']} "${name}"`
   }
 
   lookupPropName (name, value) {
     let arity = value.split(' ').length
-    if (singleArityProps[name]) {
-      return singleArityProps[name]
-    }
-    if (multiArityProps[name] && multiArityProps[name][arity]) {
-      return multiArityProps[name][arity]
-    }
+    return singleArityProps[name] || (multiArityProps[name] && multiArityProps[name][arity])
   }
 
   lookupValue (value) {
@@ -135,7 +130,7 @@ export default class Stringifier {
     this.builder(`${INDENT.repeat(this.indents)}${str}`, args)
   }
 
-  append (str, ...args) {
+  appendToLine (str, ...args) {
     this.builder(str, args)
   }
 }

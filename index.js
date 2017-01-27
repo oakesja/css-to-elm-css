@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import postcss from 'postcss'
 import Stringifier from './src/Stringifier'
 
