@@ -1,7 +1,7 @@
 import {testCssToElm} from './helpers/helpers'
 
 testCssToElm(
-  'value with arity 0',
+  'simple value',
   '.name { padding: inherit }',
   'stylesheet [ (.) "name" [ padding inherit ] ]'
 )
@@ -31,15 +31,63 @@ testCssToElm(
 )
 
 testCssToElm(
-  'unknown values',
-  '.name { color: a }',
-  'stylesheet [ (.) "name" [ property "color" "a" ] ]'
+  'rgb color with numbers',
+  '.name { color: rgb(255, 0, 51) }',
+  'stylesheet [ (.) "name" [ color (rgb 255 0 51) ] ]'
+)
+
+testCssToElm(
+  'rgb color with no spaces',
+  '.name { color: rgb(255,0,51) }',
+  'stylesheet [ (.) "name" [ color (rgb 255 0 51) ] ]'
+)
+
+testCssToElm(
+  'rgb color with no commas',
+  '.name { color: rgb(255 0 51) }',
+  'stylesheet [ (.) "name" [ color (rgb 255 0 51) ] ]'
+)
+
+testCssToElm(
+  'rgb color with percentages',
+  '.name { color: rgb(100%, 0%, 20%) }',
+  'stylesheet [ (.) "name" [ property "color" "rgb(100%, 0%, 20%)" ] ]'
+)
+
+testCssToElm(
+  'rgba color with numbers',
+  '.name { color: rgba(255, 0, 51, 0.1) }',
+  'stylesheet [ (.) "name" [ color (rgba 255 0 51 0.1) ] ]'
+)
+
+testCssToElm(
+  'rgba color with no spaces',
+  '.name { color: rgba(255,0,51,0.1) }',
+  'stylesheet [ (.) "name" [ color (rgba 255 0 51 0.1) ] ]'
+)
+
+testCssToElm(
+  '33% color with no commas',
+  '.name { color: rgba(255 0 51 / 0.1) }',
+  'stylesheet [ (.) "name" [ color (rgba 255 0 51 0.1) ] ]'
+)
+
+testCssToElm(
+  'rgba color with percentages',
+  '.name { color: rgba(100%, 0%, 20%, 33%) }',
+  'stylesheet [ (.) "name" [ property "color" "rgba(100%, 0%, 20%, 33%)" ] ]'
 )
 
 testCssToElm(
   'important value',
   '.name { padding: inherit !important }',
   'stylesheet [ (.) "name" [ important (padding inherit) ] ]'
+)
+
+testCssToElm(
+  'unknown values',
+  '.name { color: a }',
+  'stylesheet [ (.) "name" [ property "color" "a" ] ]'
 )
 // TODO angles with transforms
 // TODO hex color invalid length and invalid characters

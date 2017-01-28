@@ -38,11 +38,11 @@ function createSelectorLookups (cssFileParser, elementsFileParser) {
 function createValueLookups (cssFileParser) {
   const lookupFile = new LookupFile()
   lookupFile.addLookup('important', findFunctionWithCommentIncluding(cssFileParser, '!important'))
-  lookupFile.addLookup('lengthValues', createLengthValueLookup(cssFileParser))
-  lookupFile.addLookup('angleValues', createAngleValueLookup(cssFileParser))
-  lookupFile.addLookup('colorValues', createColorValueLookup(cssFileParser))
+  lookupFile.addLookup('lengthFuncs', createLengthValueLookup(cssFileParser))
+  lookupFile.addLookup('angleFuncs', createAngleValueLookup(cssFileParser))
+  lookupFile.addLookup('colorFuncs', createColorValueLookup(cssFileParser))
   lookupFile.addLookup('simpleValues', createSimpleValueLookup(cssFileParser))
-  lookupFile.addLookup('transformValues', createValueTransformLookup(cssFileParser))
+  lookupFile.addLookup('transformFuncs', createValueTransformLookup(cssFileParser))
   lookupFile.generate('src/valueLookups.js')
 }
 

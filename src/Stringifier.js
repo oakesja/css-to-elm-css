@@ -1,8 +1,11 @@
 import {singleArityProps, multiArityProps, listProps} from './propLookups'
 import {selectors, elements, pseudoClasses, pseudoElements} from './selectorLookups'
-import {lengthValues, angleValues, colorValues, simpleValues, transformValues, important} from './valueLookups'
+import {lengthFuncs, angleFuncs, colorFuncs, simpleValues, transformFuncs, important} from './valueLookups'
+import valueParser from 'postcss-value-parser'
 
 const INDENT = '    '
+const FLOAT = 'float'
+const INT = 'int'
 
 export default class Stringifier {
 
@@ -49,8 +52,9 @@ export default class Stringifier {
 
 // TODO clean up
   decl (node) {
-    let prop = this.lookupPropName(node.prop, node.value)
-    let values = node.value.split(' ').map(this.lookupValue)
+    let valueNode = valueParser(node.value)
+    let prop = this.lookupPropName(node.prop, valueNode.nodes.length)
+    let values = valueNode.nodes.map(this.lookupValue, this)
     let hasKnownValues = values.every(function (v) { return !!v })
     let string = ''
     if (prop && hasKnownValues) {
@@ -96,22 +100,50 @@ export default class Stringifier {
     return `${selectors['selector']} "${name}"`
   }
 
-  lookupPropName (name, value) {
-    let arity = value.split(' ').length
+  lookupPropName (name, arity) {
     return singleArityProps[name] || (multiArityProps[name] && multiArityProps[name][arity])
   }
 
-  lookupValue (value) {
+  lookupValue (valueNode) {
+    if (valueNode.type === 'word') {
+      return this.simpleValue(valueNode.value) ||
+        this.lengthValue(valueNode.value) ||
+        this.hexColorValue(valueNode.value)
+    }
+    if (valueNode.type === 'function') {
+      return this.rgbColorValue(valueNode) ||
+        this.rgbaColorValue(valueNode)
+    }
+  }
+
+  simpleValue (value) {
+    if (simpleValues[value]) return simpleValues[value]
+  }
+
+  lengthValue (value) {
     var lengthMatch = /^(-?\d*\.{0,1}\d+)(\S+)$/.exec(value)
-    var hexMatch = /^(#(?:[A-Fa-f0-9]{3}|[A-Fa-f0-9]{6}))$/.exec(value)
-    if (simpleValues[value]) {
-      return simpleValues[value]
+    if (lengthMatch && lengthFuncs[lengthMatch[2]]) {
+      return this.elmFunctionCall(lengthFuncs[lengthMatch[2]], lengthMatch[1])
     }
-    if (lengthMatch && lengthValues[lengthMatch[2]]) {
-      return '(' + lengthValues[lengthMatch[2]] + ' ' + lengthMatch[1] + ')'
+  }
+
+  hexColorValue (value) {
+    if (value.startsWith('#')) {
+      return this.elmFunctionCall(colorFuncs.hex, this.elmString(value))
     }
-    if (hexMatch) {
-      return '(hex "' + hexMatch[1] + '")'
+  }
+
+  rgbColorValue (value) {
+    let colorValues = value.nodes.filter(v => v.type === 'word').map(v => v.value)
+    if (value.value === 'rgb' && this.elmTypesAre(colorValues, [INT, INT, INT])) {
+      return this.elmFunctionCall(colorFuncs.rgb, ...colorValues)
+    }
+  }
+
+  rgbaColorValue (value) {
+    let colorValues = value.nodes.filter(v => v.type === 'word').map(v => v.value)
+    if (value.value === 'rgba' && this.elmTypesAre(colorValues, [INT, INT, INT, FLOAT])) {
+      return this.elmFunctionCall(colorFuncs.rgba, ...colorValues)
     }
   }
 
@@ -119,13 +151,31 @@ export default class Stringifier {
     this.indents++
     if (array.length == 0) {
       this.writeLine('[')
-      this.writeLine(']')
     } else {
       this.writeLineStart('[ ')
       arrayWriter.call(this, array)
-      this.writeLine(']')
     }
+    this.writeLine(']')
     this.indents--
+  }
+
+  elmFunctionCall (name, ...values) {
+    return `(${name} ${values.join(' ')})`
+  }
+
+  elmString (str) {
+    return `"${str}"`
+  }
+
+  elmTypesAre (values, expected) {
+    if (values.length != expected.length) return false
+    let types = values.map(this.elmType, this)
+    return types.every((t, i) => t === expected[i])
+  }
+
+  elmType (value) {
+    if (/^-?\d+$/.exec(value)) return INT
+    if (/^-?\d*\.{0,1}\d+$/.exec(value)) return FLOAT
   }
 
   writeLine (str, ...args) {

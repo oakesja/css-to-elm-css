@@ -1,6 +1,6 @@
 export const important = "important";
 
-export const lengthValues = {
+export const lengthFuncs = {
   "ch": "ch",
   "cm": "cm",
   "em": "em",
@@ -18,14 +18,14 @@ export const lengthValues = {
   "vw": "vw"
 };
 
-export const angleValues = {
+export const angleFuncs = {
   "deg": "deg",
   "grad": "grad",
   "rad": "rad",
   "turn": "turn"
 };
 
-export const colorValues = {
+export const colorFuncs = {
   "hex": "hex",
   "hsl": "hsl",
   "hsla": "hsla",
@@ -215,7 +215,7 @@ export const simpleValues = {
   "zoom-out": "zoomOut"
 };
 
-export const transformValues = {
+export const transformFuncs = {
   "matrix()": "matrix",
   "matrix3d()": "matrix3d",
   "perspective()": "perspective",
