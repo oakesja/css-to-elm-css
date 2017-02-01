@@ -3,7 +3,7 @@ require('babel-register')
 const fs = require('fs')
 const cssToElm = require('../index').default
 
-const fileName = 'app.css'
+const fileName = 'test/fixtures/example.css'
 fs.readFile(fileName, (err, css) => {
   cssToElm(css, fileName)
         .then(result => {
@@ -13,4 +13,6 @@ fs.readFile(fileName, (err, css) => {
           file += result
           fs.writeFile('gen.elm', file)
         })
+        .catch(error => console.error(error))
+        // TODO log errors better
 })

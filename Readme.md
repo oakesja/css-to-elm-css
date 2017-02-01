@@ -2,7 +2,7 @@ Goal:
 
 Generate compilable elm-css code from valid css. In cases that elm-css does not have support for something:
   - fall back to using custom functions like `selector` or `property` when able
-  - skip entirely (like at-rules) and warn 
+  - skip entirely (like at-rules) and warn
 
 Things to support:
 
@@ -23,6 +23,7 @@ Things to support:
     - [ ] TextAlign
     - [ ] VerticalAlign
     - [ ] feature tags https://developer.mozilla.org/en-US/docs/Web/CSS/font-feature-settings
+    - [ ] LengthOrNumber
     - [x] values with arity 0
 
 - [ ] selectors
@@ -43,8 +44,8 @@ Things to support:
 
 - [x] at-rules (only @keyframes) not currently supported by elm-css
 
-- [ ] validation?
-
 - [ ] use other postcss plugins
 
 - [ ] use other postcss parsers
+
+- [ ] validation for property and their param types
