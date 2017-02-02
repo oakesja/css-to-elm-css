@@ -5,7 +5,7 @@ testCssToElmWithFormatting(
   '.class { text-align: inherit; color: inherit; }',
   `
 stylesheet
-    [ (.) "class"
+    [ class "class"
         [ textAlign inherit
         , color inherit
         ]
@@ -18,11 +18,11 @@ testCssToElmWithFormatting(
   '.class { text-align: inherit; color: inherit; } .other { padding: inherit; width: inherit; }',
   `
 stylesheet
-    [ (.) "class"
+    [ class "class"
         [ textAlign inherit
         , color inherit
         ]
-    , (.) "other"
+    , class "other"
         [ padding inherit
         , width inherit
         ]
@@ -40,7 +40,7 @@ testCssToElmWithFormatting(
   '.class {}',
   `
 stylesheet
-    [ (.) "class"
+    [ class "class"
         [
         ]
     ]

@@ -11,7 +11,7 @@ testCssToElmWithFormatting(
   `
 -- some code comment
 stylesheet
-    [ (.) "class"
+    [ class "class"
         [ textAlign inherit
         ]
     ]
@@ -33,7 +33,7 @@ line 2
 line 2
 -}
 stylesheet
-    [ (.) "class"
+    [ class "class"
         [ textAlign inherit
         ]
     ]
@@ -59,7 +59,7 @@ comment 2
 line 2
 -}
 stylesheet
-    [ (.) "class"
+    [ class "class"
         [ textAlign inherit
         ]
     ]
@@ -76,7 +76,7 @@ testCssToElmWithFormatting(
   `,
   `
 stylesheet
-    [ (.) "class"
+    [ class "class"
         [ textAlign inherit
         ]
     ]
@@ -96,7 +96,7 @@ line 2
   `,
   `
 stylesheet
-    [ (.) "class"
+    [ class "class"
         [ textAlign inherit
         ]
     ]
@@ -120,7 +120,7 @@ line 2
   `,
   `
 stylesheet
-    [ (.) "class"
+    [ class "class"
         [ textAlign inherit
         ]
     ]
@@ -142,11 +142,11 @@ testCssToElmWithFormatting(
   `,
   `
 stylesheet
-    [ (.) "class1"
+    [ class "class1"
         [
         ]
     -- comment
-    , (.) "class2"
+    , class "class2"
         [
         ]
     ]
@@ -158,7 +158,7 @@ stylesheet
 //   `.class1 {/* comment */, padding: inherit}`,
 //   `
 // stylesheet
-//     [ (.) "class1"
+//     [ class "class1"
 //         [ -- comment
 //           padding inherit
 //         ]

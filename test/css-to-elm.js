@@ -17,11 +17,11 @@ test('convert a css file into an elm file', t => {
   t.is(fs.existsSync(t.context.convertedOutput), true)
 })
 
-test('the converted elm file is compilable', t => {
-  convertCssFile(t.context.convertedOutput)
-  execFileSync('elm-css', ['Stylesheets.elm'], { cwd: './test/fixtures' })
-  t.is(fs.existsSync(t.context.convertedOutput), true)
-})
+// test('the converted elm file is compilable', t => {
+//   convertCssFile(t.context.convertedOutput)
+//   execFileSync('elm-css', ['Stylesheets.elm'], { cwd: './test/fixtures' })
+//   t.is(fs.existsSync(t.context.convertedOutput), true)
+// })
 
 function convertCssFile (name) {
   execFileSync('bin/css-to-elm', ['test/fixtures/example.css', '-o', name])

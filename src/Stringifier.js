@@ -53,8 +53,9 @@ export default class Stringifier {
 // TODO clean up
   decl (node) {
     let valueNode = valueParser(node.value)
-    let prop = this.lookupPropName(node.prop, valueNode.nodes.length)
-    let values = valueNode.nodes.map(this.lookupValue, this)
+    let valueNodes = valueNode.nodes.filter(n => n.type === 'word' || n.type == 'function')
+    let prop = this.lookupPropName(node.prop, valueNodes.length)
+    let values = valueNodes.map(this.lookupValue, this)
     let hasKnownValues = values.every(function (v) { return !!v })
     let string = ''
     if (prop && hasKnownValues) {
@@ -68,7 +69,7 @@ export default class Stringifier {
         string = `${listProps[node.prop]['single']} ${values.join(' ')}`
       }
     } else {
-      string = `property "${node.prop}" "${node.value}"`
+      string = `property ${this.elmString(node.prop)} ${this.elmString(node.value)}`
     }
 
     if (node.important) {
@@ -164,7 +165,7 @@ export default class Stringifier {
   }
 
   elmString (str) {
-    return `"${str}"`
+    return `"${str.replace(/"/g, '\\"')}"`
   }
 
   elmTypesAre (values, expected) {

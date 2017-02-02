@@ -44,6 +44,7 @@ export const singleArityProps = {
   "display": "display",
   "end": "end",
   "exclusion": "exclusion",
+  "fill": "fill",
   "flex-basis": "flexBasis",
   "flex-direction": "flexDirection",
   "flex-end": "flexEnd",
@@ -61,6 +62,7 @@ export const singleArityProps = {
   "height": "height",
   "hue": "hue",
   "justify-all": "justifyAll",
+  "justify-content": "justifyContent",
   "left": "left",
   "letter-spacing": "letterSpacing",
   "lighten": "lighten",
@@ -90,6 +92,7 @@ export const singleArityProps = {
   "outline-style": "outlineStyle",
   "outline-width": "outlineWidth",
   "overflow": "overflow",
+  "overflow-wrap": "overflowWrap",
   "overflow-x": "overflowX",
   "overflow-y": "overflowY",
   "overlay": "overlay",
@@ -102,10 +105,13 @@ export const singleArityProps = {
   "padding-right": "paddingRight",
   "padding-top": "paddingTop",
   "position": "position",
+  "resize": "resize",
   "right": "right",
   "saturation": "saturation",
   "screen": "screenBlendMode",
   "soft-light": "softLight",
+  "space-around": "spaceAround",
+  "space-between": "spaceBetween",
   "start": "start",
   "stretch": "stretch",
   "sub": "sub",
@@ -127,7 +133,8 @@ export const singleArityProps = {
   "true": "true",
   "vertical-align": "verticalAlign",
   "white-space": "whiteSpace",
-  "width": "width"
+  "width": "width",
+  "z-index": "zIndex"
 };
 
 export const multiArityProps = {
