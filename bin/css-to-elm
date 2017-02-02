@@ -1,17 +1,29 @@
 #!/usr/bin/env node
-require('babel-register')
-const fs = require('fs')
-const cssToElm = require('../index').default
+require('babel-register') // TODO remove
+var fs = require('fs')
+var cssToElm = require('../index').default
+var program = require('commander');
+var pkg = require('../package.json');
 
-const fileName = 'test/fixtures/example.css'
-fs.readFile(fileName, (err, css) => {
-  cssToElm(css, fileName)
+var sourceFile = sourceFile
+program
+  .version(pkg.version)
+  .usage('css-to-elm PATH # path to your input css file')
+  .option('-o, --output [outputFile]', '(optional) outputedd CSS file', 'MyCss.elm')
+  .action(function(src) {
+    sourceFile = src;
+  })
+  .parse(process.argv);
+
+fs.readFile(sourceFile, (err, css) => {
+  cssToElm(css, sourceFile)
         .then(result => {
-          file = "import Css exposing (..)\n"
+          file = "module ExampleCss exposing (css)\n"
+          file += "import Css exposing (..)\n"
           file += "import Css.Elements exposing (..)\n\n"
           file += "css = \n "
           file += result
-          fs.writeFile('gen.elm', file)
+          fs.writeFile(program.output, file)
         })
         .catch(error => console.error(error))
         // TODO log errors better
