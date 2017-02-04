@@ -17,7 +17,7 @@ Things to support:
     - [x] lengths (px, in, etc)
     - [ ] angles (deg, rad, etc)
     - [ ] transforms (rotate, scale, etc. )
-    - [ ] color values (rgb, hsl)
+    - [ ] color values (rgb, hsl, elm-css Css.Colors)
     - [ ] length calculations (|+|, |/|, etc) http://www.w3schools.com/cssref/func_calc.asp
     - [ ] integers and floats
     - [ ] TextAlign

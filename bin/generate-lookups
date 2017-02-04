@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
 require('babel-register')
-var generate = require('../gen/generate').default
-generate()
+var LookupGenerator = require('../gen/lookupGenerator').default
+new LookupGenerator().generate()
