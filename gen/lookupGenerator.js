@@ -6,15 +6,6 @@ export default class {
   constructor () {
     this.cssFileParser = createCssFileParser('../elm-css/src/Css.elm')
     this.elementsFileParser = createElmFileParser('../elm-css/src/Css/Elements.elm')
-    this.properties = {}
-    this.pseudoClasses = {}
-    this.pseudoElements = {}
-    this.angles = {}
-    this.colorFunctions = {}
-    this.lengths = {}
-    this.simpleValues = {}
-    this.tranformFunctions = {}
-    this.unusedCssFunctions = []
   }
 
   // findClashingNames () {
@@ -32,99 +23,53 @@ export default class {
   // }
 
   generate () {
-    this.categorizeFunctions()
-    this.createPropLookups()
-    this.createSelectorLookups()
-    this.createValueLookups()
-    console.log(`Total functions in Css.elm = ${this.cssFileParser.exposedFunctionNames.length}`)
-    console.log(`Total unused functions used in lookups = ${this.unusedCssFunctions.length}`)
-    console.log('Unused functions: ')
-    console.log(this.unusedCssFunctions)
+    const cssFunctions = this.cssFileParser.getFunctions()
+    this.createPropLookups(cssFunctions.properties)
+    this.createSelectorLookups(cssFunctions)
+    this.createValueLookups(cssFunctions)
+    this.outputUnused(cssFunctions.unusedCssFunctions)
   }
 
-  categorizeFunctions () {
-    for (const name of this.cssFileParser.exposedFunctionNames) {
-      this.categorizeFunction(name)
-    }
-  }
-
-  categorizeFunction (name) {
-    if (this.cssFileParser.isProperty(name)) {
-      const propName = this.cssFileParser.cssPropertyName(name)
-      this.properties[propName] ?
-        this.properties[propName].push(name) :
-        this.properties[propName] = [name]
-    } else if (this.cssFileParser.isPseudoClass(name)) {
-      this.pseudoClasses[this.cssFileParser.findCssNameFromComment(name)] = name
-    } else if (this.cssFileParser.isPseudoElement(name)) {
-      this.pseudoElements[this.cssFileParser.findCssNameFromComment(name)] = name
-    } else if (this.cssFileParser.isAngleValue(name)) {
-      this.angles[this.cssFileParser.findCssNameFromComment(name)] = name
-    } else if (this.cssFileParser.isAngleValue(name)) {
-      this.angles[this.cssFileParser.findCssNameFromComment(name)] = name
-    } else if (this.cssFileParser.isColorFunction(name)) {
-      this.colorFunctions[this.cssFileParser.colorFunctionCssName(name)] = name
-    } else if (this.cssFileParser.islengthValue(name)) {
-      this.lengths[this.cssFileParser.lengthCssName(name)] = name
-    } else if (this.cssFileParser.isCssValue(name)) {
-      this.simpleValues[this.cssFileParser.cssValueName(name)] = name
-    } else if (this.cssFileParser.isTransformFunction(name)) {
-      this.tranformFunctions[this.cssFileParser.findCssNameFromComment(name)] = name
-    } else if (this.cssFileParser.isImportant(name)) {
-      this.importantFunction = name
-    } else if (this.cssFileParser.isIdSelector(name)) {
-      this.idFunction = name
-    } else if (this.cssFileParser.isClassSelector(name)) {
-      this.classFunction = name
-    } else if (this.cssFileParser.isCustomSelector(name)) {
-      this.customSelectorFunction = name
-    } else {
-      this.unusedCssFunctions.push(name)
-    }
-  }
-
-  createPropLookups () {
-    const cssProps = this.createCssPropLookups()
+  createPropLookups (properties) {
+    const {singleArity, multiArity, listProps} = this.createCssPropLookups(properties)
     const lookupFile = new LookupFile()
-    lookupFile.addLookup('singleArityProps', cssProps['singleArity'])
-    lookupFile.addLookup('multiArityProps', cssProps['multiArity'])
-    lookupFile.addLookup('listProps', cssProps['listProps'])
+    lookupFile.addLookup('singleArityProps', singleArity)
+    lookupFile.addLookup('multiArityProps', multiArity)
+    lookupFile.addLookup('listProps', listProps)
     lookupFile.generate('src/propLookups.js')
   }
 
-  createSelectorLookups () {
+  createSelectorLookups (cssFunctions) {
     const lookupFile = new LookupFile()
-    lookupFile.addLookup('selectors', this.createSelectorLookup())
+    lookupFile.addLookup('selectors', cssFunctions.selectors)
     lookupFile.addLookup('elements', this.elementsFileParser.exposedFunctionNames)
-    lookupFile.addLookup('pseudoClasses', this.pseudoClasses)
-    lookupFile.addLookup('pseudoElements', this.pseudoElements)
+    lookupFile.addLookup('pseudoClasses', cssFunctions.pseudoClasses)
+    lookupFile.addLookup('pseudoElements', cssFunctions.pseudoElements)
     lookupFile.generate('src/selectorLookups.js')
   }
 
-  createValueLookups () {
+  createValueLookups (cssFunctions) {
     const lookupFile = new LookupFile()
-    lookupFile.addLookup('important', this.importantFunction)
-    lookupFile.addLookup('lengthFuncs', this.lengths)
-    lookupFile.addLookup('angleFuncs', this.angles)
-    lookupFile.addLookup('colorFuncs', this.colorFunctions)
-    lookupFile.addLookup('simpleValues', this.simpleValues)
-    lookupFile.addLookup('transformFuncs', this.tranformFunctions)
+    lookupFile.addLookup('important', cssFunctions.important)
+    lookupFile.addLookup('lengthFuncs', cssFunctions.lengths)
+    lookupFile.addLookup('angleFuncs', cssFunctions.angles)
+    lookupFile.addLookup('colorFuncs', cssFunctions.colorFunctions)
+    lookupFile.addLookup('simpleValues', cssFunctions.simpleValues)
+    lookupFile.addLookup('transformFuncs', cssFunctions.tranformFunctions)
     lookupFile.generate('src/valueLookups.js')
   }
 
-  createSelectorLookup () {
-    return {
-      id: this.idFunction,
-      class: this.classFunction,
-      selector: this.customSelectorFunction
-    }
+  outputUnused (unusedCssFunctions) {
+    console.log(`Total functions in Css.elm = ${this.cssFileParser.exposedFunctionNames.length}`)
+    console.log(`Total unused functions used in lookups = ${unusedCssFunctions.length}`)
+    console.log('Unused functions: ')
+    console.log(unusedCssFunctions)
   }
 
-  createCssPropLookups () {
+  createCssPropLookups (allProps) {
     const singleArity = {}
     const multiArity = {}
     const listProps = {}
-    const allProps = this.properties
     for (const key in allProps) {
       const functions = allProps[key]
       if (functions.length == 1) {

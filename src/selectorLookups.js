@@ -1,6 +1,6 @@
 export const selectors = {
-  "id": "id",
   "class": "class",
+  "id": "id",
   "selector": "selector"
 };
 
