@@ -1,29 +1,19 @@
 import basicFunctions from './basicFunctions'
 import LookupFile from './lookupFile'
-import {execRegex, createCssFileParser, createElmFileParser} from './common'
+import {execRegex} from './common'
+import ElmCssFileParser from './elmCssFileParser'
+import ElmFileParser from './elmFileParser'
 
 export default class {
   constructor () {
-    this.cssFileParser = createCssFileParser('../elm-css/src/Css.elm')
-    this.elementsFileParser = createElmFileParser('../elm-css/src/Css/Elements.elm')
+    this.cssFileParser = new ElmCssFileParser('../elm-css/src/Css.elm')
+    this.elementsFileParser = new ElmFileParser('../elm-css/src/Css/Elements.elm')
+    this.colorsFileParser = new ElmFileParser('../elm-css/src/Css/Colors.elm')
+    this.clashingNames = this.findClashingNames()
   }
 
-  // findClashingNames () {
-  //   let results = []
-  //   basicFunctions.concat(
-  //     this.cssFileParser.exposedFunctionNames,
-  //     this.elementsFileParser.exposedFunctionNames,
-  //     this.colorsFileParser.exposedFunctionNames
-  //   ).sort().forEach((name, index, array) => {
-  //     if (index < array.length - 1 && name == array[index + 1]) {
-  //       results.push(name)
-  //     }
-  //   })
-  //   return results
-  // }
-
   generate () {
-    const cssFunctions = this.cssFileParser.getFunctions()
+    const cssFunctions = this.cssFileParser.getFunctions(this.clashingNames)
     this.createPropLookups(cssFunctions.properties)
     this.createSelectorLookups(cssFunctions)
     this.createValueLookups(cssFunctions)
@@ -42,7 +32,7 @@ export default class {
   createSelectorLookups (cssFunctions) {
     const lookupFile = new LookupFile()
     lookupFile.addLookup('selectors', cssFunctions.selectors)
-    lookupFile.addLookup('elements', this.elementsFileParser.exposedFunctionNames)
+    lookupFile.addLookup('elements', this.elementsFileParser.getFunctionNames(this.clashingNames))
     lookupFile.addLookup('pseudoClasses', cssFunctions.pseudoClasses)
     lookupFile.addLookup('pseudoElements', cssFunctions.pseudoElements)
     lookupFile.generate('src/selectorLookups.js')
@@ -96,5 +86,19 @@ export default class {
       multiArity: multiArity,
       listProps: listProps
     }
+  }
+
+  findClashingNames () {
+    let results = []
+    basicFunctions.concat(
+      this.cssFileParser.exposedFunctionNames,
+      this.elementsFileParser.exposedFunctionNames,
+      this.colorsFileParser.exposedFunctionNames
+    ).sort().forEach((name, index, array) => {
+      if (index < array.length - 1 && name == array[index + 1]) {
+        results.push(name)
+      }
+    })
+    return results
   }
 }

@@ -1,11 +1,30 @@
 import {execRegex, reverseString} from './common'
 import escapeStringRegexp from 'escape-string-regexp'
+import fs from 'fs'
 
 export default class {
-  constructor (file) {
-    this.file = file
+  constructor (filePath) {
+    this.filePath = filePath
+    this.file = fs.readFileSync(filePath, 'utf8')
     this.exposedNames = this.findExposedNames()
     this.exposedFunctionNames = this.findExposedFunctionNames().sort()
+    this.moduleName = this.findModuleName()
+  }
+
+  getFunctionNames (clashingsNames) {
+    let result = {}
+    this.exposedFunctionNames.forEach(name => {
+      result[name] = this.handleNameClash(clashingsNames, name)
+    }, this)
+    return result
+  }
+
+  handleNameClash (clashingsNames, name) {
+    return clashingsNames.includes(name) ? this.fullyQualifiedName(name) : name
+  }
+
+  fullyQualifiedName (functionName) {
+    return `${this.moduleName}.${functionName}`
   }
 
   findExposedNames () {
@@ -20,6 +39,14 @@ export default class {
     return this.exposedNames.filter(function (name) {
       return new RegExp(`^${escapeStringRegexp(name)} :`, 'm').test(self.file)
     })
+  }
+
+  findModuleName () {
+    return execRegex(
+      this.file,
+      /module (\S*)\s*exposing/,
+      'Failed to find the module name for' + this.filePath
+    )[1]
   }
 
   functionComment (functionName) {

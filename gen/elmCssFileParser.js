@@ -17,8 +17,8 @@ export default class extends ElmFileParser {
     this.unusedCssFunctions = []
   }
 
-  getFunctions () {
-    this.categorizeFunctions()
+  getFunctions (clashingNames) {
+    this.categorizeFunctions(clashingNames)
     return {
       properties: this.properties,
       pseudoClasses: this.pseudoClasses,
@@ -34,13 +34,13 @@ export default class extends ElmFileParser {
     }
   }
 
-  categorizeFunctions () {
+  categorizeFunctions (clashingNames) {
     for (const name of this.exposedFunctionNames) {
-      this.categorizeFunction(name)
+      this.categorizeFunction(name, clashingNames)
     }
   }
 
-  categorizeFunction (name) {
+  categorizeFunction (name, clashingNames) {
     const type = [
       this.property(),
       this.pseudoClass(),
@@ -55,17 +55,18 @@ export default class extends ElmFileParser {
       this.class(),
       this.selector()
     ].find(type => type.functionIs(name))
-    type ? type.categorizeFunction(name) : this.unusedCssFunctions.push(name)
+    const lookupName = this.handleNameClash(clashingNames, name)
+    type ? type.categorizeFunction(name, lookupName) : this.unusedCssFunctions.push(name)
   }
 
   property () {
     return {
       functionIs: (name) => !!this.cssPropertyName(name),
-      categorizeFunction: (name) => {
+      categorizeFunction: (name, lookupName) => {
         const propName = this.cssPropertyName(name)
         this.properties[propName] ?
-          this.properties[propName].push(name) :
-          this.properties[propName] = [name]
+          this.properties[propName].push(lookupName) :
+          this.properties[propName] = [lookupName]
       }
     }
   }
@@ -73,70 +74,70 @@ export default class extends ElmFileParser {
   pseudoClass () {
     return {
       functionIs: (name) => this.functionBodyContains(name, 'Structure.PseudoClassSelector'),
-      categorizeFunction: (name) => this.pseudoClasses[this.findCssNameFromComment(name)] = name
+      categorizeFunction: (name, lookupName) => this.pseudoClasses[this.findCssNameFromComment(name)] = lookupName
     }
   }
 
   pseudoElement () {
     return {
       functionIs: (name) => this.functionBodyContains(name, 'Structure.PseudoElement'),
-      categorizeFunction: (name) => this.pseudoElements[this.findCssNameFromComment(name)] = name
+      categorizeFunction: (name, lookupName) => this.pseudoElements[this.findCssNameFromComment(name)] = lookupName
     }
   }
 
   angle () {
     return {
       functionIs: (name) => this.functionBodyContains(name, 'angleConverter'),
-      categorizeFunction: (name) => this.angles[this.findCssNameFromComment(name)] = name
+      categorizeFunction: (name, lookupName) => this.angles[this.findCssNameFromComment(name)] = lookupName
     }
   }
   colorFunction () {
     return {
       functionIs: (name) => this.functionReturnType(name) === 'Color',
-      categorizeFunction: (name) => this.colorFunctions[this.colorFunctionCssName(name)] = name
+      categorizeFunction: (name, lookupName) => this.colorFunctions[this.colorFunctionCssName(name)] = lookupName
     }
   }
   length () {
     return {
       functionIs: (name) => this.functionBodyContains(name, 'lengthConverter'),
-      categorizeFunction: (name) => this.lengths[this.lengthCssName(name)] = name
+      categorizeFunction: (name, lookupName) => this.lengths[this.lengthCssName(name)] = lookupName
     }
   }
 
   value () {
     return {
       functionIs: (name) => this.functionBodyContains(name, 'value =') && this.functionArity(name) == 0,
-      categorizeFunction: (name) => this.simpleValues[this.cssValueName(name)] = name
+      categorizeFunction: (name, lookupName) => this.simpleValues[this.cssValueName(name)] = lookupName
     }
   }
   transformFunction () {
     return {
       functionIs: (name) => this.functionBodyContains(name, 'value =') && this.functionReturnType(name) === 'Transform {}',
-      categorizeFunction: (name) => this.tranformFunctions[this.findCssNameFromComment(name)] = name
+      categorizeFunction: (name, lookupName) => this.tranformFunctions[this.findCssNameFromComment(name)] = lookupName
     }
   }
   important () {
     return {
       functionIs: (name) => this.functionCommentContains(name, '!important'),
-      categorizeFunction: (name) => this.importantFunction = name
+      categorizeFunction: (name, lookupName) => this.importantFunction = lookupName
     }
   }
   id () {
     return {
       functionIs: (name) => this.functionCommentContains(name, 'id selector'),
-      categorizeFunction: (name) => this.selectors['id'] = name
+      categorizeFunction: (name, lookupName) => this.selectors['id'] = lookupName
     }
   }
   class () {
     return {
       functionIs: (name) => this.functionCommentContains(name, 'class selector'),
-      categorizeFunction: (name) => this.selectors['class'] = name
+      categorizeFunction: (name, lookupName) => this.selectors['class'] = lookupName
     }
   }
   selector () {
     return {
       functionIs: (name) => this.functionCommentContains(name, 'custom selector'),
-      categorizeFunction: (name) => this.selectors['selector'] = name
+      categorizeFunction: (name, lookupName) => this.selectors['selector'] = lookupName
     }
   }
 
