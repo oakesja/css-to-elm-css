@@ -95,8 +95,8 @@ export default class Stringifier {
       return `${selectors['class']} "${name.substring(1)}"`
     } else if (name.startsWith('#')) {
       return `${selectors['id']} "${name.substring(1)}"`
-    } else if (elements.includes(name)) {
-      return name
+    } else if (Object.keys(elements).includes(name)) {
+      return elements[name]
     }
     return `${selectors['selector']} "${name}"`
   }
