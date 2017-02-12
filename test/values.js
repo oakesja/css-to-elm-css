@@ -19,6 +19,12 @@ testCssToElm(
 )
 
 testCssToElm(
+  'lengths without leading number before decimal',
+  '.name { padding: .3px }',
+  'stylesheet [ class "name" [ padding (px 0.3) ] ]'
+)
+
+testCssToElm(
   'hex color with 3 letters',
   '.name { color: #F0f }',
   'stylesheet [ class "name" [ color (hex "#F0f") ] ]'

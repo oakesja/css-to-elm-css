@@ -124,7 +124,7 @@ export default class Stringifier {
   lengthValue (value) {
     var lengthMatch = /^(-?\d*\.{0,1}\d+)(\S+)$/.exec(value)
     if (lengthMatch && lengthFuncs[lengthMatch[2]]) {
-      return this.elmFunctionCall(lengthFuncs[lengthMatch[2]], lengthMatch[1])
+      return this.elmFunctionCall(lengthFuncs[lengthMatch[2]], parseFloat(lengthMatch[1]))
     }
   }
 
