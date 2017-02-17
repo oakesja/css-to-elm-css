@@ -1,14 +1,15 @@
 import {execRegex, reverseString} from './common'
-import escapeStringRegexp from 'escape-string-regexp'
 import fs from 'fs'
+import parser from './elmParser'
 
 export default class {
   constructor (filePath) {
-    this.filePath = filePath
     this.file = fs.readFileSync(filePath, 'utf8')
-    this.exposedNames = this.findExposedNames()
-    this.exposedFunctionNames = this.findExposedFunctionNames().sort()
-    this.moduleName = this.findModuleName()
+    this.ast = parser.parse(this.file)
+    let exposed = this.ast.moduleDeclaration.exposing.exports.exports
+    this.exposedNames = exposed.map(e => e.value)
+    this.exposedFunctionNames = exposed.filter(e => e.type === 'ref').map(e => e.value).sort()
+    this.moduleName = this.ast.moduleDeclaration.value
   }
 
   getFunctionNames (clashingsNames) {
@@ -27,56 +28,33 @@ export default class {
     return `${this.moduleName}.${functionName}`
   }
 
-  findExposedNames () {
-    const regex = /exposing\s*\(((.|\n)*?)(?:\w|\s)\)/
-    const errorMsg = 'Failed to find exposed names'
-    const result = execRegex(this.file, regex, errorMsg)
-    return result[1].replace(/\s/g, '').split(',')
-  }
-
-  findExposedFunctionNames () {
-    const self = this
-    return this.exposedNames.filter(function (name) {
-      return new RegExp(`^${escapeStringRegexp(name)} :`, 'm').test(self.file)
-    })
-  }
-
-  findModuleName () {
-    return execRegex(
-      this.file,
-      /module (\S*)\s*exposing/,
-      'Failed to find the module name for' + this.filePath
-    )[1]
-  }
-
   functionComment (functionName) {
-    const name = escapeStringRegexp(reverseString(functionName + ' :'))
-    const regex = new RegExp(name + '\\n\\}-((.|\\n)*?)\\|-\\{')
-    const errorMsg = `Failed find comment for function: ${functionName}`
-    return reverseString(execRegex(reverseString(this.file), regex, errorMsg)[1])
+    return this._declarationFor(functionName).doc
   }
 
   functionBody (functionName) {
-    const name = escapeStringRegexp(functionName)
-    const regex = new RegExp(`\n${name} (?:.*)=\s*((.|\n)*?)\n(\n\n|$)`, 'g')
-    const errorMsg = `Failed find body for function: ${functionName}`
-    return execRegex(this.file, regex, errorMsg)[1]
+    let decl = this._declarationFor(functionName)
+    let startLine = decl.annotation ? decl.annotation.location.end.line + 1 : decl.location.start.line
+    return this.file
+      .split('\n')
+      .slice(startLine, decl.location.end.line)
+      .join('\n')
   }
 
   functionSignature (functionName) {
-    const name = escapeStringRegexp(functionName)
-    const regex = new RegExp(`^${name} :((?:.|\n)*)\n^${name} (?:.*)=$`, 'm')
-    const errorMsg = `Failed find signature for function: ${functionName}`
-    const signature = execRegex(this.file, regex, errorMsg)[1]
-    return signature.split('->').map(function (x) { return x.trim() })
+    return this._declarationFor(functionName).annotation.signature
   }
 
   functionReturnType (functionName) {
     const signature = this.functionSignature(functionName)
-    return signature[signature.length - 1]
+    return signature[signature.length - 1].value
   }
 
   functionArity (functionName) {
     return this.functionSignature(functionName).length - 1
+  }
+
+  _declarationFor (name) {
+    return this.ast.declarations.find(d => d.value === name)
   }
  }

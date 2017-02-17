@@ -46,6 +46,7 @@ export const elements = {
   "option": "option",
   "p": "p",
   "path": "path",
+  "polygon": "polygon",
   "polyline": "polyline",
   "pre": "pre",
   "progress": "Css.Elements.progress",

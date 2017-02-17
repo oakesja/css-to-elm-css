@@ -71,8 +71,8 @@ export default class {
           multiArity[key][arity] = func
         }
       } else if (functions.length == 2 && functions.every(function (x) { return /^(\w+)[^0-9]$/.test(x) })) {
-        const single = functions.find(function (x) { return !this.cssFileParser.functionSignature(x)[0].includes('List') }, this)
-        const list = functions.find(function (x) { return this.cssFileParser.functionSignature(x)[0].includes('List') }, this)
+        const single = functions.find(function (x) { return this.cssFileParser.functionSignature(x)[0].value !== 'List' }, this)
+        const list = functions.find(function (x) { return this.cssFileParser.functionSignature(x)[0].value === 'List' }, this)
         listProps[key] = {
           single: single,
           list: list

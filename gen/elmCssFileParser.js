@@ -91,12 +91,14 @@ export default class extends ElmFileParser {
       categorizeFunction: (name, lookupName) => this.angles[this.findCssNameFromComment(name)] = lookupName
     }
   }
+
   colorFunction () {
     return {
       functionIs: (name) => this.functionReturnType(name) === 'Color',
       categorizeFunction: (name, lookupName) => this.colorFunctions[this.colorFunctionCssName(name)] = lookupName
     }
   }
+
   length () {
     return {
       functionIs: (name) => this.functionBodyContains(name, 'lengthConverter'),
@@ -110,30 +112,35 @@ export default class extends ElmFileParser {
       categorizeFunction: (name, lookupName) => this.simpleValues[this.cssValueName(name)] = lookupName
     }
   }
+
   transformFunction () {
     return {
-      functionIs: (name) => this.functionBodyContains(name, 'value =') && this.functionReturnType(name) === 'Transform {}',
+      functionIs: (name) => this.functionBodyContains(name, 'value =') && this.functionReturnType(name) === 'Transform',
       categorizeFunction: (name, lookupName) => this.tranformFunctions[this.findCssNameFromComment(name)] = lookupName
     }
   }
+
   important () {
     return {
       functionIs: (name) => this.functionCommentContains(name, '!important'),
       categorizeFunction: (name, lookupName) => this.importantFunction = lookupName
     }
   }
+
   id () {
     return {
       functionIs: (name) => this.functionCommentContains(name, 'id selector'),
       categorizeFunction: (name, lookupName) => this.selectors['id'] = lookupName
     }
   }
+
   class () {
     return {
       functionIs: (name) => this.functionCommentContains(name, 'class selector'),
       categorizeFunction: (name, lookupName) => this.selectors['class'] = lookupName
     }
   }
+
   selector () {
     return {
       functionIs: (name) => this.functionCommentContains(name, 'custom selector'),
