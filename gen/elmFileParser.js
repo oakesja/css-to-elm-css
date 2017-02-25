@@ -41,17 +41,30 @@ export default class {
       .join('\n')
   }
 
+    // TODO leak abastraction
   functionSignature (functionName) {
     return this._declarationFor(functionName).annotation.signature
   }
 
+    // TODO leak abastraction
   functionReturnType (functionName) {
     const signature = this.functionSignature(functionName)
     return signature[signature.length - 1].value
   }
 
+    // TODO leak abastraction
+  functionParameters (functionName) {
+    const signature = this.functionSignature(functionName)
+    return signature.slice(0, signature.length - 1)
+  }
+
   functionArity (functionName) {
     return this.functionSignature(functionName).length - 1
+  }
+
+    // TODO leak abastraction
+  typeAliases () {
+    return this.ast.declarations.filter(d => d.type === 'typeAliasDecl')
   }
 
   _declarationFor (name) {
