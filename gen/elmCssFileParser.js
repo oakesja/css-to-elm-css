@@ -2,49 +2,12 @@ import ElmFileParser from './elmFileParser'
 import TypeFinder from './typeFinder'
 import {execRegex} from './common'
 
-// Favor composition over inheritance
+// TODO Favor composition over inheritance
 export default class extends ElmFileParser {
 
   constructor (file) {
     super(file)
-    this.properties = {}
-    this.pseudoClasses = {}
-    this.pseudoElements = {}
-    this.angles = {}
-    this.colorFunctions = {}
-    this.lengths = {}
-    this.simpleValues = {}
-    this.tranformFunctions = {}
-    this.selectors = {}
-    this.unusedCssFunctions = []
-    this.typeFinder = new TypeFinder(this.typeAliases())
-  }
-
-  getFunctions (clashingNames) {
-    this.categorizeFunctions(clashingNames)
-    return {
-      properties: this.properties,
-      pseudoClasses: this.pseudoClasses,
-      pseudoElements: this.pseudoElements,
-      angles: this.angles,
-      colorFunctions: this.colorFunctions,
-      lengths: this.lengths,
-      simpleValues: this.simpleValues,
-      tranformFunctions: this.tranformFunctions,
-      unusedCssFunctions: this.unusedCssFunctions,
-      important: this.importantFunction,
-      selectors: this.selectors
-    }
-  }
-
-  categorizeFunctions (clashingNames) {
-    for (const name of this.exposedFunctionNames) {
-      this.categorizeFunction(name, clashingNames)
-    }
-  }
-
-  categorizeFunction (name, clashingNames) {
-    const type = [
+    this.categories = [
       this.property(),
       this.pseudoClass(),
       this.pseudoElement(),
@@ -56,155 +19,193 @@ export default class extends ElmFileParser {
       this.important(),
       this.id(),
       this.class(),
-      this.selector()
-    ].find(type => type.functionIs(name))
+      this.selector(),
+      this.unknown()
+    ]
+    this.categorizedFunctions = {}
+    this.categories.forEach(c => c.initialize(this.categorizedFunctions))
+    this.typeFinder = new TypeFinder(this.typeAliases())
+  }
+
+  // TODO this should not worry about clashingNames, return fullyQualifiedName as part of it instead
+  getFunctions (clashingNames) {
+    this.categorizeFunctions(clashingNames)
+    return this.categorizedFunctions
+  }
+
+  categorizeFunctions (clashingNames) {
+    for (const name of this.exposedFunctionNames) {
+      this.categorizeFunction(name, clashingNames)
+    }
+  }
+
+  categorizeFunction (name, clashingNames) {
+    const category = this.categories.find(c => c.functionIs(name))
     const lookupName = this.handleNameClash(clashingNames, name)
-    type ? type.categorizeFunction(name, lookupName) : this.unusedCssFunctions.push(name)
+    category.categorizeFunction(name, lookupName)
   }
 
   property () {
-    return {
-      functionIs: (name) => {
-        return !!this.cssPropertyName(name)
-      },
-      categorizeFunction: (name, lookupName) => {
+    return this.createCategorizer(
+      'properties',
+      {},
+      name => !!this.cssPropertyName(name),
+      (name, lookupName) => {
         const cssPropName = this.cssPropertyName(name)
         const params = this.functionParameters(name)
         const propInfo = {
           name: name,
           paramemterTypes: this.typeFinder.paramsToTypes(params)
         }
-        this.properties[cssPropName] ?
-          this.properties[cssPropName].push(propInfo) :
-          this.properties[cssPropName] = [propInfo]
+        this.categorizedFunctions.properties[cssPropName] ?
+          this.categorizedFunctions.properties[cssPropName].push(propInfo) :
+          this.categorizedFunctions.properties[cssPropName] = [propInfo]
       }
-    }
+    )
   }
 
   pseudoClass () {
-    return {
-      functionIs: (name) => {
-        return this.functionBodyContains(name, 'Structure.PseudoClassSelector')
-      },
-      categorizeFunction: (name, lookupName) => {
-        this.pseudoClasses[this.findCssNameFromComment(name)] = lookupName
-      }
-    }
+    return this.createCategorizer(
+      'pseudoClasses',
+      {},
+      this.categorizeIfBodyContains('Structure.PseudoClassSelector'),
+      this.categorizer('pseudoClasses', this.findCssNameFromComment)
+    )
   }
 
   pseudoElement () {
-    return {
-      functionIs: (name) => {
-        return this.functionBodyContains(name, 'Structure.PseudoElement')
-      },
-      categorizeFunction: (name, lookupName) => {
-        this.pseudoElements[this.findCssNameFromComment(name)] = lookupName
-      }
-    }
+    return this.createCategorizer(
+      'pseudoElements',
+      {},
+      this.categorizeIfBodyContains('Structure.PseudoElement'),
+      this.categorizer('pseudoElements', this.findCssNameFromComment)
+    )
   }
 
   angle () {
-    return {
-      functionIs: (name) => {
-        return this.functionBodyContains(name, 'angleConverter')
-      },
-      categorizeFunction: (name, lookupName) => {
-        this.angles[this.findCssNameFromComment(name)] = lookupName
-      }
-    }
+    return this.createCategorizer(
+      'angles',
+      {},
+      this.categorizeIfBodyContains('angleConverter'),
+      this.categorizer('angles', this.findCssNameFromComment)
+    )
   }
 
   colorFunction () {
-    return {
-      functionIs: (name) => {
-        return this.functionReturnType(name) === 'Color'
-      },
-      categorizeFunction: (name, lookupName) => {
-        this.colorFunctions[this.colorFunctionCssName(name)] = lookupName
-      }
-    }
+    return this.createCategorizer(
+      'colorFunctions',
+      {},
+      name => this.functionReturnType(name) === 'Color',
+      this.categorizer('colorFunctions', this.colorFunctionCssName)
+    )
   }
 
   length () {
-    return {
-      functionIs: (name) => {
-        return this.functionBodyContains(name, 'lengthConverter')
-      },
-      categorizeFunction: (name, lookupName) => {
-        this.lengths[this.lengthCssName(name)] = lookupName
-      }
-    }
+    return this.createCategorizer(
+      'lengths',
+      {},
+      this.categorizeIfBodyContains('lengthConverter'),
+      this.categorizer('lengths', this.lengthCssName)
+    )
   }
 
   value () {
-    return {
-      functionIs: (name) => {
-        return this.functionBodyContains(name, 'value =') && this.functionArity(name) == 0
+    return this.createCategorizer(
+      'simpleValues',
+      {},
+      name => {
+        return this.functionBody(name).includes('value =') &&
+          this.functionArity(name) == 0
       },
-      categorizeFunction: (name, lookupName) => {
-        this.simpleValues[this.cssValueName(name)] = lookupName
-      }
-    }
+      this.categorizer('simpleValues', this.cssValueName)
+    )
   }
 
   transformFunction () {
-    return {
-      functionIs: (name) => {
-        return this.functionBodyContains(name, 'value =') && this.functionReturnType(name) === 'Transform'
+    return this.createCategorizer(
+      'tranformFunctions',
+      {},
+      name => {
+        return this.functionBody(name).includes('value =') &&
+          this.functionReturnType(name) === 'Transform'
       },
-      categorizeFunction: (name, lookupName) => {
-        this.tranformFunctions[this.findCssNameFromComment(name)] = lookupName
-      }
-    }
+      this.categorizer('tranformFunctions', this.findCssNameFromComment)
+    )
   }
 
   important () {
-    return {
-      functionIs: (name) => {
-        return this.functionCommentContains(name, '!important')
-      },
-      categorizeFunction: (name, lookupName) => {
-        this.importantFunction = lookupName
+    return this.createCategorizer(
+      'important',
+      null,
+      this.categorizeIfCommentContains('!important'),
+      (name, lookupName) => {
+        this.categorizedFunctions['important'] = lookupName
       }
-    }
+    )
   }
 
   id () {
-    return {
-      functionIs: (name) => {
-        return this.functionCommentContains(name, 'id selector')
-      },
-      categorizeFunction: (name, lookupName) => {
-        this.selectors['id'] = lookupName
+    return this.createCategorizer(
+      'selectors',
+      {},
+      this.categorizeIfCommentContains('id selector'),
+      (name, lookupName) => {
+        this.categorizedFunctions.selectors['id'] = lookupName
       }
-    }
+    )
   }
 
   class () {
-    return {
-      functionIs: (name) => {
-        return this.functionCommentContains(name, 'class selector')
-      },
-      categorizeFunction: (name, lookupName) => {
-        this.selectors['class'] = lookupName
+    return this.createCategorizer(
+      'selectors',
+      {},
+      this.categorizeIfCommentContains('class selector'),
+      (name, lookupName) => {
+        this.categorizedFunctions.selectors['class'] = lookupName
       }
-    }
+    )
   }
 
   selector () {
-    return {
-      functionIs: (name) => {
-        return this.functionCommentContains(name, 'custom selector')
-      },
-      categorizeFunction: (name, lookupName) => {
-        this.selectors['selector'] = lookupName
+    return this.createCategorizer(
+      'selectors',
+      {},
+      this.categorizeIfCommentContains('custom selector'),
+      (name, lookupName) => {
+        this.categorizedFunctions.selectors['selector'] = lookupName
       }
+    )
+  }
+
+  unknown () {
+    return this.createCategorizer(
+      'unusedCssFunctions',
+      [],
+      name => true,
+      (name, lookupName) => this.categorizedFunctions.unusedCssFunctions.push(name)
+    )
+  }
+
+  createCategorizer (categoryName, initialValue, is, setter) {
+    return {
+      functionIs: is,
+      categorizeFunction: setter,
+      initialize: (categorizedFunctions) => categorizedFunctions[categoryName] = initialValue
     }
   }
 
-  findCssNameFromComment (name) {
-    const comment = this.functionComment(name)
-    return execRegex(comment, /\[`(\S*)`\]/, `Failed to find css name for: ${name}`)[1]
+  categorizeIfBodyContains (str) {
+    return name => this.functionBody(name).includes(str)
+  }
+
+  categorizeIfCommentContains (str) {
+    return name => this.functionComment(name).includes(str)
+  }
+
+  categorizer (category, findName) {
+    return (name, lookupName) => {
+      this.categorizedFunctions[category][findName.call(this, name)] = lookupName
+    }
   }
 
   colorFunctionCssName (name) {
@@ -212,11 +213,19 @@ export default class extends ElmFileParser {
     return (match && match[1]) || 'hex'
   }
 
+  findCssNameFromComment (name) {
+    return execRegex(
+      this.functionComment(name),
+      /\[`(\S*)`\]/,
+      `Failed to find css name for: ${name}`
+    )[1]
+  }
+
   lengthCssName (name) {
     return execRegex(
       this.functionBody(name),
       /lengthConverter (?:\S*) "(\S*)"/,
-      'Failed to find value name for' + name
+      'Failed to find length name for' + name
     )[1]
   }
 
@@ -239,13 +248,5 @@ export default class extends ElmFileParser {
     if (propOverloadMatch) { return propOverloadMatch[1] }
     if (transformMatch) { return 'transform' }
     return ''
-  }
-
-  functionBodyContains (name, str) {
-    return this.functionBody(name).includes(str)
-  }
-
-  functionCommentContains (name, str) {
-    return this.functionComment(name).includes(str)
   }
  }
