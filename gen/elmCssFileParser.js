@@ -50,16 +50,17 @@ export default class extends ElmFileParser {
       'properties',
       {},
       name => !!this.cssPropertyName(name),
-      (name, lookupName) => {
+      (categoryName, name, lookupName) => {
         const cssPropName = this.cssPropertyName(name)
         const params = this.functionParameters(name)
         const propInfo = {
           name: name,
           paramemterTypes: this.typeFinder.paramsToTypes(params)
         }
-        this.categorizedFunctions.properties[cssPropName] ?
-          this.categorizedFunctions.properties[cssPropName].push(propInfo) :
-          this.categorizedFunctions.properties[cssPropName] = [propInfo]
+        let properties = this.categorizedFunctions[categoryName]
+        properties[cssPropName] ?
+          properties[cssPropName].push(propInfo) :
+          properties[cssPropName] = [propInfo]
       }
     )
   }
@@ -69,7 +70,7 @@ export default class extends ElmFileParser {
       'pseudoClasses',
       {},
       this.categorizeIfBodyContains('Structure.PseudoClassSelector'),
-      this.categorizer('pseudoClasses', this.findCssNameFromComment)
+      this.categorizer(this.findCssNameFromComment)
     )
   }
 
@@ -78,7 +79,7 @@ export default class extends ElmFileParser {
       'pseudoElements',
       {},
       this.categorizeIfBodyContains('Structure.PseudoElement'),
-      this.categorizer('pseudoElements', this.findCssNameFromComment)
+      this.categorizer(this.findCssNameFromComment)
     )
   }
 
@@ -87,7 +88,7 @@ export default class extends ElmFileParser {
       'angles',
       {},
       this.categorizeIfBodyContains('angleConverter'),
-      this.categorizer('angles', this.findCssNameFromComment)
+      this.categorizer(this.findCssNameFromComment)
     )
   }
 
@@ -96,7 +97,7 @@ export default class extends ElmFileParser {
       'colorFunctions',
       {},
       name => this.functionReturnType(name) === 'Color',
-      this.categorizer('colorFunctions', this.colorFunctionCssName)
+      this.categorizer(this.colorFunctionCssName)
     )
   }
 
@@ -105,7 +106,7 @@ export default class extends ElmFileParser {
       'lengths',
       {},
       this.categorizeIfBodyContains('lengthConverter'),
-      this.categorizer('lengths', this.lengthCssName)
+      this.categorizer(this.lengthCssName)
     )
   }
 
@@ -117,7 +118,7 @@ export default class extends ElmFileParser {
         return this.functionBody(name).includes('value =') &&
           this.functionArity(name) == 0
       },
-      this.categorizer('simpleValues', this.cssValueName)
+      this.categorizer(this.cssValueName)
     )
   }
 
@@ -129,7 +130,7 @@ export default class extends ElmFileParser {
         return this.functionBody(name).includes('value =') &&
           this.functionReturnType(name) === 'Transform'
       },
-      this.categorizer('tranformFunctions', this.findCssNameFromComment)
+      this.categorizer(this.findCssNameFromComment)
     )
   }
 
@@ -138,8 +139,8 @@ export default class extends ElmFileParser {
       'important',
       null,
       this.categorizeIfCommentContains('!important'),
-      (name, lookupName) => {
-        this.categorizedFunctions['important'] = lookupName
+      (categoryName, name, lookupName) => {
+        this.categorizedFunctions[categoryName] = lookupName
       }
     )
   }
@@ -149,8 +150,8 @@ export default class extends ElmFileParser {
       'selectors',
       {},
       this.categorizeIfCommentContains('id selector'),
-      (name, lookupName) => {
-        this.categorizedFunctions.selectors['id'] = lookupName
+      (categoryName, name, lookupName) => {
+        this.categorizedFunctions[categoryName]['id'] = lookupName
       }
     )
   }
@@ -160,8 +161,8 @@ export default class extends ElmFileParser {
       'selectors',
       {},
       this.categorizeIfCommentContains('class selector'),
-      (name, lookupName) => {
-        this.categorizedFunctions.selectors['class'] = lookupName
+      (categoryName, name, lookupName) => {
+        this.categorizedFunctions[categoryName]['class'] = lookupName
       }
     )
   }
@@ -171,8 +172,8 @@ export default class extends ElmFileParser {
       'selectors',
       {},
       this.categorizeIfCommentContains('custom selector'),
-      (name, lookupName) => {
-        this.categorizedFunctions.selectors['selector'] = lookupName
+      (categoryName, name, lookupName) => {
+        this.categorizedFunctions[categoryName]['selector'] = lookupName
       }
     )
   }
@@ -182,14 +183,14 @@ export default class extends ElmFileParser {
       'unusedCssFunctions',
       [],
       name => true,
-      (name, lookupName) => this.categorizedFunctions.unusedCssFunctions.push(name)
+      (categoryName, name, lookupName) => this.categorizedFunctions[categoryName].push(name)
     )
   }
 
-  createCategorizer (categoryName, initialValue, is, setter) {
+  createCategorizer (categoryName, initialValue, is, categorizer) {
     return {
       functionIs: is,
-      categorizeFunction: setter,
+      categorizeFunction: categorizer.bind(this, categoryName),
       initialize: (categorizedFunctions) => categorizedFunctions[categoryName] = initialValue
     }
   }
@@ -202,9 +203,9 @@ export default class extends ElmFileParser {
     return name => this.functionComment(name).includes(str)
   }
 
-  categorizer (category, findName) {
-    return (name, lookupName) => {
-      this.categorizedFunctions[category][findName.call(this, name)] = lookupName
+  categorizer (findName) {
+    return (categoryName, name, lookupName) => {
+      this.categorizedFunctions[categoryName][findName.call(this, name)] = lookupName
     }
   }
 
