@@ -118,7 +118,12 @@ export default class extends ElmFileParser {
         return this.functionBody(name).includes('value =') &&
           this.functionArity(name) == 0
       },
-      this.categorizer(this.cssValueName)
+      (categoryName, name, lookupName) => {
+        this.categorizedFunctions[categoryName][name] = {
+          name: lookupName,
+          types: this.typeFinder.lookupValueTypes(this.functionReturnType(name))
+        }
+      }
     )
   }
 

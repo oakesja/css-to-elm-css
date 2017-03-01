@@ -16,13 +16,15 @@ export default class {
       .filter(t => t.tipe.type === 'typeAdt' && types[t.tipe.value])
       .forEach(t => types[t.value] = types[t.tipe.value])
 
-    // console.log(typeAliases.find(t => t.value === 'BackgroundOrigin'))
-    // console.log(types['ExplicitLength'])
     return types
   }
 
   paramsToTypes (params) {
     return params.map(p => this.lookupTypeForParam(p))
+  }
+
+  lookupValueTypes (type) {
+    return this.cssValueTypes[type]
   }
 
     // TODO leak abastraction
