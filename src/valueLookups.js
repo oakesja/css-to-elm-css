@@ -3,7 +3,7 @@ export const important = "important";
 export const lengthFuncs = {
   "ch": "ch",
   "cm": "cm",
-  "em": "Css.em",
+  "em": "em",
   "ex": "ex",
   "in": "inches",
   "mm": "mm",
@@ -11,7 +11,7 @@ export const lengthFuncs = {
   "%": "pct",
   "pt": "pt",
   "px": "px",
-  "rem": "Css.rem",
+  "rem": "rem",
   "vh": "vh",
   "vmax": "vmax",
   "vmin": "vmin",
@@ -34,33 +34,47 @@ export const colorFuncs = {
 };
 
 export const simpleValues = {
+  "0": {
+    "name": "zero",
+    "types": [
+      "length",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrAuto",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "number",
+      "outline",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
   "absolute": {
     "name": "absolute",
     "types": [
       "position"
     ]
   },
-  "allPetiteCaps": {
+  "all-petite-caps": {
     "name": "allPetiteCaps",
     "types": [
       "fontVariant",
       "fontVariantCaps"
     ]
   },
-  "allScroll": {
+  "all-scroll": {
     "name": "allScroll",
     "types": [
       "cursor"
     ]
   },
-  "allSmallCaps": {
+  "all-small-caps": {
     "name": "allSmallCaps",
     "types": [
       "fontVariant",
       "fontVariantCaps"
     ]
   },
-  "arabicIndic": {
+  "arabic-indic": {
     "name": "arabicIndic",
     "types": [
       "listStyleTypeOrPositionOrImage"
@@ -73,7 +87,19 @@ export const simpleValues = {
     ]
   },
   "auto": {
-    "name": "auto"
+    "name": "auto",
+    "types": [
+      "lengthOrAuto",
+      "overflow",
+      "textRendering",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "alignItemsOrAuto",
+      "justifyContentOrAuto",
+      "cursor",
+      "lengthOrAutoOrCoverOrContain",
+      "intOrAuto"
+    ]
   },
   "bengali": {
     "name": "bengali",
@@ -99,7 +125,7 @@ export const simpleValues = {
       "fontWeight"
     ]
   },
-  "borderBox": {
+  "border-box": {
     "name": "borderBox",
     "types": [
       "boxSizing"
@@ -111,7 +137,7 @@ export const simpleValues = {
       "resize"
     ]
   },
-  "breakWord": {
+  "break-word": {
     "name": "breakWord",
     "types": [
       "overflowWrap"
@@ -130,18 +156,18 @@ export const simpleValues = {
     ]
   },
   "circle": {
-    "name": "Css.circle",
+    "name": "circle",
     "types": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
-  "cjkEarthlyBranch": {
+  "cjk-earthly-branch": {
     "name": "cjkEarthlyBranch",
     "types": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
-  "cjkHeavenlyStem": {
+  "cjk-heavenly-stem": {
     "name": "cjkHeavenlyStem",
     "types": [
       "listStyleTypeOrPositionOrImage"
@@ -153,7 +179,7 @@ export const simpleValues = {
       "textOverflow"
     ]
   },
-  "colResize": {
+  "col-resize": {
     "name": "colResize",
     "types": [
       "cursor"
@@ -165,13 +191,13 @@ export const simpleValues = {
       "flexDirectionOrWrap"
     ]
   },
-  "columnReverse": {
+  "column-reverse": {
     "name": "columnReverse",
     "types": [
       "flexDirectionOrWrap"
     ]
   },
-  "commonLigatures": {
+  "common-ligatures": {
     "name": "commonLigatures",
     "types": [
       "fontVariant",
@@ -179,7 +205,10 @@ export const simpleValues = {
     ]
   },
   "contain": {
-    "name": "contain"
+    "name": "contain",
+    "types": [
+      "lengthOrAutoOrCoverOrContain"
+    ]
   },
   "content": {
     "name": "content",
@@ -187,19 +216,19 @@ export const simpleValues = {
       "lengthOrNumberOrAutoOrNoneOrContent"
     ]
   },
-  "contentBox": {
+  "content-box": {
     "name": "contentBox",
     "types": [
       "boxSizing"
     ]
   },
-  "contextMenu": {
+  "context-menu": {
     "name": "contextMenu",
     "types": [
       "cursor"
     ]
   },
-  "contextual": {
+  "context": {
     "name": "contextual",
     "types": [
       "fontVariant",
@@ -213,7 +242,10 @@ export const simpleValues = {
     ]
   },
   "cover": {
-    "name": "cover"
+    "name": "cover",
+    "types": [
+      "lengthOrAutoOrCoverOrContain"
+    ]
   },
   "crosshair": {
     "name": "crosshair",
@@ -234,7 +266,7 @@ export const simpleValues = {
       "fontFamily"
     ]
   },
-  "cursorAlias": {
+  "alias": {
     "name": "cursorAlias",
     "types": [
       "cursor"
@@ -252,7 +284,7 @@ export const simpleValues = {
       "listStyleTypeOrPositionOrImage"
     ]
   },
-  "decimalLeadingZero": {
+  "decimal-leading-zero": {
     "name": "decimalLeadingZero",
     "types": [
       "listStyleTypeOrPositionOrImage"
@@ -270,7 +302,7 @@ export const simpleValues = {
       "listStyleTypeOrPositionOrImage"
     ]
   },
-  "diagonalFractions": {
+  "diagonal-fractions": {
     "name": "diagonalFractions",
     "types": [
       "fontVariant",
@@ -283,7 +315,7 @@ export const simpleValues = {
       "listStyleTypeOrPositionOrImage"
     ]
   },
-  "discretionaryLigatures": {
+  "discretionary-ligatures": {
     "name": "discretionaryLigatures",
     "types": [
       "fontVariant",
@@ -302,13 +334,13 @@ export const simpleValues = {
       "borderStyle"
     ]
   },
-  "eResize": {
+  "e-resize": {
     "name": "eResize",
     "types": [
       "cursor"
     ]
   },
-  "eachLine": {
+  "each-line": {
     "name": "eachLine",
     "types": [
       "textIndent"
@@ -320,7 +352,7 @@ export const simpleValues = {
       "textOverflow"
     ]
   },
-  "ewResize": {
+  "ew-resize": {
     "name": "ewResize",
     "types": [
       "cursor"
@@ -332,7 +364,7 @@ export const simpleValues = {
       "fontFamily"
     ]
   },
-  "fillAvailable": {
+  "fill-available": {
     "name": "fillAvailable",
     "types": [
       "minMaxDimension",
@@ -340,13 +372,13 @@ export const simpleValues = {
       "lengthOrNoneOrMinMaxDimension"
     ]
   },
-  "fillBox": {
+  "fill-box": {
     "name": "fillBox",
     "types": [
       "transformBox"
     ]
   },
-  "fitContent": {
+  "fit-content": {
     "name": "fitContent",
     "types": [
       "minMaxDimension",
@@ -366,7 +398,7 @@ export const simpleValues = {
       "transformStyle"
     ]
   },
-  "fullWidth": {
+  "full-width": {
     "name": "fullWidth",
     "types": [
       "textTransform"
@@ -432,7 +464,7 @@ export const simpleValues = {
       "overflow"
     ]
   },
-  "historicalLigatures": {
+  "historical-ligatures": {
     "name": "historicalLigatures",
     "types": [
       "fontVariant",
@@ -555,19 +587,19 @@ export const simpleValues = {
       "display"
     ]
   },
-  "inlineBlock": {
+  "inline-block": {
     "name": "inlineBlock",
     "types": [
       "display"
     ]
   },
-  "inlineListItem": {
+  "inline-list-item": {
     "name": "inlineListItem",
     "types": [
       "display"
     ]
   },
-  "inlineTable": {
+  "inline-table": {
     "name": "inlineTable",
     "types": [
       "display"
@@ -627,20 +659,20 @@ export const simpleValues = {
       "fontWeight"
     ]
   },
-  "lineThrough": {
+  "line-through": {
     "name": "lineThrough",
     "types": [
       "textDecorationLine"
     ]
   },
-  "liningNums": {
+  "lining-nums": {
     "name": "liningNums",
     "types": [
       "fontVariant",
       "fontVariantNumeric"
     ]
   },
-  "listItem": {
+  "list-item": {
     "name": "listItem",
     "types": [
       "display"
@@ -652,25 +684,25 @@ export const simpleValues = {
       "backgroundAttachment"
     ]
   },
-  "lowerAlpha": {
+  "lower-alpha": {
     "name": "lowerAlpha",
     "types": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
-  "lowerGreek": {
+  "lower-greek": {
     "name": "lowerGreek",
     "types": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
-  "lowerLatin": {
+  "lower-latin": {
     "name": "lowerLatin",
     "types": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
-  "lowerRoman": {
+  "lower-roman": {
     "name": "lowerRoman",
     "types": [
       "listStyleTypeOrPositionOrImage"
@@ -688,7 +720,7 @@ export const simpleValues = {
       "listStyleTypeOrPositionOrImage"
     ]
   },
-  "maxContent": {
+  "max-content": {
     "name": "maxContent",
     "types": [
       "minMaxDimension",
@@ -702,7 +734,7 @@ export const simpleValues = {
       "fontSize"
     ]
   },
-  "minContent": {
+  "min-content": {
     "name": "minContent",
     "types": [
       "minMaxDimension",
@@ -728,73 +760,88 @@ export const simpleValues = {
       "listStyleTypeOrPositionOrImage"
     ]
   },
-  "nResize": {
+  "n-resize": {
     "name": "nResize",
     "types": [
       "cursor"
     ]
   },
-  "neResize": {
+  "ne-resize": {
     "name": "neResize",
     "types": [
       "cursor"
     ]
   },
-  "neswResize": {
+  "nesw-resize": {
     "name": "neswResize",
     "types": [
       "cursor"
     ]
   },
-  "noCommonLigatures": {
+  "no-common-ligatures": {
     "name": "noCommonLigatures",
     "types": [
       "fontVariant",
       "fontVariantLigatures"
     ]
   },
-  "noContextual": {
+  "no-contextual": {
     "name": "noContextual",
     "types": [
       "fontVariant",
       "fontVariantLigatures"
     ]
   },
-  "noDiscretionaryLigatures": {
+  "no-discretionary-ligatures": {
     "name": "noDiscretionaryLigatures",
     "types": [
       "fontVariant",
       "fontVariantLigatures"
     ]
   },
-  "noDrop": {
+  "no-drop": {
     "name": "noDrop",
     "types": [
       "cursor"
     ]
   },
-  "noHistoricalLigatures": {
+  "no-historical-ligatures": {
     "name": "noHistoricalLigatures",
     "types": [
       "fontVariant",
       "fontVariantLigatures"
     ]
   },
-  "noRepeat": {
+  "no-repeat": {
     "name": "noRepeat",
     "types": [
       "backgroundRepeat",
       "backgroundRepeatShorthand"
     ]
   },
-  "noWrap": {
+  "nowrap": {
     "name": "noWrap",
     "types": [
       "whiteSpace"
     ]
   },
   "none": {
-    "name": "none"
+    "name": "none",
+    "types": [
+      "borderStyle",
+      "cursor",
+      "display",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "none",
+      "lengthOrNone",
+      "lengthOrNoneOrMinMaxDimension",
+      "listStyleType",
+      "listStyleTypeOrPositionOrImage",
+      "outline",
+      "resize",
+      "textDecorationLine",
+      "transform"
+    ]
   },
   "normal": {
     "name": "normal",
@@ -802,25 +849,25 @@ export const simpleValues = {
       "overflowWrap"
     ]
   },
-  "notAllowed": {
+  "not-allowed": {
     "name": "notAllowed",
     "types": [
       "cursor"
     ]
   },
-  "nsResize": {
+  "ns-resize": {
     "name": "nsResize",
     "types": [
       "cursor"
     ]
   },
-  "nwResize": {
+  "nw-resize": {
     "name": "nwResize",
     "types": [
       "cursor"
     ]
   },
-  "nwseResize": {
+  "nwse-resize": {
     "name": "nwseResize",
     "types": [
       "cursor"
@@ -832,7 +879,7 @@ export const simpleValues = {
       "fontStyle"
     ]
   },
-  "oldstyleNums": {
+  "oldstyle-nums": {
     "name": "oldstyleNums",
     "types": [
       "fontVariant",
@@ -882,13 +929,13 @@ export const simpleValues = {
       "textDecorationLine"
     ]
   },
-  "paddingBox": {
+  "padding-box": {
     "name": "paddingBox",
     "types": [
       "backgroundClip"
     ]
   },
-  "petiteCaps": {
+  "petite-caps": {
     "name": "petiteCaps",
     "types": [
       "fontVariant",
@@ -901,19 +948,19 @@ export const simpleValues = {
       "cursor"
     ]
   },
-  "preserve3d": {
+  "preserve-3d": {
     "name": "preserve3d",
     "types": [
       "transformStyle"
     ]
   },
   "progress": {
-    "name": "Css.progress",
+    "name": "progress",
     "types": [
       "cursor"
     ]
   },
-  "proportionalNums": {
+  "proportional-nums": {
     "name": "proportionalNums",
     "types": [
       "fontVariant",
@@ -933,13 +980,13 @@ export const simpleValues = {
       "backgroundRepeatShorthand"
     ]
   },
-  "repeatX": {
+  "repeat-x": {
     "name": "repeatX",
     "types": [
       "backgroundRepeatShorthand"
     ]
   },
-  "repeatY": {
+  "repeat-y": {
     "name": "repeatY",
     "types": [
       "backgroundRepeatShorthand"
@@ -952,7 +999,7 @@ export const simpleValues = {
     ]
   },
   "round": {
-    "name": "Css.round",
+    "name": "round",
     "types": [
       "backgroundRepeat",
       "backgroundRepeatShorthand"
@@ -964,25 +1011,25 @@ export const simpleValues = {
       "flexDirectionOrWrap"
     ]
   },
-  "rowResize": {
+  "row-resize": {
     "name": "rowResize",
     "types": [
       "cursor"
     ]
   },
-  "rowReverse": {
+  "row-reverse": {
     "name": "rowReverse",
     "types": [
       "flexDirectionOrWrap"
     ]
   },
-  "sResize": {
+  "s-resize": {
     "name": "sResize",
     "types": [
       "cursor"
     ]
   },
-  "sansSerif": {
+  "sans-serif": {
     "name": "sansSerif",
     "types": [
       "fontFamily"
@@ -994,7 +1041,7 @@ export const simpleValues = {
       "overflow"
     ]
   },
-  "seResize": {
+  "se-resize": {
     "name": "seResize",
     "types": [
       "cursor"
@@ -1006,7 +1053,7 @@ export const simpleValues = {
       "fontFamily"
     ]
   },
-  "slashedZero": {
+  "slashed-zero": {
     "name": "slashedZero",
     "types": [
       "fontVariant",
@@ -1014,12 +1061,12 @@ export const simpleValues = {
     ]
   },
   "small": {
-    "name": "Css.small",
+    "name": "small",
     "types": [
       "fontSize"
     ]
   },
-  "smallCaps": {
+  "small-caps": {
     "name": "smallCaps",
     "types": [
       "fontVariant",
@@ -1051,7 +1098,7 @@ export const simpleValues = {
       "listStyleTypeOrPositionOrImage"
     ]
   },
-  "stackedFractions": {
+  "stacked-fractions": {
     "name": "stackedFractions",
     "types": [
       "fontVariant",
@@ -1070,67 +1117,67 @@ export const simpleValues = {
       "position"
     ]
   },
-  "swResize": {
+  "sw-resize": {
     "name": "swResize",
     "types": [
       "cursor"
     ]
   },
   "table": {
-    "name": "Css.table",
+    "name": "table",
     "types": [
       "display"
     ]
   },
-  "tableCaption": {
+  "table-caption": {
     "name": "tableCaption",
     "types": [
       "display"
     ]
   },
-  "tableCell": {
+  "table-cell": {
     "name": "tableCell",
     "types": [
       "display"
     ]
   },
-  "tableColumn": {
+  "table-column": {
     "name": "tableColumn",
     "types": [
       "display"
     ]
   },
-  "tableColumnGroup": {
+  "table-column-group": {
     "name": "tableColumnGroup",
     "types": [
       "display"
     ]
   },
-  "tableFooterGroup": {
+  "table-footer-group": {
     "name": "tableFooterGroup",
     "types": [
       "display"
     ]
   },
-  "tableHeaderGroup": {
+  "table-header-group": {
     "name": "tableHeaderGroup",
     "types": [
       "display"
     ]
   },
-  "tableRow": {
+  "table-row": {
     "name": "tableRow",
     "types": [
       "display"
     ]
   },
-  "tableRowGroup": {
+  "table-row-group": {
     "name": "tableRowGroup",
     "types": [
       "display"
     ]
   },
-  "tabularNums": {
+  "tabular-nums": {
     "name": "tabularNums",
     "types": [
       "fontVariant",
@@ -1155,7 +1202,7 @@ export const simpleValues = {
       "listStyleTypeOrPositionOrImage"
     ]
   },
-  "titlingCaps": {
+  "titling-caps": {
     "name": "titlingCaps",
     "types": [
       "fontVariant",
@@ -1234,19 +1281,19 @@ export const simpleValues = {
       "intOrAuto"
     ]
   },
-  "upperAlpha": {
+  "upper-alpha": {
     "name": "upperAlpha",
     "types": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
-  "upperLatin": {
+  "upper-latin": {
     "name": "upperLatin",
     "types": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
-  "upperRoman": {
+  "upper-roman": {
     "name": "upperRoman",
     "types": [
       "listStyleTypeOrPositionOrImage"
@@ -1264,13 +1311,13 @@ export const simpleValues = {
       "resize"
     ]
   },
-  "verticalText": {
+  "vertical-text": {
     "name": "verticalText",
     "types": [
       "cursor"
     ]
   },
-  "viewBox": {
+  "view-box": {
     "name": "viewBox",
     "types": [
       "transformBox"
@@ -1282,7 +1329,7 @@ export const simpleValues = {
       "overflow"
     ]
   },
-  "wResize": {
+  "w-resize": {
     "name": "wResize",
     "types": [
       "cursor"
@@ -1306,46 +1353,43 @@ export const simpleValues = {
       "flexDirectionOrWrap"
     ]
   },
-  "wrapReverse": {
+  "wrap-reverse": {
     "name": "wrapReverse",
     "types": [
       "flexDirectionOrWrap"
     ]
   },
-  "xLarge": {
+  "x-large": {
     "name": "xLarge",
     "types": [
       "fontSize"
     ]
   },
-  "xSmall": {
+  "x-small": {
     "name": "xSmall",
     "types": [
       "fontSize"
     ]
   },
-  "xxLarge": {
+  "xx-large": {
     "name": "xxLarge",
     "types": [
       "fontSize"
     ]
   },
-  "xxSmall": {
+  "xx-small": {
     "name": "xxSmall",
     "types": [
       "fontSize"
     ]
   },
-  "zero": {
-    "name": "zero"
-  },
-  "zoomIn": {
+  "zoom-in": {
     "name": "zoomIn",
     "types": [
       "cursor"
     ]
   },
-  "zoomOut": {
+  "zoom-out": {
     "name": "zoomOut",
     "types": [
       "cursor"

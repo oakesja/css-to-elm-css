@@ -41,8 +41,8 @@ export default class extends ElmFileParser {
 
   categorizeFunction (name, clashingNames) {
     const category = this.categories.find(c => c.functionIs(name))
-    const lookupName = this.handleNameClash(clashingNames, name)
-    category.categorizeFunction(name, lookupName)
+    // const lookupName = this.handleNameClash(clashingNames, name)
+    category.categorizeFunction(name)
   }
 
   property () {
@@ -50,7 +50,7 @@ export default class extends ElmFileParser {
       'properties',
       {},
       name => !!this.cssPropertyName(name),
-      (categoryName, name, lookupName) => {
+      (categoryName, name) => {
         const cssPropName = this.cssPropertyName(name)
         const params = this.functionParameters(name)
         const propInfo = {
@@ -70,7 +70,7 @@ export default class extends ElmFileParser {
       'pseudoClasses',
       {},
       this.categorizeIfBodyContains('Structure.PseudoClassSelector'),
-      this.categorizer(this.findCssNameFromComment)
+      this.categorizer(this.findCssNameFromComment, name => name)
     )
   }
 
@@ -79,7 +79,7 @@ export default class extends ElmFileParser {
       'pseudoElements',
       {},
       this.categorizeIfBodyContains('Structure.PseudoElement'),
-      this.categorizer(this.findCssNameFromComment)
+      this.categorizer(this.findCssNameFromComment, name => name)
     )
   }
 
@@ -88,7 +88,7 @@ export default class extends ElmFileParser {
       'angles',
       {},
       this.categorizeIfBodyContains('angleConverter'),
-      this.categorizer(this.findCssNameFromComment)
+      this.categorizer(this.findCssNameFromComment, name => name)
     )
   }
 
@@ -96,8 +96,8 @@ export default class extends ElmFileParser {
     return this.createCategorizer(
       'colorFunctions',
       {},
-      name => this.functionReturnType(name) === 'Color',
-      this.categorizer(this.colorFunctionCssName)
+      name => this.returnTypeIs(name, 'Color'),
+      this.categorizer(this.colorFunctionCssName, name => name)
     )
   }
 
@@ -106,7 +106,7 @@ export default class extends ElmFileParser {
       'lengths',
       {},
       this.categorizeIfBodyContains('lengthConverter'),
-      this.categorizer(this.lengthCssName)
+      this.categorizer(this.lengthCssName, name => name)
     )
   }
 
@@ -118,12 +118,12 @@ export default class extends ElmFileParser {
         return this.functionBody(name).includes('value =') &&
           this.functionArity(name) == 0
       },
-      (categoryName, name, lookupName) => {
-        this.categorizedFunctions[categoryName][name] = {
-          name: lookupName,
-          types: this.typeFinder.lookupValueTypes(this.functionReturnType(name))
+      this.categorizer(this.cssValueName, name => {
+        return {
+          name: name,
+          types: this.cssValueTypes(this.functionReturnType(name))
         }
-      }
+      })
     )
   }
 
@@ -133,9 +133,9 @@ export default class extends ElmFileParser {
       {},
       name => {
         return this.functionBody(name).includes('value =') &&
-          this.functionReturnType(name) === 'Transform'
+          this.returnTypeIs(name, 'Transform')
       },
-      this.categorizer(this.findCssNameFromComment)
+      this.categorizer(this.findCssNameFromComment, name => name)
     )
   }
 
@@ -144,8 +144,8 @@ export default class extends ElmFileParser {
       'important',
       null,
       this.categorizeIfCommentContains('!important'),
-      (categoryName, name, lookupName) => {
-        this.categorizedFunctions[categoryName] = lookupName
+      (categoryName, name) => {
+        this.categorizedFunctions[categoryName] = name
       }
     )
   }
@@ -155,8 +155,8 @@ export default class extends ElmFileParser {
       'selectors',
       {},
       this.categorizeIfCommentContains('id selector'),
-      (categoryName, name, lookupName) => {
-        this.categorizedFunctions[categoryName]['id'] = lookupName
+      (categoryName, name) => {
+        this.categorizedFunctions[categoryName]['id'] = name
       }
     )
   }
@@ -166,8 +166,8 @@ export default class extends ElmFileParser {
       'selectors',
       {},
       this.categorizeIfCommentContains('class selector'),
-      (categoryName, name, lookupName) => {
-        this.categorizedFunctions[categoryName]['class'] = lookupName
+      (categoryName, name) => {
+        this.categorizedFunctions[categoryName]['class'] = name
       }
     )
   }
@@ -177,8 +177,8 @@ export default class extends ElmFileParser {
       'selectors',
       {},
       this.categorizeIfCommentContains('custom selector'),
-      (categoryName, name, lookupName) => {
-        this.categorizedFunctions[categoryName]['selector'] = lookupName
+      (categoryName, name) => {
+        this.categorizedFunctions[categoryName]['selector'] = name
       }
     )
   }
@@ -188,7 +188,7 @@ export default class extends ElmFileParser {
       'unusedCssFunctions',
       [],
       name => true,
-      (categoryName, name, lookupName) => this.categorizedFunctions[categoryName].push(name)
+      (categoryName, name) => this.categorizedFunctions[categoryName].push(name)
     )
   }
 
@@ -208,9 +208,11 @@ export default class extends ElmFileParser {
     return name => this.functionComment(name).includes(str)
   }
 
-  categorizer (findName) {
-    return (categoryName, name, lookupName) => {
-      this.categorizedFunctions[categoryName][findName.call(this, name)] = lookupName
+  categorizer (findName, createValue) {
+    return (categoryName, name) => {
+      const cssName = findName.call(this, name)
+      const value = createValue.call(this, name)
+      this.categorizedFunctions[categoryName][cssName] = value
     }
   }
 
@@ -255,4 +257,30 @@ export default class extends ElmFileParser {
     if (transformMatch) { return 'transform' }
     return ''
   }
- }
+
+  returnTypeIs (functionName, expectedTypeName) {
+    const returnType = this.functionReturnType(functionName)
+    return returnType.kind === 'type' && returnType.value === expectedTypeName
+  }
+
+  cssValueTypes (signatureType) {
+    switch (signatureType.kind) {
+      case 'type':
+        return this.typeFinder.lookupValueTypes(signatureType.value)
+      case 'record':
+        return this.cssTypesFromRecord(signatureType.fields)
+      default:
+        console.log(`Unknown signature type: ${signatureType.kind}`)
+    }
+  }
+
+  cssTypesFromRecord (record) {
+    let types = []
+    for (let key in record) {
+      if (record[key] === 'Compatible') {
+        types.push(key)
+      }
+    }
+    return types
+  }
+}

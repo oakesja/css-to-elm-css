@@ -46,10 +46,9 @@ export default class {
     return this._declarationFor(functionName).annotation.signature
   }
 
-    // TODO leak abastraction
   functionReturnType (functionName) {
     const signature = this.functionSignature(functionName)
-    return signature[signature.length - 1].value
+    return this._toSignatureType(signature[signature.length - 1])
   }
 
     // TODO leak abastraction
@@ -69,5 +68,30 @@ export default class {
 
   _declarationFor (name) {
     return this.ast.declarations.find(d => d.value === name)
+  }
+
+  _toSignatureType (signature) {
+    switch (signature.type) {
+      case 'typeAdt':
+        return {
+          kind: 'type',
+          value: signature.value
+        }
+      case 'typeRec':
+        return {
+          kind: 'record',
+          fields: this._createTypeRecordLookup(signature.fieldDefs)
+        }
+      default:
+        console.log(`Unknown signature type: ${signature.type}`)
+        console.log(signature)
+    }
+  }
+
+  _createTypeRecordLookup (record) {
+    return record.reduce((fields, f) => {
+      fields[f.name] = f.tipe.value
+      return fields
+    }, {})
   }
  }
