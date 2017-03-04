@@ -1,5 +1,5 @@
 import ElmFileParser from './elmFileParser'
-import TypeFinder from './typeFinder'
+import CssTypeFinder from './cssTypeFinder'
 import {execRegex} from './common'
 
 // TODO Favor composition over inheritance
@@ -24,7 +24,7 @@ export default class extends ElmFileParser {
     ]
     this.categorizedFunctions = {}
     this.categories.forEach(c => c.initialize(this.categorizedFunctions))
-    this.typeFinder = new TypeFinder(this.typeAliases())
+    this.cssTypeFinder = new CssTypeFinder(this.typeAliases())
   }
 
   // TODO this should not worry about clashingNames, return fullyQualifiedName as part of it instead
@@ -55,7 +55,7 @@ export default class extends ElmFileParser {
         const params = this.functionParameters(name)
         const propInfo = {
           name: name,
-          paramemterTypes: this.typeFinder.paramsToTypes(params)
+          paramemterTypes: this.cssTypeFinder.paramsToTypes(params)
         }
         let properties = this.categorizedFunctions[categoryName]
         properties[cssPropName] ?
@@ -260,17 +260,17 @@ export default class extends ElmFileParser {
 
   returnTypeIs (functionName, expectedTypeName) {
     const returnType = this.functionReturnType(functionName)
-    return returnType.kind === 'type' && returnType.value === expectedTypeName
+    return returnType.kind === 'adt' && returnType.value === expectedTypeName
   }
 
   cssValueTypes (signatureType) {
     switch (signatureType.kind) {
-      case 'type':
-        return this.typeFinder.lookupValueTypes(signatureType.value)
+      case 'adt':
+        return this.cssTypeFinder.lookupValueTypes(signatureType.value)
       case 'record':
         return this.cssTypesFromRecord(signatureType.fields)
       default:
-        console.log(`Unknown signature type: ${signatureType.kind}`)
+        console.warn(`Unknown signature type: ${signatureType.kind}`)
     }
   }
 

@@ -1,6 +1,7 @@
 import {execRegex, reverseString} from './common'
 import fs from 'fs'
 import parser from './elmParser'
+import astNodeToType from './elmTypeParser'
 
 export default class {
   constructor (filePath) {
@@ -41,17 +42,16 @@ export default class {
       .join('\n')
   }
 
-    // TODO leak abastraction
   functionSignature (functionName) {
-    return this._declarationFor(functionName).annotation.signature
+    const signature = this._declarationFor(functionName).annotation.signature
+    return signature.map(astNodeToType)
   }
 
   functionReturnType (functionName) {
     const signature = this.functionSignature(functionName)
-    return this._toSignatureType(signature[signature.length - 1])
+    return signature[signature.length - 1]
   }
 
-    // TODO leak abastraction
   functionParameters (functionName) {
     const signature = this.functionSignature(functionName)
     return signature.slice(0, signature.length - 1)
@@ -61,37 +61,12 @@ export default class {
     return this.functionSignature(functionName).length - 1
   }
 
-    // TODO leak abastraction
+    // TODO leaky abastraction
   typeAliases () {
     return this.ast.declarations.filter(d => d.type === 'typeAliasDecl')
   }
 
   _declarationFor (name) {
     return this.ast.declarations.find(d => d.value === name)
-  }
-
-  _toSignatureType (signature) {
-    switch (signature.type) {
-      case 'typeAdt':
-        return {
-          kind: 'type',
-          value: signature.value
-        }
-      case 'typeRec':
-        return {
-          kind: 'record',
-          fields: this._createTypeRecordLookup(signature.fieldDefs)
-        }
-      default:
-        console.log(`Unknown signature type: ${signature.type}`)
-        console.log(signature)
-    }
-  }
-
-  _createTypeRecordLookup (record) {
-    return record.reduce((fields, f) => {
-      fields[f.name] = f.tipe.value
-      return fields
-    }, {})
   }
  }

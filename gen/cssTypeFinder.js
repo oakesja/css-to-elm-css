@@ -27,30 +27,26 @@ export default class {
     return this.cssValueTypes[type]
   }
 
-    // TODO leak abastraction
   lookupTypeForParam (p) {
-    if (p.type == 'typeAdt' && this.cssValueTypes[p.value]) {
+    if (p.kind === 'adt' && this.cssValueTypes[p.value]) {
       return {
         type: 'cssValue',
         paramTypes: this.cssValueTypes[p.value]
       }
-    } else if (p.type === 'typeAdt' && p.value === 'List') {
+    } else if (p.kind === 'list') {
       return {
         type: 'list',
-        paramTypes: this.lookupTypeForParam(p.params[0])
+        paramTypes: this.lookupTypeForParam(p.value)
       }
-    } else if (p.type === 'typeAdt' && this.primitives.includes(p.value)) {
+    } else if (p.kind === 'primitive') {
       return {
         type: 'primitive',
         paramTypes: [p.value]
       }
-    } else if (p.type === 'typeBracket') {
-      return this.lookupTypeForParam(p.element)
-    } else if (p.type === 'typeFun') {
-      return this.lookupTypeForParam(p.signature[0])
-    } else {
-      console.log(p)
-      return []
+    } else if (p.kind === 'function') {
+      return this.lookupTypeForParam(p.parameters[0])
     }
+    console.warn('Unknown css type for: ' + JSON.stringify(p))
+    return []
   }
  }
