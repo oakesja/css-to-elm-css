@@ -1,42 +1,517 @@
 export const important = "important";
 
 export const lengthFuncs = {
-  "ch": "ch",
-  "cm": "cm",
-  "em": "em",
-  "ex": "ex",
-  "in": "inches",
-  "mm": "mm",
-  "pc": "pc",
-  "%": "pct",
-  "pt": "pt",
-  "px": "px",
-  "rem": "rem",
-  "vh": "vh",
-  "vmax": "vmax",
-  "vmin": "vmin",
-  "vw": "vw"
+  "ch": {
+    "functionName": "ch",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "cm": {
+    "functionName": "cm",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "em": {
+    "functionName": "em",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "ex": {
+    "functionName": "ex",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "in": {
+    "functionName": "inches",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "mm": {
+    "functionName": "mm",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "pc": {
+    "functionName": "pc",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "%": {
+    "functionName": "pct",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "pt": {
+    "functionName": "pt",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "px": {
+    "functionName": "px",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "rem": {
+    "functionName": "rem",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "vh": {
+    "functionName": "vh",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "vmax": {
+    "functionName": "vmax",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "vmin": {
+    "functionName": "vmin",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "vw": {
+    "functionName": "vw",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  }
 };
 
 export const angleFuncs = {
-  "deg": "deg",
-  "grad": "grad",
-  "rad": "rad",
-  "turn": "turn"
+  "deg": {
+    "functionName": "deg",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "angle"
+    ]
+  },
+  "grad": {
+    "functionName": "grad",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "angle"
+    ]
+  },
+  "rad": {
+    "functionName": "rad",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "angle"
+    ]
+  },
+  "turn": {
+    "functionName": "turn",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "angle"
+    ]
+  }
 };
 
 export const colorFuncs = {
-  "hex": "hex",
-  "hsl": "hsl",
-  "hsla": "hsla",
-  "rgb": "rgb",
-  "rgba": "rgba"
+  "hex": {
+    "functionName": "hex",
+    "params": [
+      [
+        "String"
+      ]
+    ],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  },
+  "hsl": {
+    "functionName": "hsl",
+    "params": [
+      [
+        "Float"
+      ],
+      [
+        "Float"
+      ],
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  },
+  "hsla": {
+    "functionName": "hsla",
+    "params": [
+      [
+        "Float"
+      ],
+      [
+        "Float"
+      ],
+      [
+        "Float"
+      ],
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  },
+  "rgb": {
+    "functionName": "rgb",
+    "params": [
+      [
+        "Int"
+      ],
+      [
+        "Int"
+      ],
+      [
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  },
+  "rgba": {
+    "functionName": "rgba",
+    "params": [
+      [
+        "Int"
+      ],
+      [
+        "Int"
+      ],
+      [
+        "Int"
+      ],
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  }
 };
 
 export const simpleValues = {
   "0": {
-    "name": "zero",
-    "types": [
+    "functionName": "zero",
+    "params": [],
+    "returnTypes": [
       "length",
       "lengthOrNumber",
       "lengthOrNone",
@@ -49,46 +524,53 @@ export const simpleValues = {
     ]
   },
   "absolute": {
-    "name": "absolute",
-    "types": [
+    "functionName": "absolute",
+    "params": [],
+    "returnTypes": [
       "position"
     ]
   },
   "all-petite-caps": {
-    "name": "allPetiteCaps",
-    "types": [
+    "functionName": "allPetiteCaps",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantCaps"
     ]
   },
   "all-scroll": {
-    "name": "allScroll",
-    "types": [
+    "functionName": "allScroll",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "all-small-caps": {
-    "name": "allSmallCaps",
-    "types": [
+    "functionName": "allSmallCaps",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantCaps"
     ]
   },
   "arabic-indic": {
-    "name": "arabicIndic",
-    "types": [
+    "functionName": "arabicIndic",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "armenian": {
-    "name": "armenian",
-    "types": [
+    "functionName": "armenian",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "auto": {
-    "name": "auto",
-    "types": [
+    "functionName": "auto",
+    "params": [],
+    "returnTypes": [
       "lengthOrAuto",
       "overflow",
       "textRendering",
@@ -102,384 +584,446 @@ export const simpleValues = {
     ]
   },
   "bengali": {
-    "name": "bengali",
-    "types": [
+    "functionName": "bengali",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "block": {
-    "name": "block",
-    "types": [
+    "functionName": "block",
+    "params": [],
+    "returnTypes": [
       "display"
     ]
   },
   "bold": {
-    "name": "bold",
-    "types": [
+    "functionName": "bold",
+    "params": [],
+    "returnTypes": [
       "fontWeight"
     ]
   },
   "bolder": {
-    "name": "bolder",
-    "types": [
+    "functionName": "bolder",
+    "params": [],
+    "returnTypes": [
       "fontWeight"
     ]
   },
   "border-box": {
-    "name": "borderBox",
-    "types": [
+    "functionName": "borderBox",
+    "params": [],
+    "returnTypes": [
       "boxSizing"
     ]
   },
   "both": {
-    "name": "both",
-    "types": [
+    "functionName": "both",
+    "params": [],
+    "returnTypes": [
       "resize"
     ]
   },
   "break-word": {
-    "name": "breakWord",
-    "types": [
+    "functionName": "breakWord",
+    "params": [],
+    "returnTypes": [
       "overflowWrap"
     ]
   },
   "capitalize": {
-    "name": "capitalize",
-    "types": [
+    "functionName": "capitalize",
+    "params": [],
+    "returnTypes": [
       "textTransform"
     ]
   },
   "cell": {
-    "name": "cell",
-    "types": [
+    "functionName": "cell",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "circle": {
-    "name": "circle",
-    "types": [
+    "functionName": "circle",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "cjk-earthly-branch": {
-    "name": "cjkEarthlyBranch",
-    "types": [
+    "functionName": "cjkEarthlyBranch",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "cjk-heavenly-stem": {
-    "name": "cjkHeavenlyStem",
-    "types": [
+    "functionName": "cjkHeavenlyStem",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "clip": {
-    "name": "clip",
-    "types": [
+    "functionName": "clip",
+    "params": [],
+    "returnTypes": [
       "textOverflow"
     ]
   },
   "col-resize": {
-    "name": "colResize",
-    "types": [
+    "functionName": "colResize",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "column": {
-    "name": "column",
-    "types": [
+    "functionName": "column",
+    "params": [],
+    "returnTypes": [
       "flexDirectionOrWrap"
     ]
   },
   "column-reverse": {
-    "name": "columnReverse",
-    "types": [
+    "functionName": "columnReverse",
+    "params": [],
+    "returnTypes": [
       "flexDirectionOrWrap"
     ]
   },
   "common-ligatures": {
-    "name": "commonLigatures",
-    "types": [
+    "functionName": "commonLigatures",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantLigatures"
     ]
   },
   "contain": {
-    "name": "contain",
-    "types": [
+    "functionName": "contain",
+    "params": [],
+    "returnTypes": [
       "lengthOrAutoOrCoverOrContain"
     ]
   },
   "content": {
-    "name": "content",
-    "types": [
+    "functionName": "content",
+    "params": [],
+    "returnTypes": [
       "lengthOrNumberOrAutoOrNoneOrContent"
     ]
   },
   "content-box": {
-    "name": "contentBox",
-    "types": [
+    "functionName": "contentBox",
+    "params": [],
+    "returnTypes": [
       "boxSizing"
     ]
   },
   "context-menu": {
-    "name": "contextMenu",
-    "types": [
+    "functionName": "contextMenu",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "context": {
-    "name": "contextual",
-    "types": [
+    "functionName": "contextual",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantLigatures"
     ]
   },
   "copy": {
-    "name": "copy",
-    "types": [
+    "functionName": "copy",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "cover": {
-    "name": "cover",
-    "types": [
+    "functionName": "cover",
+    "params": [],
+    "returnTypes": [
       "lengthOrAutoOrCoverOrContain"
     ]
   },
   "crosshair": {
-    "name": "crosshair",
-    "types": [
+    "functionName": "crosshair",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "currentColor": {
-    "name": "currentColor",
-    "types": [
+    "functionName": "currentColor",
+    "params": [],
+    "returnTypes": [
       "color",
       "warnings"
     ]
   },
   "cursive": {
-    "name": "cursive",
-    "types": [
+    "functionName": "cursive",
+    "params": [],
+    "returnTypes": [
       "fontFamily"
     ]
   },
   "alias": {
-    "name": "cursorAlias",
-    "types": [
+    "functionName": "cursorAlias",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "dashed": {
-    "name": "dashed",
-    "types": [
+    "functionName": "dashed",
+    "params": [],
+    "returnTypes": [
       "borderStyle"
     ]
   },
   "decimal": {
-    "name": "decimal",
-    "types": [
+    "functionName": "decimal",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "decimal-leading-zero": {
-    "name": "decimalLeadingZero",
-    "types": [
+    "functionName": "decimalLeadingZero",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "default": {
-    "name": "default",
-    "types": [
+    "functionName": "default",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "devanagari": {
-    "name": "devanagari",
-    "types": [
+    "functionName": "devanagari",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "diagonal-fractions": {
-    "name": "diagonalFractions",
-    "types": [
+    "functionName": "diagonalFractions",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantNumeric"
     ]
   },
   "disc": {
-    "name": "disc",
-    "types": [
+    "functionName": "disc",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "discretionary-ligatures": {
-    "name": "discretionaryLigatures",
-    "types": [
+    "functionName": "discretionaryLigatures",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantLigatures"
     ]
   },
   "dotted": {
-    "name": "dotted",
-    "types": [
+    "functionName": "dotted",
+    "params": [],
+    "returnTypes": [
       "borderStyle"
     ]
   },
   "double": {
-    "name": "double",
-    "types": [
+    "functionName": "double",
+    "params": [],
+    "returnTypes": [
       "borderStyle"
     ]
   },
   "e-resize": {
-    "name": "eResize",
-    "types": [
+    "functionName": "eResize",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "each-line": {
-    "name": "eachLine",
-    "types": [
+    "functionName": "eachLine",
+    "params": [],
+    "returnTypes": [
       "textIndent"
     ]
   },
   "ellipsis": {
-    "name": "ellipsis",
-    "types": [
+    "functionName": "ellipsis",
+    "params": [],
+    "returnTypes": [
       "textOverflow"
     ]
   },
   "ew-resize": {
-    "name": "ewResize",
-    "types": [
+    "functionName": "ewResize",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "fantasy": {
-    "name": "fantasy",
-    "types": [
+    "functionName": "fantasy",
+    "params": [],
+    "returnTypes": [
       "fontFamily"
     ]
   },
   "fill-available": {
-    "name": "fillAvailable",
-    "types": [
+    "functionName": "fillAvailable",
+    "params": [],
+    "returnTypes": [
       "minMaxDimension",
       "lengthOrMinMaxDimension",
       "lengthOrNoneOrMinMaxDimension"
     ]
   },
   "fill-box": {
-    "name": "fillBox",
-    "types": [
+    "functionName": "fillBox",
+    "params": [],
+    "returnTypes": [
       "transformBox"
     ]
   },
   "fit-content": {
-    "name": "fitContent",
-    "types": [
+    "functionName": "fitContent",
+    "params": [],
+    "returnTypes": [
       "minMaxDimension",
       "lengthOrMinMaxDimension",
       "lengthOrNoneOrMinMaxDimension"
     ]
   },
   "fixed": {
-    "name": "fixed",
-    "types": [
+    "functionName": "fixed",
+    "params": [],
+    "returnTypes": [
       "position"
     ]
   },
   "flat": {
-    "name": "flat",
-    "types": [
+    "functionName": "flat",
+    "params": [],
+    "returnTypes": [
       "transformStyle"
     ]
   },
   "full-width": {
-    "name": "fullWidth",
-    "types": [
+    "functionName": "fullWidth",
+    "params": [],
+    "returnTypes": [
       "textTransform"
     ]
   },
   "geometricPrecision": {
-    "name": "geometricPrecision",
-    "types": [
+    "functionName": "geometricPrecision",
+    "params": [],
+    "returnTypes": [
       "textRendering"
     ]
   },
   "georgian": {
-    "name": "georgian",
-    "types": [
+    "functionName": "georgian",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "grab": {
-    "name": "grab",
-    "types": [
+    "functionName": "grab",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "grabbing": {
-    "name": "grabbing",
-    "types": [
+    "functionName": "grabbing",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "groove": {
-    "name": "groove",
-    "types": [
+    "functionName": "groove",
+    "params": [],
+    "returnTypes": [
       "borderStyle"
     ]
   },
   "gujarati": {
-    "name": "gujarati",
-    "types": [
+    "functionName": "gujarati",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "gurmukhi": {
-    "name": "gurmukhi",
-    "types": [
+    "functionName": "gurmukhi",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "hanging": {
-    "name": "hanging",
-    "types": [
+    "functionName": "hanging",
+    "params": [],
+    "returnTypes": [
       "textIndent"
     ]
   },
   "help": {
-    "name": "help",
-    "types": [
+    "functionName": "help",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "hidden": {
-    "name": "hidden",
-    "types": [
+    "functionName": "hidden",
+    "params": [],
+    "returnTypes": [
       "overflow"
     ]
   },
   "historical-ligatures": {
-    "name": "historicalLigatures",
-    "types": [
+    "functionName": "historicalLigatures",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantLigatures"
     ]
   },
   "horizontal": {
-    "name": "horizontal",
-    "types": [
+    "functionName": "horizontal",
+    "params": [],
+    "returnTypes": [
       "resize"
     ]
   },
   "inherit": {
-    "name": "inherit",
-    "types": [
+    "functionName": "inherit",
+    "params": [],
+    "returnTypes": [
       "all",
       "alignItems",
       "borderStyle",
@@ -530,8 +1074,9 @@ export const simpleValues = {
     ]
   },
   "initial": {
-    "name": "initial",
-    "types": [
+    "functionName": "initial",
+    "params": [],
+    "returnTypes": [
       "all",
       "alignItems",
       "borderStyle",
@@ -582,252 +1127,292 @@ export const simpleValues = {
     ]
   },
   "inline": {
-    "name": "inline",
-    "types": [
+    "functionName": "inline",
+    "params": [],
+    "returnTypes": [
       "display"
     ]
   },
   "inline-block": {
-    "name": "inlineBlock",
-    "types": [
+    "functionName": "inlineBlock",
+    "params": [],
+    "returnTypes": [
       "display"
     ]
   },
   "inline-list-item": {
-    "name": "inlineListItem",
-    "types": [
+    "functionName": "inlineListItem",
+    "params": [],
+    "returnTypes": [
       "display"
     ]
   },
   "inline-table": {
-    "name": "inlineTable",
-    "types": [
+    "functionName": "inlineTable",
+    "params": [],
+    "returnTypes": [
       "display"
     ]
   },
   "inset": {
-    "name": "inset",
-    "types": [
+    "functionName": "inset",
+    "params": [],
+    "returnTypes": [
       "borderStyle"
     ]
   },
   "inside": {
-    "name": "inside",
-    "types": [
+    "functionName": "inside",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "italic": {
-    "name": "italic",
-    "types": [
+    "functionName": "italic",
+    "params": [],
+    "returnTypes": [
       "fontStyle"
     ]
   },
   "kannada": {
-    "name": "kannada",
-    "types": [
+    "functionName": "kannada",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "khmer": {
-    "name": "khmer",
-    "types": [
+    "functionName": "khmer",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "lao": {
-    "name": "lao",
-    "types": [
+    "functionName": "lao",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "large": {
-    "name": "large",
-    "types": [
+    "functionName": "large",
+    "params": [],
+    "returnTypes": [
       "fontSize"
     ]
   },
   "larger": {
-    "name": "larger",
-    "types": [
+    "functionName": "larger",
+    "params": [],
+    "returnTypes": [
       "fontSize"
     ]
   },
   "lighter": {
-    "name": "lighter",
-    "types": [
+    "functionName": "lighter",
+    "params": [],
+    "returnTypes": [
       "fontWeight"
     ]
   },
   "line-through": {
-    "name": "lineThrough",
-    "types": [
+    "functionName": "lineThrough",
+    "params": [],
+    "returnTypes": [
       "textDecorationLine"
     ]
   },
   "lining-nums": {
-    "name": "liningNums",
-    "types": [
+    "functionName": "liningNums",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantNumeric"
     ]
   },
   "list-item": {
-    "name": "listItem",
-    "types": [
+    "functionName": "listItem",
+    "params": [],
+    "returnTypes": [
       "display"
     ]
   },
   "local": {
-    "name": "local",
-    "types": [
+    "functionName": "local",
+    "params": [],
+    "returnTypes": [
       "backgroundAttachment"
     ]
   },
   "lower-alpha": {
-    "name": "lowerAlpha",
-    "types": [
+    "functionName": "lowerAlpha",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "lower-greek": {
-    "name": "lowerGreek",
-    "types": [
+    "functionName": "lowerGreek",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "lower-latin": {
-    "name": "lowerLatin",
-    "types": [
+    "functionName": "lowerLatin",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "lower-roman": {
-    "name": "lowerRoman",
-    "types": [
+    "functionName": "lowerRoman",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "lowercase": {
-    "name": "lowercase",
-    "types": [
+    "functionName": "lowercase",
+    "params": [],
+    "returnTypes": [
       "textTransform"
     ]
   },
   "malayalam": {
-    "name": "malayalam",
-    "types": [
+    "functionName": "malayalam",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "max-content": {
-    "name": "maxContent",
-    "types": [
+    "functionName": "maxContent",
+    "params": [],
+    "returnTypes": [
       "minMaxDimension",
       "lengthOrMinMaxDimension",
       "lengthOrNoneOrMinMaxDimension"
     ]
   },
   "medium": {
-    "name": "medium",
-    "types": [
+    "functionName": "medium",
+    "params": [],
+    "returnTypes": [
       "fontSize"
     ]
   },
   "min-content": {
-    "name": "minContent",
-    "types": [
+    "functionName": "minContent",
+    "params": [],
+    "returnTypes": [
       "minMaxDimension",
       "lengthOrMinMaxDimension",
       "lengthOrNoneOrMinMaxDimension"
     ]
   },
   "monospace": {
-    "name": "monospace",
-    "types": [
+    "functionName": "monospace",
+    "params": [],
+    "returnTypes": [
       "fontFamily"
     ]
   },
   "move": {
-    "name": "move",
-    "types": [
+    "functionName": "move",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "myanmar": {
-    "name": "myanmar",
-    "types": [
+    "functionName": "myanmar",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "n-resize": {
-    "name": "nResize",
-    "types": [
+    "functionName": "nResize",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "ne-resize": {
-    "name": "neResize",
-    "types": [
+    "functionName": "neResize",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "nesw-resize": {
-    "name": "neswResize",
-    "types": [
+    "functionName": "neswResize",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "no-common-ligatures": {
-    "name": "noCommonLigatures",
-    "types": [
+    "functionName": "noCommonLigatures",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantLigatures"
     ]
   },
   "no-contextual": {
-    "name": "noContextual",
-    "types": [
+    "functionName": "noContextual",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantLigatures"
     ]
   },
   "no-discretionary-ligatures": {
-    "name": "noDiscretionaryLigatures",
-    "types": [
+    "functionName": "noDiscretionaryLigatures",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantLigatures"
     ]
   },
   "no-drop": {
-    "name": "noDrop",
-    "types": [
+    "functionName": "noDrop",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "no-historical-ligatures": {
-    "name": "noHistoricalLigatures",
-    "types": [
+    "functionName": "noHistoricalLigatures",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantLigatures"
     ]
   },
   "no-repeat": {
-    "name": "noRepeat",
-    "types": [
+    "functionName": "noRepeat",
+    "params": [],
+    "returnTypes": [
       "backgroundRepeat",
       "backgroundRepeatShorthand"
     ]
   },
   "nowrap": {
-    "name": "noWrap",
-    "types": [
+    "functionName": "noWrap",
+    "params": [],
+    "returnTypes": [
       "whiteSpace"
     ]
   },
   "none": {
-    "name": "none",
-    "types": [
+    "functionName": "none",
+    "params": [],
+    "returnTypes": [
       "borderStyle",
       "cursor",
       "display",
@@ -844,394 +1429,457 @@ export const simpleValues = {
     ]
   },
   "normal": {
-    "name": "normal",
-    "types": [
+    "functionName": "normal",
+    "params": [],
+    "returnTypes": [
       "overflowWrap"
     ]
   },
   "not-allowed": {
-    "name": "notAllowed",
-    "types": [
+    "functionName": "notAllowed",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "ns-resize": {
-    "name": "nsResize",
-    "types": [
+    "functionName": "nsResize",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "nw-resize": {
-    "name": "nwResize",
-    "types": [
+    "functionName": "nwResize",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "nwse-resize": {
-    "name": "nwseResize",
-    "types": [
+    "functionName": "nwseResize",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "oblique": {
-    "name": "oblique",
-    "types": [
+    "functionName": "oblique",
+    "params": [],
+    "returnTypes": [
       "fontStyle"
     ]
   },
   "oldstyle-nums": {
-    "name": "oldstyleNums",
-    "types": [
+    "functionName": "oldstyleNums",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantNumeric"
     ]
   },
   "optimizeLegibility": {
-    "name": "optimizeLegibility",
-    "types": [
+    "functionName": "optimizeLegibility",
+    "params": [],
+    "returnTypes": [
       "textRendering"
     ]
   },
   "optimizeSpeed": {
-    "name": "optimizeSpeed",
-    "types": [
+    "functionName": "optimizeSpeed",
+    "params": [],
+    "returnTypes": [
       "textRendering"
     ]
   },
   "ordinal": {
-    "name": "ordinal",
-    "types": [
+    "functionName": "ordinal",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantNumeric"
     ]
   },
   "oriya": {
-    "name": "oriya",
-    "types": [
+    "functionName": "oriya",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "outset": {
-    "name": "outset",
-    "types": [
+    "functionName": "outset",
+    "params": [],
+    "returnTypes": [
       "borderStyle"
     ]
   },
   "outside": {
-    "name": "outside",
-    "types": [
+    "functionName": "outside",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "overline": {
-    "name": "overline",
-    "types": [
+    "functionName": "overline",
+    "params": [],
+    "returnTypes": [
       "textDecorationLine"
     ]
   },
   "padding-box": {
-    "name": "paddingBox",
-    "types": [
+    "functionName": "paddingBox",
+    "params": [],
+    "returnTypes": [
       "backgroundClip"
     ]
   },
   "petite-caps": {
-    "name": "petiteCaps",
-    "types": [
+    "functionName": "petiteCaps",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantCaps"
     ]
   },
   "pointer": {
-    "name": "pointer",
-    "types": [
+    "functionName": "pointer",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "preserve-3d": {
-    "name": "preserve3d",
-    "types": [
+    "functionName": "preserve3d",
+    "params": [],
+    "returnTypes": [
       "transformStyle"
     ]
   },
   "progress": {
-    "name": "progress",
-    "types": [
+    "functionName": "progress",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "proportional-nums": {
-    "name": "proportionalNums",
-    "types": [
+    "functionName": "proportionalNums",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantNumeric"
     ]
   },
   "relative": {
-    "name": "relative",
-    "types": [
+    "functionName": "relative",
+    "params": [],
+    "returnTypes": [
       "position"
     ]
   },
   "repeat": {
-    "name": "repeat",
-    "types": [
+    "functionName": "repeat",
+    "params": [],
+    "returnTypes": [
       "backgroundRepeat",
       "backgroundRepeatShorthand"
     ]
   },
   "repeat-x": {
-    "name": "repeatX",
-    "types": [
+    "functionName": "repeatX",
+    "params": [],
+    "returnTypes": [
       "backgroundRepeatShorthand"
     ]
   },
   "repeat-y": {
-    "name": "repeatY",
-    "types": [
+    "functionName": "repeatY",
+    "params": [],
+    "returnTypes": [
       "backgroundRepeatShorthand"
     ]
   },
   "ridge": {
-    "name": "ridge",
-    "types": [
+    "functionName": "ridge",
+    "params": [],
+    "returnTypes": [
       "borderStyle"
     ]
   },
   "round": {
-    "name": "round",
-    "types": [
+    "functionName": "round",
+    "params": [],
+    "returnTypes": [
       "backgroundRepeat",
       "backgroundRepeatShorthand"
     ]
   },
   "row": {
-    "name": "row",
-    "types": [
+    "functionName": "row",
+    "params": [],
+    "returnTypes": [
       "flexDirectionOrWrap"
     ]
   },
   "row-resize": {
-    "name": "rowResize",
-    "types": [
+    "functionName": "rowResize",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "row-reverse": {
-    "name": "rowReverse",
-    "types": [
+    "functionName": "rowReverse",
+    "params": [],
+    "returnTypes": [
       "flexDirectionOrWrap"
     ]
   },
   "s-resize": {
-    "name": "sResize",
-    "types": [
+    "functionName": "sResize",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "sans-serif": {
-    "name": "sansSerif",
-    "types": [
+    "functionName": "sansSerif",
+    "params": [],
+    "returnTypes": [
       "fontFamily"
     ]
   },
   "scroll": {
-    "name": "scroll",
-    "types": [
+    "functionName": "scroll",
+    "params": [],
+    "returnTypes": [
       "overflow"
     ]
   },
   "se-resize": {
-    "name": "seResize",
-    "types": [
+    "functionName": "seResize",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "serif": {
-    "name": "serif",
-    "types": [
+    "functionName": "serif",
+    "params": [],
+    "returnTypes": [
       "fontFamily"
     ]
   },
   "slashed-zero": {
-    "name": "slashedZero",
-    "types": [
+    "functionName": "slashedZero",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantNumeric"
     ]
   },
   "small": {
-    "name": "small",
-    "types": [
+    "functionName": "small",
+    "params": [],
+    "returnTypes": [
       "fontSize"
     ]
   },
   "small-caps": {
-    "name": "smallCaps",
-    "types": [
+    "functionName": "smallCaps",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantCaps"
     ]
   },
   "smaller": {
-    "name": "smaller",
-    "types": [
+    "functionName": "smaller",
+    "params": [],
+    "returnTypes": [
       "fontSize"
     ]
   },
   "solid": {
-    "name": "solid",
-    "types": [
+    "functionName": "solid",
+    "params": [],
+    "returnTypes": [
       "borderStyle"
     ]
   },
   "space": {
-    "name": "space",
-    "types": [
+    "functionName": "space",
+    "params": [],
+    "returnTypes": [
       "backgroundRepeat",
       "backgroundRepeatShorthand"
     ]
   },
   "square": {
-    "name": "square",
-    "types": [
+    "functionName": "square",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "stacked-fractions": {
-    "name": "stackedFractions",
-    "types": [
+    "functionName": "stackedFractions",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantNumeric"
     ]
   },
   "static": {
-    "name": "static",
-    "types": [
+    "functionName": "static",
+    "params": [],
+    "returnTypes": [
       "position"
     ]
   },
   "sticky": {
-    "name": "sticky",
-    "types": [
+    "functionName": "sticky",
+    "params": [],
+    "returnTypes": [
       "position"
     ]
   },
   "sw-resize": {
-    "name": "swResize",
-    "types": [
+    "functionName": "swResize",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "table": {
-    "name": "table",
-    "types": [
+    "functionName": "table",
+    "params": [],
+    "returnTypes": [
       "display"
     ]
   },
   "table-caption": {
-    "name": "tableCaption",
-    "types": [
+    "functionName": "tableCaption",
+    "params": [],
+    "returnTypes": [
       "display"
     ]
   },
   "table-cell": {
-    "name": "tableCell",
-    "types": [
+    "functionName": "tableCell",
+    "params": [],
+    "returnTypes": [
       "display"
     ]
   },
   "table-column": {
-    "name": "tableColumn",
-    "types": [
+    "functionName": "tableColumn",
+    "params": [],
+    "returnTypes": [
       "display"
     ]
   },
   "table-column-group": {
-    "name": "tableColumnGroup",
-    "types": [
+    "functionName": "tableColumnGroup",
+    "params": [],
+    "returnTypes": [
       "display"
     ]
   },
   "table-footer-group": {
-    "name": "tableFooterGroup",
-    "types": [
+    "functionName": "tableFooterGroup",
+    "params": [],
+    "returnTypes": [
       "display"
     ]
   },
   "table-header-group": {
-    "name": "tableHeaderGroup",
-    "types": [
+    "functionName": "tableHeaderGroup",
+    "params": [],
+    "returnTypes": [
       "display"
     ]
   },
   "table-row": {
-    "name": "tableRow",
-    "types": [
+    "functionName": "tableRow",
+    "params": [],
+    "returnTypes": [
       "display"
     ]
   },
   "table-row-group": {
-    "name": "tableRowGroup",
-    "types": [
+    "functionName": "tableRowGroup",
+    "params": [],
+    "returnTypes": [
       "display"
     ]
   },
   "tabular-nums": {
-    "name": "tabularNums",
-    "types": [
+    "functionName": "tabularNums",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantNumeric"
     ]
   },
   "telugu": {
-    "name": "telugu",
-    "types": [
+    "functionName": "telugu",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "text": {
-    "name": "text",
-    "types": [
+    "functionName": "text",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "thai": {
-    "name": "thai",
-    "types": [
+    "functionName": "thai",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "titling-caps": {
-    "name": "titlingCaps",
-    "types": [
+    "functionName": "titlingCaps",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantCaps"
     ]
   },
   "transparent": {
-    "name": "transparent",
-    "types": [
+    "functionName": "transparent",
+    "params": [],
+    "returnTypes": [
       "color",
       "warnings"
     ]
   },
   "underline": {
-    "name": "underline",
-    "types": [
+    "functionName": "underline",
+    "params": [],
+    "returnTypes": [
       "textDecorationLine"
     ]
   },
   "unicase": {
-    "name": "unicase",
-    "types": [
+    "functionName": "unicase",
+    "params": [],
+    "returnTypes": [
       "fontVariant",
       "fontVariantCaps"
     ]
   },
   "unset": {
-    "name": "unset",
-    "types": [
+    "functionName": "unset",
+    "params": [],
+    "returnTypes": [
       "all",
       "alignItems",
       "borderStyle",
@@ -1282,139 +1930,480 @@ export const simpleValues = {
     ]
   },
   "upper-alpha": {
-    "name": "upperAlpha",
-    "types": [
+    "functionName": "upperAlpha",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "upper-latin": {
-    "name": "upperLatin",
-    "types": [
+    "functionName": "upperLatin",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "upper-roman": {
-    "name": "upperRoman",
-    "types": [
+    "functionName": "upperRoman",
+    "params": [],
+    "returnTypes": [
       "listStyleTypeOrPositionOrImage"
     ]
   },
   "uppercase": {
-    "name": "uppercase",
-    "types": [
+    "functionName": "uppercase",
+    "params": [],
+    "returnTypes": [
       "textTransform"
     ]
   },
   "vertical": {
-    "name": "vertical",
-    "types": [
+    "functionName": "vertical",
+    "params": [],
+    "returnTypes": [
       "resize"
     ]
   },
   "vertical-text": {
-    "name": "verticalText",
-    "types": [
+    "functionName": "verticalText",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "view-box": {
-    "name": "viewBox",
-    "types": [
+    "functionName": "viewBox",
+    "params": [],
+    "returnTypes": [
       "transformBox"
     ]
   },
   "visible": {
-    "name": "visible",
-    "types": [
+    "functionName": "visible",
+    "params": [],
+    "returnTypes": [
       "overflow"
     ]
   },
   "w-resize": {
-    "name": "wResize",
-    "types": [
+    "functionName": "wResize",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "wait": {
-    "name": "wait",
-    "types": [
+    "functionName": "wait",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "wavy": {
-    "name": "wavy",
-    "types": [
+    "functionName": "wavy",
+    "params": [],
+    "returnTypes": [
       "textDecorationStyle"
     ]
   },
   "wrap": {
-    "name": "wrap",
-    "types": [
+    "functionName": "wrap",
+    "params": [],
+    "returnTypes": [
       "flexDirectionOrWrap"
     ]
   },
   "wrap-reverse": {
-    "name": "wrapReverse",
-    "types": [
+    "functionName": "wrapReverse",
+    "params": [],
+    "returnTypes": [
       "flexDirectionOrWrap"
     ]
   },
   "x-large": {
-    "name": "xLarge",
-    "types": [
+    "functionName": "xLarge",
+    "params": [],
+    "returnTypes": [
       "fontSize"
     ]
   },
   "x-small": {
-    "name": "xSmall",
-    "types": [
+    "functionName": "xSmall",
+    "params": [],
+    "returnTypes": [
       "fontSize"
     ]
   },
   "xx-large": {
-    "name": "xxLarge",
-    "types": [
+    "functionName": "xxLarge",
+    "params": [],
+    "returnTypes": [
       "fontSize"
     ]
   },
   "xx-small": {
-    "name": "xxSmall",
-    "types": [
+    "functionName": "xxSmall",
+    "params": [],
+    "returnTypes": [
       "fontSize"
     ]
   },
   "zoom-in": {
-    "name": "zoomIn",
-    "types": [
+    "functionName": "zoomIn",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   },
   "zoom-out": {
-    "name": "zoomOut",
-    "types": [
+    "functionName": "zoomOut",
+    "params": [],
+    "returnTypes": [
       "cursor"
     ]
   }
 };
 
 export const transformFuncs = {
-  "matrix()": "matrix",
-  "matrix3d()": "matrix3d",
-  "perspective()": "perspective",
-  "rotate": "rotate",
-  "rotate3d": "rotate3d",
-  "rotateX": "rotateX",
-  "rotateY": "rotateY",
-  "rotateZ": "rotateZ",
-  "scale": "scale2",
-  "scale3d": "scale3d",
-  "scaleX": "scaleX",
-  "scaleY": "scaleY",
-  "skew": "skew2",
-  "skewX": "skewX",
-  "skewY": "skewY",
-  "translate": "translate2",
-  "translateX": "translateX",
-  "translateY": "translateY",
-  "translateZ": "translateZ"
+  "matrix()": {
+    "functionName": "matrix",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "matrix3d()": {
+    "functionName": "matrix3d",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "perspective()": {
+    "functionName": "perspective",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "rotate": {
+    "functionName": "rotate",
+    "params": [
+      [
+        "angle"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "rotate3d": {
+    "functionName": "rotate3d",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "angle"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "rotateX": {
+    "functionName": "rotateX",
+    "params": [
+      [
+        "angle"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "rotateY": {
+    "functionName": "rotateY",
+    "params": [
+      [
+        "angle"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "rotateZ": {
+    "functionName": "rotateZ",
+    "params": [
+      [
+        "angle"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "scale": {
+    "functionName": "scale2",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "scale3d": {
+    "functionName": "scale3d",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "scaleX": {
+    "functionName": "scaleX",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "scaleY": {
+    "functionName": "scaleY",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "skew": {
+    "functionName": "skew2",
+    "params": [
+      [
+        "angle"
+      ],
+      [
+        "angle"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "skewX": {
+    "functionName": "skewX",
+    "params": [
+      [
+        "angle"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "skewY": {
+    "functionName": "skewY",
+    "params": [
+      [
+        "angle"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "translate": {
+    "functionName": "translate2",
+    "params": [
+      [
+        "length",
+        "numericValue",
+        "units",
+        "unitLabel"
+      ],
+      [
+        "length",
+        "numericValue",
+        "units",
+        "unitLabel"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "translateX": {
+    "functionName": "translateX",
+    "params": [
+      [
+        "length",
+        "numericValue",
+        "units",
+        "unitLabel"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "translateY": {
+    "functionName": "translateY",
+    "params": [
+      [
+        "length",
+        "numericValue",
+        "units",
+        "unitLabel"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "translateZ": {
+    "functionName": "translateZ",
+    "params": [
+      [
+        "length",
+        "numericValue",
+        "units",
+        "unitLabel"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  }
 };

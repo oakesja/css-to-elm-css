@@ -88,7 +88,7 @@ export default class extends ElmFileParser {
       'angles',
       {},
       this.categorizeIfBodyContains('angleConverter'),
-      this.categorizer(this.findCssNameFromComment, name => name)
+      this.cssValueCategorizer(this.findCssNameFromComment)
     )
   }
 
@@ -97,7 +97,7 @@ export default class extends ElmFileParser {
       'colorFunctions',
       {},
       name => this.returnTypeIs(name, 'Color'),
-      this.categorizer(this.colorFunctionCssName, name => name)
+      this.cssValueCategorizer(this.colorFunctionCssName)
     )
   }
 
@@ -106,7 +106,7 @@ export default class extends ElmFileParser {
       'lengths',
       {},
       this.categorizeIfBodyContains('lengthConverter'),
-      this.categorizer(this.lengthCssName, name => name)
+      this.cssValueCategorizer(this.lengthCssName)
     )
   }
 
@@ -118,12 +118,7 @@ export default class extends ElmFileParser {
         return this.functionBody(name).includes('value =') &&
           this.functionArity(name) == 0
       },
-      this.categorizer(this.cssValueName, name => {
-        return {
-          name: name,
-          types: this.cssValueTypes(this.functionReturnType(name))
-        }
-      })
+      this.cssValueCategorizer(this.cssValueName)
     )
   }
 
@@ -135,7 +130,7 @@ export default class extends ElmFileParser {
         return this.functionBody(name).includes('value =') &&
           this.returnTypeIs(name, 'Transform')
       },
-      this.categorizer(this.findCssNameFromComment, name => name)
+      this.cssValueCategorizer(this.findCssNameFromComment)
     )
   }
 
@@ -216,6 +211,16 @@ export default class extends ElmFileParser {
     }
   }
 
+  cssValueCategorizer (findName) {
+    return this.categorizer(findName, name => {
+      return {
+        functionName: name,
+        params: this.functionParameters(name).map(this.cssValueTypes, this),
+        returnTypes: this.cssValueTypes(this.functionReturnType(name))
+      }
+    })
+  }
+
   colorFunctionCssName (name) {
     const match = /cssFunction "(\S*)"/g.exec(this.functionBody(name))
     return (match && match[1]) || 'hex'
@@ -269,6 +274,14 @@ export default class extends ElmFileParser {
         return this.cssTypeFinder.lookupValueTypes(signatureType.value)
       case 'record':
         return this.cssTypesFromRecord(signatureType.fields)
+      case 'primitive':
+        return [signatureType.value]
+      case 'variable':
+        if (signatureType.name === 'number') {
+          return ['Float', 'Int']
+        } else {
+          console.warn(`Unknown variable type: ${signatureType.name}`)
+        }
       default:
         console.warn(`Unknown signature type: ${signatureType.kind}`)
     }
