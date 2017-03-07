@@ -1,4 +1,3 @@
-import {execRegex, reverseString} from './common'
 import fs from 'fs'
 import parser from './elmParser'
 import astNodeToType from './elmTypeParser'

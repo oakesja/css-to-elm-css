@@ -1,513 +1,6 @@
 export const important = "important";
 
-export const lengthFuncs = {
-  "ch": {
-    "functionName": "ch",
-    "params": [
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "numericValue",
-      "units",
-      "unitLabel",
-      "length",
-      "lengthOrAuto",
-      "lengthOrNumber",
-      "lengthOrNone",
-      "lengthOrMinMaxDimension",
-      "lengthOrNoneOrMinMaxDimension",
-      "textIndent",
-      "flexBasis",
-      "lengthOrNumberOrAutoOrNoneOrContent",
-      "fontSize",
-      "lengthOrAutoOrCoverOrContain"
-    ]
-  },
-  "cm": {
-    "functionName": "cm",
-    "params": [
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "numericValue",
-      "units",
-      "unitLabel",
-      "length",
-      "lengthOrAuto",
-      "lengthOrNumber",
-      "lengthOrNone",
-      "lengthOrMinMaxDimension",
-      "lengthOrNoneOrMinMaxDimension",
-      "textIndent",
-      "flexBasis",
-      "lengthOrNumberOrAutoOrNoneOrContent",
-      "fontSize",
-      "lengthOrAutoOrCoverOrContain"
-    ]
-  },
-  "em": {
-    "functionName": "em",
-    "params": [
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "numericValue",
-      "units",
-      "unitLabel",
-      "length",
-      "lengthOrAuto",
-      "lengthOrNumber",
-      "lengthOrNone",
-      "lengthOrMinMaxDimension",
-      "lengthOrNoneOrMinMaxDimension",
-      "textIndent",
-      "flexBasis",
-      "lengthOrNumberOrAutoOrNoneOrContent",
-      "fontSize",
-      "lengthOrAutoOrCoverOrContain"
-    ]
-  },
-  "ex": {
-    "functionName": "ex",
-    "params": [
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "numericValue",
-      "units",
-      "unitLabel",
-      "length",
-      "lengthOrAuto",
-      "lengthOrNumber",
-      "lengthOrNone",
-      "lengthOrMinMaxDimension",
-      "lengthOrNoneOrMinMaxDimension",
-      "textIndent",
-      "flexBasis",
-      "lengthOrNumberOrAutoOrNoneOrContent",
-      "fontSize",
-      "lengthOrAutoOrCoverOrContain"
-    ]
-  },
-  "in": {
-    "functionName": "inches",
-    "params": [
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "numericValue",
-      "units",
-      "unitLabel",
-      "length",
-      "lengthOrAuto",
-      "lengthOrNumber",
-      "lengthOrNone",
-      "lengthOrMinMaxDimension",
-      "lengthOrNoneOrMinMaxDimension",
-      "textIndent",
-      "flexBasis",
-      "lengthOrNumberOrAutoOrNoneOrContent",
-      "fontSize",
-      "lengthOrAutoOrCoverOrContain"
-    ]
-  },
-  "mm": {
-    "functionName": "mm",
-    "params": [
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "numericValue",
-      "units",
-      "unitLabel",
-      "length",
-      "lengthOrAuto",
-      "lengthOrNumber",
-      "lengthOrNone",
-      "lengthOrMinMaxDimension",
-      "lengthOrNoneOrMinMaxDimension",
-      "textIndent",
-      "flexBasis",
-      "lengthOrNumberOrAutoOrNoneOrContent",
-      "fontSize",
-      "lengthOrAutoOrCoverOrContain"
-    ]
-  },
-  "pc": {
-    "functionName": "pc",
-    "params": [
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "numericValue",
-      "units",
-      "unitLabel",
-      "length",
-      "lengthOrAuto",
-      "lengthOrNumber",
-      "lengthOrNone",
-      "lengthOrMinMaxDimension",
-      "lengthOrNoneOrMinMaxDimension",
-      "textIndent",
-      "flexBasis",
-      "lengthOrNumberOrAutoOrNoneOrContent",
-      "fontSize",
-      "lengthOrAutoOrCoverOrContain"
-    ]
-  },
-  "%": {
-    "functionName": "pct",
-    "params": [
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "numericValue",
-      "units",
-      "unitLabel",
-      "length",
-      "lengthOrAuto",
-      "lengthOrNumber",
-      "lengthOrNone",
-      "lengthOrMinMaxDimension",
-      "lengthOrNoneOrMinMaxDimension",
-      "textIndent",
-      "flexBasis",
-      "lengthOrNumberOrAutoOrNoneOrContent",
-      "fontSize",
-      "lengthOrAutoOrCoverOrContain"
-    ]
-  },
-  "pt": {
-    "functionName": "pt",
-    "params": [
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "numericValue",
-      "units",
-      "unitLabel",
-      "length",
-      "lengthOrAuto",
-      "lengthOrNumber",
-      "lengthOrNone",
-      "lengthOrMinMaxDimension",
-      "lengthOrNoneOrMinMaxDimension",
-      "textIndent",
-      "flexBasis",
-      "lengthOrNumberOrAutoOrNoneOrContent",
-      "fontSize",
-      "lengthOrAutoOrCoverOrContain"
-    ]
-  },
-  "px": {
-    "functionName": "px",
-    "params": [
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "numericValue",
-      "units",
-      "unitLabel",
-      "length",
-      "lengthOrAuto",
-      "lengthOrNumber",
-      "lengthOrNone",
-      "lengthOrMinMaxDimension",
-      "lengthOrNoneOrMinMaxDimension",
-      "textIndent",
-      "flexBasis",
-      "lengthOrNumberOrAutoOrNoneOrContent",
-      "fontSize",
-      "lengthOrAutoOrCoverOrContain"
-    ]
-  },
-  "rem": {
-    "functionName": "rem",
-    "params": [
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "numericValue",
-      "units",
-      "unitLabel",
-      "length",
-      "lengthOrAuto",
-      "lengthOrNumber",
-      "lengthOrNone",
-      "lengthOrMinMaxDimension",
-      "lengthOrNoneOrMinMaxDimension",
-      "textIndent",
-      "flexBasis",
-      "lengthOrNumberOrAutoOrNoneOrContent",
-      "fontSize",
-      "lengthOrAutoOrCoverOrContain"
-    ]
-  },
-  "vh": {
-    "functionName": "vh",
-    "params": [
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "numericValue",
-      "units",
-      "unitLabel",
-      "length",
-      "lengthOrAuto",
-      "lengthOrNumber",
-      "lengthOrNone",
-      "lengthOrMinMaxDimension",
-      "lengthOrNoneOrMinMaxDimension",
-      "textIndent",
-      "flexBasis",
-      "lengthOrNumberOrAutoOrNoneOrContent",
-      "fontSize",
-      "lengthOrAutoOrCoverOrContain"
-    ]
-  },
-  "vmax": {
-    "functionName": "vmax",
-    "params": [
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "numericValue",
-      "units",
-      "unitLabel",
-      "length",
-      "lengthOrAuto",
-      "lengthOrNumber",
-      "lengthOrNone",
-      "lengthOrMinMaxDimension",
-      "lengthOrNoneOrMinMaxDimension",
-      "textIndent",
-      "flexBasis",
-      "lengthOrNumberOrAutoOrNoneOrContent",
-      "fontSize",
-      "lengthOrAutoOrCoverOrContain"
-    ]
-  },
-  "vmin": {
-    "functionName": "vmin",
-    "params": [
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "numericValue",
-      "units",
-      "unitLabel",
-      "length",
-      "lengthOrAuto",
-      "lengthOrNumber",
-      "lengthOrNone",
-      "lengthOrMinMaxDimension",
-      "lengthOrNoneOrMinMaxDimension",
-      "textIndent",
-      "flexBasis",
-      "lengthOrNumberOrAutoOrNoneOrContent",
-      "fontSize",
-      "lengthOrAutoOrCoverOrContain"
-    ]
-  },
-  "vw": {
-    "functionName": "vw",
-    "params": [
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "numericValue",
-      "units",
-      "unitLabel",
-      "length",
-      "lengthOrAuto",
-      "lengthOrNumber",
-      "lengthOrNone",
-      "lengthOrMinMaxDimension",
-      "lengthOrNoneOrMinMaxDimension",
-      "textIndent",
-      "flexBasis",
-      "lengthOrNumberOrAutoOrNoneOrContent",
-      "fontSize",
-      "lengthOrAutoOrCoverOrContain"
-    ]
-  }
-};
-
-export const angleFuncs = {
-  "deg": {
-    "functionName": "deg",
-    "params": [
-      [
-        "Float",
-        "Int"
-      ]
-    ],
-    "returnTypes": [
-      "angle"
-    ]
-  },
-  "grad": {
-    "functionName": "grad",
-    "params": [
-      [
-        "Float",
-        "Int"
-      ]
-    ],
-    "returnTypes": [
-      "angle"
-    ]
-  },
-  "rad": {
-    "functionName": "rad",
-    "params": [
-      [
-        "Float",
-        "Int"
-      ]
-    ],
-    "returnTypes": [
-      "angle"
-    ]
-  },
-  "turn": {
-    "functionName": "turn",
-    "params": [
-      [
-        "Float",
-        "Int"
-      ]
-    ],
-    "returnTypes": [
-      "angle"
-    ]
-  }
-};
-
-export const colorFuncs = {
-  "hex": {
-    "functionName": "hex",
-    "params": [
-      [
-        "String"
-      ]
-    ],
-    "returnTypes": [
-      "color",
-      "warnings"
-    ]
-  },
-  "hsl": {
-    "functionName": "hsl",
-    "params": [
-      [
-        "Float"
-      ],
-      [
-        "Float"
-      ],
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "color",
-      "warnings"
-    ]
-  },
-  "hsla": {
-    "functionName": "hsla",
-    "params": [
-      [
-        "Float"
-      ],
-      [
-        "Float"
-      ],
-      [
-        "Float"
-      ],
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "color",
-      "warnings"
-    ]
-  },
-  "rgb": {
-    "functionName": "rgb",
-    "params": [
-      [
-        "Int"
-      ],
-      [
-        "Int"
-      ],
-      [
-        "Int"
-      ]
-    ],
-    "returnTypes": [
-      "color",
-      "warnings"
-    ]
-  },
-  "rgba": {
-    "functionName": "rgba",
-    "params": [
-      [
-        "Int"
-      ],
-      [
-        "Int"
-      ],
-      [
-        "Int"
-      ],
-      [
-        "Float"
-      ]
-    ],
-    "returnTypes": [
-      "color",
-      "warnings"
-    ]
-  }
-};
-
-export const simpleValues = {
+export const values = {
   "0": {
     "functionName": "zero",
     "params": [],
@@ -646,6 +139,30 @@ export const simpleValues = {
       "cursor"
     ]
   },
+  "ch": {
+    "functionName": "ch",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
   "circle": {
     "functionName": "circle",
     "params": [],
@@ -672,6 +189,30 @@ export const simpleValues = {
     "params": [],
     "returnTypes": [
       "textOverflow"
+    ]
+  },
+  "cm": {
+    "functionName": "cm",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
     ]
   },
   "col-resize": {
@@ -810,6 +351,18 @@ export const simpleValues = {
       "cursor"
     ]
   },
+  "deg": {
+    "functionName": "deg",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "angle"
+    ]
+  },
   "devanagari": {
     "functionName": "devanagari",
     "params": [],
@@ -875,11 +428,59 @@ export const simpleValues = {
       "textOverflow"
     ]
   },
+  "em": {
+    "functionName": "em",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
   "ew-resize": {
     "functionName": "ewResize",
     "params": [],
     "returnTypes": [
       "cursor"
+    ]
+  },
+  "ex": {
+    "functionName": "ex",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
     ]
   },
   "fantasy": {
@@ -963,6 +564,18 @@ export const simpleValues = {
       "cursor"
     ]
   },
+  "grad": {
+    "functionName": "grad",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "angle"
+    ]
+  },
   "groove": {
     "functionName": "groove",
     "params": [],
@@ -998,6 +611,18 @@ export const simpleValues = {
       "cursor"
     ]
   },
+  "hex": {
+    "functionName": "hex",
+    "params": [
+      [
+        "String"
+      ]
+    ],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  },
   "hidden": {
     "functionName": "hidden",
     "params": [],
@@ -1018,6 +643,69 @@ export const simpleValues = {
     "params": [],
     "returnTypes": [
       "resize"
+    ]
+  },
+  "hsl": {
+    "functionName": "hsl",
+    "params": [
+      [
+        "Float"
+      ],
+      [
+        "Float"
+      ],
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  },
+  "hsla": {
+    "functionName": "hsla",
+    "params": [
+      [
+        "Float"
+      ],
+      [
+        "Float"
+      ],
+      [
+        "Float"
+      ],
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  },
+  "in": {
+    "functionName": "inches",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
     ]
   },
   "inherit": {
@@ -1288,6 +976,110 @@ export const simpleValues = {
       "listStyleTypeOrPositionOrImage"
     ]
   },
+  "matrix()": {
+    "functionName": "matrix",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "matrix3d()": {
+    "functionName": "matrix3d",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
   "max-content": {
     "functionName": "maxContent",
     "params": [],
@@ -1311,6 +1103,30 @@ export const simpleValues = {
       "minMaxDimension",
       "lengthOrMinMaxDimension",
       "lengthOrNoneOrMinMaxDimension"
+    ]
+  },
+  "mm": {
+    "functionName": "mm",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
     ]
   },
   "monospace": {
@@ -1535,6 +1351,66 @@ export const simpleValues = {
       "backgroundClip"
     ]
   },
+  "pc": {
+    "functionName": "pc",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "%": {
+    "functionName": "pct",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "perspective()": {
+    "functionName": "perspective",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
   "petite-caps": {
     "functionName": "petiteCaps",
     "params": [],
@@ -1572,11 +1448,95 @@ export const simpleValues = {
       "fontVariantNumeric"
     ]
   },
+  "pt": {
+    "functionName": "pt",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "px": {
+    "functionName": "px",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "rad": {
+    "functionName": "rad",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "angle"
+    ]
+  },
   "relative": {
     "functionName": "relative",
     "params": [],
     "returnTypes": [
       "position"
+    ]
+  },
+  "rem": {
+    "functionName": "rem",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
     ]
   },
   "repeat": {
@@ -1601,11 +1561,117 @@ export const simpleValues = {
       "backgroundRepeatShorthand"
     ]
   },
+  "rgb": {
+    "functionName": "rgb",
+    "params": [
+      [
+        "Int"
+      ],
+      [
+        "Int"
+      ],
+      [
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  },
+  "rgba": {
+    "functionName": "rgba",
+    "params": [
+      [
+        "Int"
+      ],
+      [
+        "Int"
+      ],
+      [
+        "Int"
+      ],
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  },
   "ridge": {
     "functionName": "ridge",
     "params": [],
     "returnTypes": [
       "borderStyle"
+    ]
+  },
+  "rotate": {
+    "functionName": "rotate",
+    "params": [
+      [
+        "angle"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "rotate3d": {
+    "functionName": "rotate3d",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "angle"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "rotateX": {
+    "functionName": "rotateX",
+    "params": [
+      [
+        "angle"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "rotateY": {
+    "functionName": "rotateY",
+    "params": [
+      [
+        "angle"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "rotateZ": {
+    "functionName": "rotateZ",
+    "params": [
+      [
+        "angle"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
     ]
   },
   "round": {
@@ -1651,6 +1717,66 @@ export const simpleValues = {
       "fontFamily"
     ]
   },
+  "scale": {
+    "functionName": "scale2",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "scale3d": {
+    "functionName": "scale3d",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ],
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "scaleX": {
+    "functionName": "scaleX",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "scaleY": {
+    "functionName": "scaleY",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
   "scroll": {
     "functionName": "scroll",
     "params": [],
@@ -1670,6 +1796,42 @@ export const simpleValues = {
     "params": [],
     "returnTypes": [
       "fontFamily"
+    ]
+  },
+  "skew": {
+    "functionName": "skew2",
+    "params": [
+      [
+        "angle"
+      ],
+      [
+        "angle"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "skewX": {
+    "functionName": "skewX",
+    "params": [
+      [
+        "angle"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "skewY": {
+    "functionName": "skewY",
+    "params": [
+      [
+        "angle"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
     ]
   },
   "slashed-zero": {
@@ -1853,12 +2015,86 @@ export const simpleValues = {
       "fontVariantCaps"
     ]
   },
+  "translate": {
+    "functionName": "translate2",
+    "params": [
+      [
+        "length",
+        "numericValue",
+        "units",
+        "unitLabel"
+      ],
+      [
+        "length",
+        "numericValue",
+        "units",
+        "unitLabel"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "translateX": {
+    "functionName": "translateX",
+    "params": [
+      [
+        "length",
+        "numericValue",
+        "units",
+        "unitLabel"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "translateY": {
+    "functionName": "translateY",
+    "params": [
+      [
+        "length",
+        "numericValue",
+        "units",
+        "unitLabel"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
+  "translateZ": {
+    "functionName": "translateZ",
+    "params": [
+      [
+        "length",
+        "numericValue",
+        "units",
+        "unitLabel"
+      ]
+    ],
+    "returnTypes": [
+      "transform"
+    ]
+  },
   "transparent": {
     "functionName": "transparent",
     "params": [],
     "returnTypes": [
       "color",
       "warnings"
+    ]
+  },
+  "turn": {
+    "functionName": "turn",
+    "params": [
+      [
+        "Float",
+        "Int"
+      ]
+    ],
+    "returnTypes": [
+      "angle"
     ]
   },
   "underline": {
@@ -1971,6 +2207,30 @@ export const simpleValues = {
       "cursor"
     ]
   },
+  "vh": {
+    "functionName": "vh",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
   "view-box": {
     "functionName": "viewBox",
     "params": [],
@@ -1983,6 +2243,78 @@ export const simpleValues = {
     "params": [],
     "returnTypes": [
       "overflow"
+    ]
+  },
+  "vmax": {
+    "functionName": "vmax",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "vmin": {
+    "functionName": "vmin",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "vw": {
+    "functionName": "vw",
+    "params": [
+      [
+        "Float"
+      ]
+    ],
+    "returnTypes": [
+      "numericValue",
+      "units",
+      "unitLabel",
+      "length",
+      "lengthOrAuto",
+      "lengthOrNumber",
+      "lengthOrNone",
+      "lengthOrMinMaxDimension",
+      "lengthOrNoneOrMinMaxDimension",
+      "textIndent",
+      "flexBasis",
+      "lengthOrNumberOrAutoOrNoneOrContent",
+      "fontSize",
+      "lengthOrAutoOrCoverOrContain"
     ]
   },
   "w-resize": {
@@ -2060,350 +2392,6 @@ export const simpleValues = {
     "params": [],
     "returnTypes": [
       "cursor"
-    ]
-  }
-};
-
-export const transformFuncs = {
-  "matrix()": {
-    "functionName": "matrix",
-    "params": [
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "matrix3d()": {
-    "functionName": "matrix3d",
-    "params": [
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "perspective()": {
-    "functionName": "perspective",
-    "params": [
-      [
-        "Float",
-        "Int"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "rotate": {
-    "functionName": "rotate",
-    "params": [
-      [
-        "angle"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "rotate3d": {
-    "functionName": "rotate3d",
-    "params": [
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "angle"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "rotateX": {
-    "functionName": "rotateX",
-    "params": [
-      [
-        "angle"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "rotateY": {
-    "functionName": "rotateY",
-    "params": [
-      [
-        "angle"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "rotateZ": {
-    "functionName": "rotateZ",
-    "params": [
-      [
-        "angle"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "scale": {
-    "functionName": "scale2",
-    "params": [
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "scale3d": {
-    "functionName": "scale3d",
-    "params": [
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ],
-      [
-        "Float",
-        "Int"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "scaleX": {
-    "functionName": "scaleX",
-    "params": [
-      [
-        "Float",
-        "Int"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "scaleY": {
-    "functionName": "scaleY",
-    "params": [
-      [
-        "Float",
-        "Int"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "skew": {
-    "functionName": "skew2",
-    "params": [
-      [
-        "angle"
-      ],
-      [
-        "angle"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "skewX": {
-    "functionName": "skewX",
-    "params": [
-      [
-        "angle"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "skewY": {
-    "functionName": "skewY",
-    "params": [
-      [
-        "angle"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "translate": {
-    "functionName": "translate2",
-    "params": [
-      [
-        "length",
-        "numericValue",
-        "units",
-        "unitLabel"
-      ],
-      [
-        "length",
-        "numericValue",
-        "units",
-        "unitLabel"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "translateX": {
-    "functionName": "translateX",
-    "params": [
-      [
-        "length",
-        "numericValue",
-        "units",
-        "unitLabel"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "translateY": {
-    "functionName": "translateY",
-    "params": [
-      [
-        "length",
-        "numericValue",
-        "units",
-        "unitLabel"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
-    ]
-  },
-  "translateZ": {
-    "functionName": "translateZ",
-    "params": [
-      [
-        "length",
-        "numericValue",
-        "units",
-        "unitLabel"
-      ]
-    ],
-    "returnTypes": [
-      "transform"
     ]
   }
 };

@@ -1,6 +1,5 @@
 import basicFunctions from './basicFunctions'
 import LookupFile from './lookupFile'
-import {execRegex} from './common'
 import ElmCssFileParser from './elmCssFileParser'
 import ElmFileParser from './elmFileParser'
 
@@ -38,11 +37,7 @@ export default class {
   createValueLookups (cssFunctions) {
     const lookupFile = new LookupFile()
     lookupFile.addLookup('important', cssFunctions.important)
-    lookupFile.addLookup('lengthFuncs', cssFunctions.lengths)
-    lookupFile.addLookup('angleFuncs', cssFunctions.angles)
-    lookupFile.addLookup('colorFuncs', cssFunctions.colorFunctions)
-    lookupFile.addLookup('simpleValues', cssFunctions.simpleValues)
-    lookupFile.addLookup('transformFuncs', cssFunctions.tranformFunctions)
+    lookupFile.addLookup('values', cssFunctions.values)
     lookupFile.generate('src/valueLookups.js')
   }
 

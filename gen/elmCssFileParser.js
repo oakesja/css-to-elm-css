@@ -22,8 +22,15 @@ export default class extends ElmFileParser {
       this.selector(),
       this.unknown()
     ]
-    this.categorizedFunctions = {}
-    this.categories.forEach(c => c.initialize(this.categorizedFunctions))
+    this.categorizedFunctions = {
+      properties: {},
+      values: {},
+      selectors: {},
+      pseudoClasses: {},
+      pseudoElements: {},
+      important: null,
+      unusedCssFunctions: []
+    }
     this.cssTypeFinder = new CssTypeFinder(this.typeAliases())
   }
 
@@ -48,7 +55,6 @@ export default class extends ElmFileParser {
   property () {
     return this.createCategorizer(
       'properties',
-      {},
       name => !!this.cssPropertyName(name),
       (categoryName, name) => {
         const cssPropName = this.cssPropertyName(name)
@@ -68,7 +74,6 @@ export default class extends ElmFileParser {
   pseudoClass () {
     return this.createCategorizer(
       'pseudoClasses',
-      {},
       this.categorizeIfBodyContains('Structure.PseudoClassSelector'),
       this.categorizer(this.findCssNameFromComment, name => name)
     )
@@ -77,7 +82,6 @@ export default class extends ElmFileParser {
   pseudoElement () {
     return this.createCategorizer(
       'pseudoElements',
-      {},
       this.categorizeIfBodyContains('Structure.PseudoElement'),
       this.categorizer(this.findCssNameFromComment, name => name)
     )
@@ -85,8 +89,7 @@ export default class extends ElmFileParser {
 
   angle () {
     return this.createCategorizer(
-      'angles',
-      {},
+      'values',
       this.categorizeIfBodyContains('angleConverter'),
       this.cssValueCategorizer(this.findCssNameFromComment)
     )
@@ -94,8 +97,7 @@ export default class extends ElmFileParser {
 
   colorFunction () {
     return this.createCategorizer(
-      'colorFunctions',
-      {},
+      'values',
       name => this.returnTypeIs(name, 'Color'),
       this.cssValueCategorizer(this.colorFunctionCssName)
     )
@@ -103,8 +105,7 @@ export default class extends ElmFileParser {
 
   length () {
     return this.createCategorizer(
-      'lengths',
-      {},
+      'values',
       this.categorizeIfBodyContains('lengthConverter'),
       this.cssValueCategorizer(this.lengthCssName)
     )
@@ -112,8 +113,7 @@ export default class extends ElmFileParser {
 
   value () {
     return this.createCategorizer(
-      'simpleValues',
-      {},
+      'values',
       name => {
         return this.functionBody(name).includes('value =') &&
           this.functionArity(name) == 0
@@ -124,8 +124,7 @@ export default class extends ElmFileParser {
 
   transformFunction () {
     return this.createCategorizer(
-      'tranformFunctions',
-      {},
+      'values',
       name => {
         return this.functionBody(name).includes('value =') &&
           this.returnTypeIs(name, 'Transform')
@@ -137,7 +136,6 @@ export default class extends ElmFileParser {
   important () {
     return this.createCategorizer(
       'important',
-      null,
       this.categorizeIfCommentContains('!important'),
       (categoryName, name) => {
         this.categorizedFunctions[categoryName] = name
@@ -148,7 +146,6 @@ export default class extends ElmFileParser {
   id () {
     return this.createCategorizer(
       'selectors',
-      {},
       this.categorizeIfCommentContains('id selector'),
       (categoryName, name) => {
         this.categorizedFunctions[categoryName]['id'] = name
@@ -159,7 +156,6 @@ export default class extends ElmFileParser {
   class () {
     return this.createCategorizer(
       'selectors',
-      {},
       this.categorizeIfCommentContains('class selector'),
       (categoryName, name) => {
         this.categorizedFunctions[categoryName]['class'] = name
@@ -170,7 +166,6 @@ export default class extends ElmFileParser {
   selector () {
     return this.createCategorizer(
       'selectors',
-      {},
       this.categorizeIfCommentContains('custom selector'),
       (categoryName, name) => {
         this.categorizedFunctions[categoryName]['selector'] = name
@@ -181,17 +176,15 @@ export default class extends ElmFileParser {
   unknown () {
     return this.createCategorizer(
       'unusedCssFunctions',
-      [],
       name => true,
       (categoryName, name) => this.categorizedFunctions[categoryName].push(name)
     )
   }
 
-  createCategorizer (categoryName, initialValue, is, categorizer) {
+  createCategorizer (categoryName, is, categorizer) {
     return {
       functionIs: is,
-      categorizeFunction: categorizer.bind(this, categoryName),
-      initialize: (categorizedFunctions) => categorizedFunctions[categoryName] = initialValue
+      categorizeFunction: categorizer.bind(this, categoryName)
     }
   }
 
