@@ -1,6 +1,6 @@
-import {singleArityProps, multiArityProps, listProps} from './propLookups'
+import {properties} from './propLookups'
 import {selectors, elements, pseudoClasses, pseudoElements} from './selectorLookups'
-import {lengthFuncs, angleFuncs, colorFuncs, simpleValues, transformFuncs, important} from './valueLookups'
+import {valuesLookup, important} from './valueLookups'
 import valueParser from 'postcss-value-parser'
 
 const INDENT = '    '
@@ -52,30 +52,46 @@ export default class Stringifier {
 
 // TODO clean up
   decl (node) {
-    let valueNode = valueParser(node.value)
-    let valueNodes = valueNode.nodes.filter(n => n.type === 'word' || n.type == 'function')
-    let prop = this.lookupPropName(node.prop, valueNodes.length)
-    let values = valueNodes.map(this.lookupValue, this)
-    let hasKnownValues = values.every(function (v) { return !!v })
+    // let valueNode = valueParser(node.value)
+    // let valueNodes = valueNode.nodes.filter(n => n.type === 'word' || n.type == 'function')
+    // let prop = this.lookupPropName(node.prop, valueNodes.length)
+    // let values = valueNodes.map(this.lookupValue, this)
+    // let hasKnownValues = values.every(function (v) { return !!v })
+    // let string = ''
+    // if (prop && hasKnownValues) {
+      // string = prop + ' ' + values.join(' ')
+    // } else if (node.prop === 'display' && node.value === 'flex') {
+      // string = 'displayFlex'
+    // } else if (listProps[node.prop] && hasKnownValues) {
+      // if (values.length > 1) {
+        // string = `${listProps[node.prop]['list']} [ ${values.join(', ')} ]`
+      // } else {
+        // string = `${listProps[node.prop]['single']} ${values.join(' ')}`
+      // }
+    // } else {
+      // string = `property ${this.elmString(node.prop)} ${this.elmString(node.value)}`
+    // }
     let string = ''
-    if (prop && hasKnownValues) {
-      string = prop + ' ' + values.join(' ')
-    } else if (node.prop === 'display' && node.value === 'flex') {
-      string = 'displayFlex'
-    } else if (listProps[node.prop] && hasKnownValues) {
-      if (values.length > 1) {
-        string = `${listProps[node.prop]['list']} [ ${values.join(', ')} ]`
-      } else {
-        string = `${listProps[node.prop]['single']} ${values.join(' ')}`
-      }
-    } else {
-      string = `property ${this.elmString(node.prop)} ${this.elmString(node.value)}`
+    const propertyFunctions = properties[node.prop]
+    const valueNode = valueParser(node.value)
+    const valueNodes = valueNode.nodes.filter(n => n.type === 'word' || n.type == 'function')
+    console.log(valueNodes)
+
+    const propertyFunc = propertyFunctions[0]
+    const firstType = propertyFunc.paramemterTypes[0]
+    const valueFunc = valuesLookup[node.value]
+    if (this.isSubset(firstType.paramTypes, valueFunc.returnTypes)) {
+      string += `${propertyFunc.name} ${valueFunc.functionName}`
     }
 
-    if (node.important) {
-      string = `${important} (${string})`
-    }
+    // if (node.important) {
+      // string = `${important} (${string})`
+    // }
     this.appendToLine(string + '\n', node)
+  }
+
+  isSubset (subset, superset) {
+    return subset.every(x => superset.includes(x))
   }
 
   // helper methods
