@@ -54,10 +54,12 @@ export default class Stringifier {
     const declaration =
       this.declarationFromTypes(node) ||
       this.specialDeclarations(node) ||
-      `property "${node.prop}" "${node.value}"`
-    this.appendToLine(declaration + '\n', node)
+      this.customDeclaration(node)
+    const fullDeclaration = this.handleImportant(declaration, node.important)
+    this.appendToLine(fullDeclaration + '\n', node)
   }
 
+  // helper methods
   declarationFromTypes (node) {
     const propertyFunctions = this.lookupPotentialPropertyFunctions(node.prop)
     const values = this.lookupValues(node.value)
@@ -107,7 +109,14 @@ export default class Stringifier {
     }
   }
 
-  // helper methods
+  customDeclaration (node) {
+    return `property ${this.escapedString(node.prop)} ${this.escapedString(node.value)}`
+  }
+
+  handleImportant (declaration, isImportant) {
+    return isImportant ? `${important} (${declaration})` : declaration
+  }
+
   body (nodes) {
     for (let i = 0; i < nodes.length; i++) {
       let child = nodes[i]
@@ -155,7 +164,7 @@ export default class Stringifier {
 
   hexColorValue (value) {
     if (value.startsWith('#')) {
-      return this.elmFunctionCall(colorFuncs.hex, this.elmString(value))
+      return this.elmFunctionCall(colorFuncs.hex, this.escapedString(value))
     }
   }
 
@@ -189,7 +198,7 @@ export default class Stringifier {
     return `(${name} ${values.join(' ')})`
   }
 
-  elmString (str) {
+  escapedString (str) {
     return `"${str.replace(/"/g, '\\"')}"`
   }
 

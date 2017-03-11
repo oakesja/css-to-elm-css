@@ -18,11 +18,16 @@ testCssToElm(
   'stylesheet [ class "class" [ property "-webkit-transform" "translate(100px)" ] ]'
 )
 
-
 testCssToElm(
   'unknown values',
   '.class { padding: test; }',
   'stylesheet [ class "class" [ property "padding" "test" ] ]'
+)
+
+testCssToElm(
+  'unknown with quotes',
+  '.name { quotes: "\\00ab" "\\00bb"; }',
+  'stylesheet [ class "name" [ property "quotes" "\\"\\00ab\\" \\"\\00bb\\"" ] ]'
 )
 
 testCssToElm(
@@ -127,17 +132,6 @@ testCssToElm(
   'stylesheet [ class "name" [ important (padding inherit) ] ]'
 )
 
-testCssToElm(
-  'unknown values',
-  '.name { color: a }',
-  'stylesheet [ class "name" [ property "color" "a" ] ]'
-)
-
-testCssToElm(
-  'unknown with quotes',
-  '.name { quotes: "\\00ab" "\\00bb"; }',
-  'stylesheet [ class "name" [ property "quotes" "\\"\\00ab\\" \\"\\00bb\\"" ] ]'
-)
 // TODO angles with transforms
 // TODO hex color invalid length and invalid characters
 // TODO rgb,rgba,hsl,hsla colors and invalid args
