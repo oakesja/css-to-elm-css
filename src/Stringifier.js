@@ -50,48 +50,61 @@ export default class Stringifier {
     }
   }
 
-// TODO clean up
   decl (node) {
-    // let valueNode = valueParser(node.value)
-    // let valueNodes = valueNode.nodes.filter(n => n.type === 'word' || n.type == 'function')
-    // let prop = this.lookupPropName(node.prop, valueNodes.length)
-    // let values = valueNodes.map(this.lookupValue, this)
-    // let hasKnownValues = values.every(function (v) { return !!v })
-    // let string = ''
-    // if (prop && hasKnownValues) {
-      // string = prop + ' ' + values.join(' ')
-    // } else if (node.prop === 'display' && node.value === 'flex') {
-      // string = 'displayFlex'
-    // } else if (listProps[node.prop] && hasKnownValues) {
-      // if (values.length > 1) {
-        // string = `${listProps[node.prop]['list']} [ ${values.join(', ')} ]`
-      // } else {
-        // string = `${listProps[node.prop]['single']} ${values.join(' ')}`
-      // }
-    // } else {
-      // string = `property ${this.elmString(node.prop)} ${this.elmString(node.value)}`
-    // }
-    let string = ''
-    const propertyFunctions = properties[node.prop]
-    const valueNode = valueParser(node.value)
-    const valueNodes = valueNode.nodes.filter(n => n.type === 'word' || n.type == 'function')
-    console.log(valueNodes)
+    const declaration =
+      this.declarationFromTypes(node) ||
+      this.specialDeclarations(node) ||
+      `property "${node.prop}" "${node.value}"`
+    this.appendToLine(declaration + '\n', node)
+  }
 
-    const propertyFunc = propertyFunctions[0]
-    const firstType = propertyFunc.paramemterTypes[0]
-    const valueFunc = valuesLookup[node.value]
-    if (this.isSubset(firstType.paramTypes, valueFunc.returnTypes)) {
-      string += `${propertyFunc.name} ${valueFunc.functionName}`
+  declarationFromTypes (node) {
+    const propertyFunctions = this.lookupPotentialPropertyFunctions(node.prop)
+    const values = this.lookupValues(node.value)
+    for (let propertyFunc of propertyFunctions) {
+      const parameters = propertyFunc.paramemterTypes
+      if (parameters.length == 1 && parameters[0].type === 'list') {
+        const isMatch = values.every(value => this.isSubset(parameters[0].paramTypes.paramTypes, value.returnTypes))
+        if (isMatch) {
+          return `${propertyFunc.name} [ ${values.map(v => v.functionName).join(', ')} ]`
+        }
+      } else {
+        if (parameters.length != values.length) {
+          continue
+        }
+        const isMatch = parameters.every((paramType, i) => {
+          return this.isSubset(paramType.paramTypes, values[i].returnTypes)
+        })
+        if (isMatch) {
+          return `${propertyFunc.name} ${values.map(v => v.functionName).join(' ')}`
+        }
+      }
     }
+  }
 
-    // if (node.important) {
-      // string = `${important} (${string})`
-    // }
-    this.appendToLine(string + '\n', node)
+  lookupPotentialPropertyFunctions (propertyName) {
+    const propertyFunctions = properties[propertyName]
+    return propertyFunctions || []
+  }
+
+  lookupValues (value) {
+    const values =
+      valueParser(value)
+        .nodes
+        .filter(node => ['word', 'function'].includes(node.type))
+        .map(node => valuesLookup[node.value])
+    const anyUndefined = values.some(v => !v)
+    return anyUndefined ? [] : values
   }
 
   isSubset (subset, superset) {
     return subset.every(x => superset.includes(x))
+  }
+
+  specialDeclarations (node) {
+    if (node.prop === 'display' && node.value === 'flex') {
+      return 'displayFlex'
+    }
   }
 
   // helper methods
@@ -115,10 +128,6 @@ export default class Stringifier {
       return elements[name]
     }
     return `${selectors['selector']} "${name}"`
-  }
-
-  lookupPropName (name, arity) {
-    return singleArityProps[name] || (multiArityProps[name] && multiArityProps[name][arity])
   }
 
   lookupValue (valueNode) {
