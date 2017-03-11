@@ -68,7 +68,7 @@ export default class Stringifier {
       if (parameters.length == 1 && parameters[0].type === 'list') {
         const isMatch = values.every(value => this.isSubset(parameters[0].paramTypes.paramTypes, value.returnTypes))
         if (isMatch) {
-          return `${propertyFunc.name} [ ${values.map(v => v.functionName).join(', ')} ]`
+          return `${propertyFunc.name} [ ${values.map(v => v.formatted).join(', ')} ]`
         }
       } else {
         if (parameters.length != values.length) {
@@ -78,7 +78,7 @@ export default class Stringifier {
           return this.isSubset(paramType.paramTypes, values[i].returnTypes)
         })
         if (isMatch) {
-          return `${propertyFunc.name} ${values.map(v => v.functionName).join(' ')}`
+          return `${propertyFunc.name} ${values.map(v => v.formatted).join(' ')}`
         }
       }
     }
@@ -89,14 +89,43 @@ export default class Stringifier {
     return propertyFunctions || []
   }
 
-  lookupValues (value) {
+  lookupValues (rawValue) {
+    const valueTypes = [this.valueWithUnit, this.basicValue]
     const values =
-      valueParser(value)
+      valueParser(rawValue)
         .nodes
         .filter(node => ['word', 'function'].includes(node.type))
-        .map(node => valuesLookup[node.value])
+        .map(node => {
+          const value = valueTypes
+                          .map(vt => vt(node))
+                          .find(v => v.valueFunction)
+          if (value) {
+            return {
+              returnTypes: value.valueFunction.returnTypes,
+              formatted: value.format(this)
+            }
+          }
+        })
     const anyUndefined = values.some(v => !v)
     return anyUndefined ? [] : values
+  }
+
+  valueWithUnit (node) {
+    const unitValue = valueParser.unit(node.value)
+    const valueFunction = valuesLookup[unitValue.unit]
+    return {
+      valueFunction: valueFunction,
+      // TODO need to look at param types to determine rather to parse as float or integer
+      format: (thisArg) => thisArg.elmFunctionCall(valueFunction.functionName, parseFloat(unitValue.number))
+    }
+  }
+
+  basicValue (node) {
+    const valueFunction = valuesLookup[node.value]
+    return {
+      valueFunction: valueFunction,
+      format: () => valueFunction.functionName
+    }
   }
 
   isSubset (subset, superset) {
