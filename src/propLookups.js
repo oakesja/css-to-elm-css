@@ -255,12 +255,6 @@ export const properties = {
       ]
     }
   ],
-  "baseline": [
-    {
-      "name": "baseline",
-      "paramemterTypes": []
-    }
-  ],
   "border": [
     {
       "name": "border",
@@ -1828,12 +1822,6 @@ export const properties = {
       ]
     }
   ],
-  "center": [
-    {
-      "name": "center",
-      "paramemterTypes": []
-    }
-  ],
   "color": [
     {
       "name": "color",
@@ -1846,18 +1834,6 @@ export const properties = {
           ]
         }
       ]
-    }
-  ],
-  "color-burn": [
-    {
-      "name": "colorBurn",
-      "paramemterTypes": []
-    }
-  ],
-  "color-dodge": [
-    {
-      "name": "colorDodge",
-      "paramemterTypes": []
     }
   ],
   "cursor": [
@@ -1873,18 +1849,6 @@ export const properties = {
       ]
     }
   ],
-  "darken": [
-    {
-      "name": "darken",
-      "paramemterTypes": []
-    }
-  ],
-  "difference": [
-    {
-      "name": "difference",
-      "paramemterTypes": []
-    }
-  ],
   "display": [
     {
       "name": "display",
@@ -1896,18 +1860,6 @@ export const properties = {
           ]
         }
       ]
-    }
-  ],
-  "end": [
-    {
-      "name": "end",
-      "paramemterTypes": []
-    }
-  ],
-  "exclusion": [
-    {
-      "name": "exclusion",
-      "paramemterTypes": []
     }
   ],
   "fill": [
@@ -2003,12 +1955,6 @@ export const properties = {
       ]
     }
   ],
-  "flex-end": [
-    {
-      "name": "flexEnd",
-      "paramemterTypes": []
-    }
-  ],
   "flex-flow": [
     {
       "name": "flexFlow1",
@@ -2063,12 +2009,6 @@ export const properties = {
           ]
         }
       ]
-    }
-  ],
-  "flex-start": [
-    {
-      "name": "flexStart",
-      "paramemterTypes": []
     }
   ],
   "flex-wrap": [
@@ -2360,12 +2300,6 @@ export const properties = {
       ]
     }
   ],
-  "hard-light": [
-    {
-      "name": "hardLight",
-      "paramemterTypes": []
-    }
-  ],
   "height": [
     {
       "name": "height",
@@ -2377,18 +2311,6 @@ export const properties = {
           ]
         }
       ]
-    }
-  ],
-  "hue": [
-    {
-      "name": "hue",
-      "paramemterTypes": []
-    }
-  ],
-  "justify-all": [
-    {
-      "name": "justifyAll",
-      "paramemterTypes": []
     }
   ],
   "justify-content": [
@@ -2444,12 +2366,6 @@ export const properties = {
           ]
         }
       ]
-    }
-  ],
-  "lighten": [
-    {
-      "name": "lighten",
-      "paramemterTypes": []
     }
   ],
   "line-height": [
@@ -2542,12 +2458,6 @@ export const properties = {
           ]
         }
       ]
-    }
-  ],
-  "luminosity": [
-    {
-      "name": "luminosity",
-      "paramemterTypes": []
     }
   ],
   "margin": [
@@ -2736,12 +2646,6 @@ export const properties = {
       ]
     }
   ],
-  "match-parent": [
-    {
-      "name": "matchParent",
-      "paramemterTypes": []
-    }
-  ],
   "max-height": [
     {
       "name": "maxHeight",
@@ -2768,12 +2672,6 @@ export const properties = {
       ]
     }
   ],
-  "middle": [
-    {
-      "name": "middle",
-      "paramemterTypes": []
-    }
-  ],
   "min-height": [
     {
       "name": "minHeight",
@@ -2798,12 +2696,6 @@ export const properties = {
           ]
         }
       ]
-    }
-  ],
-  "multiply": [
-    {
-      "name": "multiply",
-      "paramemterTypes": []
     }
   ],
   "opacity": [
@@ -2978,12 +2870,6 @@ export const properties = {
           ]
         }
       ]
-    }
-  ],
-  "overlay": [
-    {
-      "name": "overlay",
-      "paramemterTypes": []
     }
   ],
   "padding": [
@@ -3253,60 +3139,6 @@ export const properties = {
       ]
     }
   ],
-  "saturation": [
-    {
-      "name": "saturation",
-      "paramemterTypes": []
-    }
-  ],
-  "screen": [
-    {
-      "name": "screenBlendMode",
-      "paramemterTypes": []
-    }
-  ],
-  "soft-light": [
-    {
-      "name": "softLight",
-      "paramemterTypes": []
-    }
-  ],
-  "space-around": [
-    {
-      "name": "spaceAround",
-      "paramemterTypes": []
-    }
-  ],
-  "space-between": [
-    {
-      "name": "spaceBetween",
-      "paramemterTypes": []
-    }
-  ],
-  "start": [
-    {
-      "name": "start",
-      "paramemterTypes": []
-    }
-  ],
-  "stretch": [
-    {
-      "name": "stretch",
-      "paramemterTypes": []
-    }
-  ],
-  "sub": [
-    {
-      "name": "sub",
-      "paramemterTypes": []
-    }
-  ],
-  "super": [
-    {
-      "name": "super",
-      "paramemterTypes": []
-    }
-  ],
   "text-align": [
     {
       "name": "textAlign",
@@ -3357,12 +3189,6 @@ export const properties = {
           ]
         }
       ]
-    }
-  ],
-  "text-bottom": [
-    {
-      "name": "textBottom",
-      "paramemterTypes": []
     }
   ],
   "text-decoration": [
@@ -3596,12 +3422,6 @@ export const properties = {
       ]
     }
   ],
-  "text-justify": [
-    {
-      "name": "textJustify",
-      "paramemterTypes": []
-    }
-  ],
   "text-orientation": [
     {
       "name": "textOrientation",
@@ -3746,12 +3566,6 @@ export const properties = {
       ]
     }
   ],
-  "text-top": [
-    {
-      "name": "textTop",
-      "paramemterTypes": []
-    }
-  ],
   "text-transform": [
     {
       "name": "textTransform",
@@ -3829,12 +3643,6 @@ export const properties = {
           ]
         }
       ]
-    }
-  ],
-  "true": [
-    {
-      "name": "true",
-      "paramemterTypes": []
     }
   ],
   "vertical-align": [

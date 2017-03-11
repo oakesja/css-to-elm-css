@@ -1,6 +1,6 @@
 export const important = "important";
 
-export const values = {
+export const valuesLookup = {
   "0": {
     "functionName": "zero",
     "params": [],
@@ -76,6 +76,16 @@ export const values = {
       "intOrAuto"
     ]
   },
+  "baseline": {
+    "functionName": "baseline",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
+    ]
+  },
   "bengali": {
     "functionName": "bengali",
     "params": [],
@@ -137,6 +147,16 @@ export const values = {
     "params": [],
     "returnTypes": [
       "cursor"
+    ]
+  },
+  "center": {
+    "functionName": "center",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
     ]
   },
   "ch": {
@@ -220,6 +240,22 @@ export const values = {
     "params": [],
     "returnTypes": [
       "cursor"
+    ]
+  },
+  "color-burn": {
+    "functionName": "colorBurn",
+    "params": [],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  },
+  "color-dodge": {
+    "functionName": "colorDodge",
+    "params": [],
+    "returnTypes": [
+      "color",
+      "warnings"
     ]
   },
   "column": {
@@ -323,6 +359,14 @@ export const values = {
       "cursor"
     ]
   },
+  "darken": {
+    "functionName": "darken",
+    "params": [],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  },
   "dashed": {
     "functionName": "dashed",
     "params": [],
@@ -376,6 +420,14 @@ export const values = {
     "returnTypes": [
       "fontVariant",
       "fontVariantNumeric"
+    ]
+  },
+  "difference": {
+    "functionName": "difference",
+    "params": [],
+    "returnTypes": [
+      "color",
+      "warnings"
     ]
   },
   "disc": {
@@ -452,6 +504,16 @@ export const values = {
       "lengthOrAutoOrCoverOrContain"
     ]
   },
+  "end": {
+    "functionName": "end",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
+    ]
+  },
   "ew-resize": {
     "functionName": "ewResize",
     "params": [],
@@ -481,6 +543,14 @@ export const values = {
       "lengthOrNumberOrAutoOrNoneOrContent",
       "fontSize",
       "lengthOrAutoOrCoverOrContain"
+    ]
+  },
+  "exclusion": {
+    "functionName": "exclusion",
+    "params": [],
+    "returnTypes": [
+      "color",
+      "warnings"
     ]
   },
   "fantasy": {
@@ -527,6 +597,26 @@ export const values = {
     "params": [],
     "returnTypes": [
       "transformStyle"
+    ]
+  },
+  "flex-end": {
+    "functionName": "flexEnd",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
+    ]
+  },
+  "flex-start": {
+    "functionName": "flexStart",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
     ]
   },
   "full-width": {
@@ -604,6 +694,14 @@ export const values = {
       "textIndent"
     ]
   },
+  "hard-light": {
+    "functionName": "hardLight",
+    "params": [],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  },
   "help": {
     "functionName": "help",
     "params": [],
@@ -679,6 +777,14 @@ export const values = {
         "Float"
       ]
     ],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  },
+  "hue": {
+    "functionName": "hue",
+    "params": [],
     "returnTypes": [
       "color",
       "warnings"
@@ -863,6 +969,16 @@ export const values = {
       "fontStyle"
     ]
   },
+  "justify-all": {
+    "functionName": "justifyAll",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
+    ]
+  },
   "kannada": {
     "functionName": "kannada",
     "params": [],
@@ -896,6 +1012,14 @@ export const values = {
     "params": [],
     "returnTypes": [
       "fontSize"
+    ]
+  },
+  "lighten": {
+    "functionName": "lighten",
+    "params": [],
+    "returnTypes": [
+      "color",
+      "warnings"
     ]
   },
   "lighter": {
@@ -969,11 +1093,29 @@ export const values = {
       "textTransform"
     ]
   },
+  "luminosity": {
+    "functionName": "luminosity",
+    "params": [],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  },
   "malayalam": {
     "functionName": "malayalam",
     "params": [],
     "returnTypes": [
       "listStyleTypeOrPositionOrImage"
+    ]
+  },
+  "match-parent": {
+    "functionName": "matchParent",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
     ]
   },
   "matrix()": {
@@ -1096,6 +1238,16 @@ export const values = {
       "fontSize"
     ]
   },
+  "middle": {
+    "functionName": "middle",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
+    ]
+  },
   "min-content": {
     "functionName": "minContent",
     "params": [],
@@ -1141,6 +1293,14 @@ export const values = {
     "params": [],
     "returnTypes": [
       "cursor"
+    ]
+  },
+  "multiply": {
+    "functionName": "multiply",
+    "params": [],
+    "returnTypes": [
+      "color",
+      "warnings"
     ]
   },
   "myanmar": {
@@ -1335,6 +1495,14 @@ export const values = {
     "params": [],
     "returnTypes": [
       "listStyleTypeOrPositionOrImage"
+    ]
+  },
+  "overlay": {
+    "functionName": "overlay",
+    "params": [],
+    "returnTypes": [
+      "color",
+      "warnings"
     ]
   },
   "overline": {
@@ -1717,6 +1885,14 @@ export const values = {
       "fontFamily"
     ]
   },
+  "saturation": {
+    "functionName": "saturation",
+    "params": [],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  },
   "scale": {
     "functionName": "scale2",
     "params": [
@@ -1775,6 +1951,14 @@ export const values = {
     ],
     "returnTypes": [
       "transform"
+    ]
+  },
+  "screen": {
+    "functionName": "screenBlendMode",
+    "params": [],
+    "returnTypes": [
+      "color",
+      "warnings"
     ]
   },
   "scroll": {
@@ -1864,6 +2048,14 @@ export const values = {
       "fontSize"
     ]
   },
+  "soft-light": {
+    "functionName": "softLight",
+    "params": [],
+    "returnTypes": [
+      "color",
+      "warnings"
+    ]
+  },
   "solid": {
     "functionName": "solid",
     "params": [],
@@ -1877,6 +2069,26 @@ export const values = {
     "returnTypes": [
       "backgroundRepeat",
       "backgroundRepeatShorthand"
+    ]
+  },
+  "space-around": {
+    "functionName": "spaceAround",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
+    ]
+  },
+  "space-between": {
+    "functionName": "spaceBetween",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
     ]
   },
   "square": {
@@ -1894,6 +2106,16 @@ export const values = {
       "fontVariantNumeric"
     ]
   },
+  "start": {
+    "functionName": "start",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
+    ]
+  },
   "static": {
     "functionName": "static",
     "params": [],
@@ -1906,6 +2128,36 @@ export const values = {
     "params": [],
     "returnTypes": [
       "position"
+    ]
+  },
+  "stretch": {
+    "functionName": "stretch",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
+    ]
+  },
+  "sub": {
+    "functionName": "sub",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
+    ]
+  },
+  "super": {
+    "functionName": "super",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
     ]
   },
   "sw-resize": {
@@ -2000,6 +2252,36 @@ export const values = {
       "cursor"
     ]
   },
+  "text-bottom": {
+    "functionName": "textBottom",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
+    ]
+  },
+  "text-justify": {
+    "functionName": "textJustify",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
+    ]
+  },
+  "text-top": {
+    "functionName": "textTop",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
+    ]
+  },
   "thai": {
     "functionName": "thai",
     "params": [],
@@ -2083,6 +2365,16 @@ export const values = {
     "returnTypes": [
       "color",
       "warnings"
+    ]
+  },
+  "true": {
+    "functionName": "true",
+    "params": [],
+    "returnTypes": [
+      "length",
+      "numericValue",
+      "units",
+      "unitLabel"
     ]
   },
   "turn": {

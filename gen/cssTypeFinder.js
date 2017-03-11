@@ -5,7 +5,7 @@ export default class {
     this.cssValueTypes = this.lookupCssValueTypes(typeAliases)
   }
 
-    // TODO leak abastraction
+    // TODO leaky abastraction
   lookupCssValueTypes (typeAliases) {
     let types = {}
     typeAliases
@@ -15,6 +15,10 @@ export default class {
     typeAliases
       .filter(t => t.tipe.type === 'typeAdt' && types[t.tipe.value])
       .forEach(t => types[t.value] = types[t.tipe.value])
+
+    typeAliases
+      .filter(t => t.tipe.type === 'typeFun' && types[t.tipe.signature[0].value])
+      .forEach(t => types[t.value] = types[t.tipe.signature[0].value])
 
     return types
   }

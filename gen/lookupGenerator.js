@@ -37,7 +37,7 @@ export default class {
   createValueLookups (cssFunctions) {
     const lookupFile = new LookupFile()
     lookupFile.addLookup('important', cssFunctions.important)
-    lookupFile.addLookup('values', cssFunctions.values)
+    lookupFile.addLookup('valuesLookup', cssFunctions.values)
     lookupFile.generate('src/valueLookups.js')
   }
 

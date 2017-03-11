@@ -55,7 +55,7 @@ export default class extends ElmFileParser {
   property () {
     return this.createCategorizer(
       'properties',
-      name => !!this.cssPropertyName(name),
+      name => this.returnTypeIs(name, 'Mixin') && !!this.cssPropertyName(name),
       (categoryName, name) => {
         const cssPropName = this.cssPropertyName(name)
         const params = this.functionParameters(name)
@@ -115,7 +115,8 @@ export default class extends ElmFileParser {
     return this.createCategorizer(
       'values',
       name => {
-        return this.functionBody(name).includes('value =') &&
+        const body = this.functionBody(name)
+        return (body.includes('value =') || body.includes('prop1')) &&
           this.functionArity(name) == 0
       },
       this.cssValueCategorizer(this.cssValueName)
@@ -236,9 +237,23 @@ export default class extends ElmFileParser {
   }
 
   cssValueName (name) {
+    const body = this.functionBody(name)
+    return body.includes('value = ') ?
+      this.basicCssValueName(body, name) : this.overloadedCssValueName(body, name)
+  }
+
+  basicCssValueName (body, name) {
     return execRegex(
-      this.functionBody(name),
+      body,
       /value = "(\S*)"/,
+      'Failed to find css value for: ' + name
+    )[1]
+  }
+
+  overloadedCssValueName (body, name) {
+    return execRegex(
+      body,
+      /prop1 "(\S*)"/,
       'Failed to find css value for: ' + name
     )[1]
   }
